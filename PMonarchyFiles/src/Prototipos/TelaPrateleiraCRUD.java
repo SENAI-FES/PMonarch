@@ -38,6 +38,7 @@ public class TelaPrateleiraCRUD extends javax.swing.JDialog {
         ckbColunasVazias = new javax.swing.JCheckBox();
         jScrollPane1 = new javax.swing.JScrollPane();
         tbPrateleira = new javax.swing.JTable();
+        btnVoltar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setResizable(false);
@@ -86,18 +87,28 @@ public class TelaPrateleiraCRUD extends javax.swing.JDialog {
         ));
         jScrollPane1.setViewportView(tbPrateleira);
 
+        btnVoltar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/Back.png"))); // NOI18N
+        btnVoltar.setText("Voltar");
+        btnVoltar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnVoltarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(112, 112, 112)
+                .addGap(52, 52, 52)
                 .addComponent(btnNovo, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(37, 37, 37)
                 .addComponent(btnAlterar)
                 .addGap(37, 37, 37)
                 .addComponent(btnInatAtiv, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(122, 122, 122))
+                .addGap(37, 37, 37)
+                .addComponent(btnVoltar)
+                .addContainerGap())
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(50, 50, 50)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -111,7 +122,7 @@ public class TelaPrateleiraCRUD extends javax.swing.JDialog {
                 .addGap(50, 50, 50))
         );
 
-        layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {btnAlterar, btnInatAtiv, btnNovo});
+        layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {btnAlterar, btnInatAtiv, btnNovo, btnVoltar});
 
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -127,9 +138,12 @@ public class TelaPrateleiraCRUD extends javax.swing.JDialog {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnNovo)
                     .addComponent(btnAlterar)
-                    .addComponent(btnInatAtiv))
+                    .addComponent(btnInatAtiv)
+                    .addComponent(btnVoltar))
                 .addGap(21, 21, 21))
         );
+
+        layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {btnAlterar, btnInatAtiv, btnNovo, btnVoltar});
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -152,6 +166,10 @@ public class TelaPrateleiraCRUD extends javax.swing.JDialog {
             btnInatAtiv.setText("Inativar");
         }
     }//GEN-LAST:event_btnInatAtivActionPerformed
+
+    private void btnVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVoltarActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_btnVoltarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -199,6 +217,7 @@ public class TelaPrateleiraCRUD extends javax.swing.JDialog {
     private javax.swing.JButton btnAlterar;
     private javax.swing.JButton btnInatAtiv;
     private javax.swing.JButton btnNovo;
+    private javax.swing.JButton btnVoltar;
     private javax.swing.JComboBox cbRua;
     private javax.swing.JCheckBox ckbColunasVazias;
     private javax.swing.JLabel jLabel1;

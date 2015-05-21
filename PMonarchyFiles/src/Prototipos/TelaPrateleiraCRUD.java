@@ -10,12 +10,13 @@ package Prototipos;
  *
  * @author matheus_santos_fraga
  */
-public class TelaPrateleiraCRUD extends javax.swing.JFrame {
+public class TelaPrateleiraCRUD extends javax.swing.JDialog {
 
     /**
      * Creates new form TelaPrateleiraCRUD
      */
-    public TelaPrateleiraCRUD() {
+    public TelaPrateleiraCRUD(java.awt.Frame parent, boolean modal) {
+        super(parent, modal);
         initComponents();
         this.setLocationRelativeTo(null);
     }
@@ -38,7 +39,7 @@ public class TelaPrateleiraCRUD extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setResizable(false);
 
         btnNovo.setText("Novo");
@@ -121,7 +122,7 @@ public class TelaPrateleiraCRUD extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNovoActionPerformed
-        TelaPrateleiraNovo telaNovo = new TelaPrateleiraNovo(this, true);
+        TelaPrateleiraNovo telaNovo = new TelaPrateleiraNovo(null, true);
         telaNovo.setVisible(true);
     }//GEN-LAST:event_btnNovoActionPerformed
 
@@ -155,7 +156,14 @@ public class TelaPrateleiraCRUD extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new TelaPrateleiraCRUD().setVisible(true);
+                TelaPrateleiraCRUD dialog = new TelaPrateleiraCRUD(new javax.swing.JFrame(), true);
+                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
+                    @Override
+                    public void windowClosing(java.awt.event.WindowEvent e) {
+                        System.exit(0);
+                    }
+                });
+                dialog.setVisible(true);
             }
         });
     }

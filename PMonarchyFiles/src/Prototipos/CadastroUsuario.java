@@ -66,6 +66,7 @@ public class CadastroUsuario extends javax.swing.JDialog {
 
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Admin" }));
 
+        jButton1.setForeground(new java.awt.Color(0, 0, 255));
         jButton1.setText("Salvar");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

@@ -18,6 +18,7 @@ public class TelaPrincipal extends javax.swing.JDialog {
     public TelaPrincipal(java.awt.Frame parent, boolean modal, String obj) {
         super(parent, modal);
         initComponents();
+        setLocationRelativeTo(null);
     }
 
     /**
@@ -136,7 +137,7 @@ public class TelaPrincipal extends javax.swing.JDialog {
     }//GEN-LAST:event_jMenuItem4ActionPerformed
 
     private void jMenuItem7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem7ActionPerformed
-        TelaPrateleiraCRUD t = new TelaPrateleiraCRUD();
+        TelaPrateleiraCRUD t = new TelaPrateleiraCRUD(null, true);
         t.setVisible(true);
     }//GEN-LAST:event_jMenuItem7ActionPerformed
 

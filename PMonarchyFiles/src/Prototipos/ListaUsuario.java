@@ -18,7 +18,7 @@ public class ListaUsuario extends javax.swing.JDialog {
     public ListaUsuario(java.awt.Dialog parent, boolean modal) {
         super(parent, modal);
         initComponents();
-        
+        setLocationRelativeTo(null);
     }
 
     /**

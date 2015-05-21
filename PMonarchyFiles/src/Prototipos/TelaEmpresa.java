@@ -9,6 +9,7 @@ public class TelaEmpresa extends javax.swing.JDialog {
     public TelaEmpresa(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        setLocationRelativeTo(null);
     }
 
    

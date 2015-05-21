@@ -20,6 +20,7 @@ public class CadastroUsuario extends javax.swing.JDialog {
     public CadastroUsuario(java.awt.Dialog parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        setLocationRelativeTo(null);
     }
 
     /**

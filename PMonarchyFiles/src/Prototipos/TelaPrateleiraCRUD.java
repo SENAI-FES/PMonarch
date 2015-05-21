@@ -32,7 +32,7 @@ public class TelaPrateleiraCRUD extends javax.swing.JDialog {
 
         btnNovo = new javax.swing.JButton();
         btnAlterar = new javax.swing.JButton();
-        btnInativar = new javax.swing.JButton();
+        btnInatAtiv = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         cbRua = new javax.swing.JComboBox();
         ckbColunasVazias = new javax.swing.JCheckBox();
@@ -59,8 +59,13 @@ public class TelaPrateleiraCRUD extends javax.swing.JDialog {
             }
         });
 
-        btnInativar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/Fall.png"))); // NOI18N
-        btnInativar.setText("Inativar");
+        btnInatAtiv.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/Fall.png"))); // NOI18N
+        btnInatAtiv.setText("Inativar");
+        btnInatAtiv.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnInatAtivActionPerformed(evt);
+            }
+        });
 
         jLabel1.setText("Rua:");
 
@@ -91,7 +96,7 @@ public class TelaPrateleiraCRUD extends javax.swing.JDialog {
                 .addGap(37, 37, 37)
                 .addComponent(btnAlterar)
                 .addGap(37, 37, 37)
-                .addComponent(btnInativar, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnInatAtiv, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(122, 122, 122))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(50, 50, 50)
@@ -106,7 +111,7 @@ public class TelaPrateleiraCRUD extends javax.swing.JDialog {
                 .addGap(50, 50, 50))
         );
 
-        layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {btnAlterar, btnInativar, btnNovo});
+        layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {btnAlterar, btnInatAtiv, btnNovo});
 
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -118,11 +123,11 @@ public class TelaPrateleiraCRUD extends javax.swing.JDialog {
                     .addComponent(ckbColunasVazias))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(44, 44, 44)
+                .addGap(38, 38, 38)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnNovo)
                     .addComponent(btnAlterar)
-                    .addComponent(btnInativar))
+                    .addComponent(btnInatAtiv))
                 .addGap(21, 21, 21))
         );
 
@@ -137,6 +142,16 @@ public class TelaPrateleiraCRUD extends javax.swing.JDialog {
     private void btnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlterarActionPerformed
         
     }//GEN-LAST:event_btnAlterarActionPerformed
+
+    private void btnInatAtivActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInatAtivActionPerformed
+        if(btnInatAtiv.getText().equals("Inativar")){
+            btnInatAtiv.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/Raise.png")));
+            btnInatAtiv.setText("Ativar");
+        }else{
+            btnInatAtiv.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/Fall.png")));
+            btnInatAtiv.setText("Inativar");
+        }
+    }//GEN-LAST:event_btnInatAtivActionPerformed
 
     /**
      * @param args the command line arguments
@@ -182,7 +197,7 @@ public class TelaPrateleiraCRUD extends javax.swing.JDialog {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAlterar;
-    private javax.swing.JButton btnInativar;
+    private javax.swing.JButton btnInatAtiv;
     private javax.swing.JButton btnNovo;
     private javax.swing.JComboBox cbRua;
     private javax.swing.JCheckBox ckbColunasVazias;

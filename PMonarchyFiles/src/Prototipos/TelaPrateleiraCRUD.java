@@ -31,17 +31,18 @@ public class TelaPrateleiraCRUD extends javax.swing.JDialog {
     private void initComponents() {
 
         btnNovo = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        btnAlterar = new javax.swing.JButton();
+        btnInativar = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         cbRua = new javax.swing.JComboBox();
-        cbColunasVazias = new javax.swing.JCheckBox();
+        ckbColunasVazias = new javax.swing.JCheckBox();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tbPrateleira = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setResizable(false);
 
+        btnNovo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/New document.png"))); // NOI18N
         btnNovo.setText("Novo");
         btnNovo.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnNovo.addActionListener(new java.awt.event.ActionListener() {
@@ -50,17 +51,24 @@ public class TelaPrateleiraCRUD extends javax.swing.JDialog {
             }
         });
 
-        jButton1.setText("Alterar");
+        btnAlterar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/Modify.png"))); // NOI18N
+        btnAlterar.setText("Alterar");
+        btnAlterar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAlterarActionPerformed(evt);
+            }
+        });
 
-        jButton2.setText("Inativar");
+        btnInativar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/Fall.png"))); // NOI18N
+        btnInativar.setText("Inativar");
 
         jLabel1.setText("Rua:");
 
         cbRua.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "A", "B", "C", "D", "E" }));
 
-        cbColunasVazias.setText("Mostrar colunas vazias");
+        ckbColunasVazias.setText("Mostrar colunas vazias");
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tbPrateleira.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null},
                 {null, null, null, null, null},
@@ -71,7 +79,7 @@ public class TelaPrateleiraCRUD extends javax.swing.JDialog {
                 "Rua", "Estante", "Coluna", "Andar", "QtdCaixas"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(tbPrateleira);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -81,9 +89,9 @@ public class TelaPrateleiraCRUD extends javax.swing.JDialog {
                 .addGap(112, 112, 112)
                 .addComponent(btnNovo, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(37, 37, 37)
-                .addComponent(jButton1)
+                .addComponent(btnAlterar)
                 .addGap(37, 37, 37)
-                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnInativar, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(122, 122, 122))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(50, 50, 50)
@@ -94,11 +102,11 @@ public class TelaPrateleiraCRUD extends javax.swing.JDialog {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(cbRua, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(cbColunasVazias)))
+                        .addComponent(ckbColunasVazias)))
                 .addGap(50, 50, 50))
         );
 
-        layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {btnNovo, jButton1, jButton2});
+        layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {btnAlterar, btnInativar, btnNovo});
 
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -107,14 +115,14 @@ public class TelaPrateleiraCRUD extends javax.swing.JDialog {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(cbRua, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(cbColunasVazias))
+                    .addComponent(ckbColunasVazias))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(44, 44, 44)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnNovo)
-                    .addComponent(jButton1)
-                    .addComponent(jButton2))
+                    .addComponent(btnAlterar)
+                    .addComponent(btnInativar))
                 .addGap(21, 21, 21))
         );
 
@@ -125,6 +133,10 @@ public class TelaPrateleiraCRUD extends javax.swing.JDialog {
         TelaPrateleiraNovo telaNovo = new TelaPrateleiraNovo(null, true);
         telaNovo.setVisible(true);
     }//GEN-LAST:event_btnNovoActionPerformed
+
+    private void btnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlterarActionPerformed
+        
+    }//GEN-LAST:event_btnAlterarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -169,13 +181,13 @@ public class TelaPrateleiraCRUD extends javax.swing.JDialog {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAlterar;
+    private javax.swing.JButton btnInativar;
     private javax.swing.JButton btnNovo;
-    private javax.swing.JCheckBox cbColunasVazias;
     private javax.swing.JComboBox cbRua;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
+    private javax.swing.JCheckBox ckbColunasVazias;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JTable tbPrateleira;
     // End of variables declaration//GEN-END:variables
 }

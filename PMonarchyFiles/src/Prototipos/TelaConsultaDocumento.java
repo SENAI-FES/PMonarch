@@ -18,6 +18,7 @@ public class TelaConsultaDocumento extends javax.swing.JDialog {
     public TelaConsultaDocumento(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        setLocationRelativeTo(null);
         mostrarIntervalo(false);
     }
     

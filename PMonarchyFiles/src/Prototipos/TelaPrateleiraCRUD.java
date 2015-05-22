@@ -154,7 +154,8 @@ public class TelaPrateleiraCRUD extends javax.swing.JDialog {
     }//GEN-LAST:event_btnNovoActionPerformed
 
     private void btnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlterarActionPerformed
-        
+        TelaPrateleiraNovo telaNovo = new TelaPrateleiraNovo(null, true);
+        telaNovo.setVisible(true);
     }//GEN-LAST:event_btnAlterarActionPerformed
 
     private void btnInatAtivActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInatAtivActionPerformed

@@ -89,6 +89,11 @@ public class TelaEmpresa extends javax.swing.JDialog {
 
         btnDetalhes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/List.png"))); // NOI18N
         btnDetalhes.setText("Detalhes");
+        btnDetalhes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDetalhesActionPerformed(evt);
+            }
+        });
 
         btnAtivar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/Fall.png"))); // NOI18N
         btnAtivar.setText("Desativar");
@@ -158,7 +163,7 @@ public class TelaEmpresa extends javax.swing.JDialog {
                 .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 20, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 585, Short.MAX_VALUE)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -201,6 +206,11 @@ this.dispose();
             btnAtivar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/Raise.png")));
         }
     }//GEN-LAST:event_btnAtivarActionPerformed
+
+    private void btnDetalhesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDetalhesActionPerformed
+        TelaDetalheEmpresa telaDetalheEmpresa = new TelaDetalheEmpresa(null,true);
+        telaDetalheEmpresa.setVisible(true);
+    }//GEN-LAST:event_btnDetalhesActionPerformed
 
     /**
      * @param args the command line arguments

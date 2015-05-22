@@ -31,7 +31,10 @@ public class TelaPrincipal extends javax.swing.JDialog {
     private void initComponents() {
 
         jMenuItem3 = new javax.swing.JMenuItem();
-        jButton1 = new javax.swing.JButton();
+        btnEmpresas = new javax.swing.JButton();
+        btnDocumentos = new javax.swing.JButton();
+        btnUsuários = new javax.swing.JButton();
+        btnArmazem = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
@@ -46,7 +49,37 @@ public class TelaPrincipal extends javax.swing.JDialog {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        jButton1.setText("jButton1");
+        btnEmpresas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/icoEmpresa.png"))); // NOI18N
+        btnEmpresas.setText("Empresas");
+        btnEmpresas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEmpresasActionPerformed(evt);
+            }
+        });
+
+        btnDocumentos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/icoDocumento.png"))); // NOI18N
+        btnDocumentos.setText("Documentos");
+        btnDocumentos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDocumentosActionPerformed(evt);
+            }
+        });
+
+        btnUsuários.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/icoUsuarios.png"))); // NOI18N
+        btnUsuários.setText("Usuários");
+        btnUsuários.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnUsuáriosActionPerformed(evt);
+            }
+        });
+
+        btnArmazem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/icoArmazem.png"))); // NOI18N
+        btnArmazem.setText("Armazém");
+        btnArmazem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnArmazemActionPerformed(evt);
+            }
+        });
 
         jMenu1.setText("Cadastrar");
 
@@ -109,16 +142,28 @@ public class TelaPrincipal extends javax.swing.JDialog {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(53, 53, 53)
-                .addComponent(jButton1)
-                .addContainerGap(373, Short.MAX_VALUE))
+                .addGap(72, 72, 72)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(btnEmpresas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnArmazem, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(70, 70, 70)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(btnDocumentos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnUsuários, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(79, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(26, 26, 26)
-                .addComponent(jButton1)
-                .addContainerGap(219, Short.MAX_VALUE))
+                .addGap(39, 39, 39)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnEmpresas)
+                    .addComponent(btnDocumentos))
+                .addGap(46, 46, 46)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnArmazem)
+                    .addComponent(btnUsuários))
+                .addContainerGap(112, Short.MAX_VALUE))
         );
 
         pack();
@@ -135,25 +180,40 @@ public class TelaPrincipal extends javax.swing.JDialog {
     }//GEN-LAST:event_jMenuItem1MouseReleased
 
     private void jMenuItem5MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenuItem5MouseReleased
-        ListaUsuario objTela = new ListaUsuario(this, true);
-
-        objTela.setVisible(true);
+        
     }//GEN-LAST:event_jMenuItem5MouseReleased
 
     private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
-        TelaCadastroDocumentos t = new TelaCadastroDocumentos(null, true);
-        t.setVisible(true);
+        
     }//GEN-LAST:event_jMenuItem4ActionPerformed
 
     private void jMenuItem7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem7ActionPerformed
-        TelaPrateleiraCRUD t = new TelaPrateleiraCRUD(null, true);
-        t.setVisible(true);
+        
     }//GEN-LAST:event_jMenuItem7ActionPerformed
 
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+        
+    }//GEN-LAST:event_jMenuItem2ActionPerformed
+
+    private void btnEmpresasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEmpresasActionPerformed
         TelaEmpresa t = new TelaEmpresa(null, true);
         t.setVisible(true);
-    }//GEN-LAST:event_jMenuItem2ActionPerformed
+    }//GEN-LAST:event_btnEmpresasActionPerformed
+
+    private void btnDocumentosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDocumentosActionPerformed
+        TelaCadastroDocumentos t = new TelaCadastroDocumentos(null, true);
+        t.setVisible(true);
+    }//GEN-LAST:event_btnDocumentosActionPerformed
+
+    private void btnArmazemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnArmazemActionPerformed
+        TelaPrateleiraCRUD t = new TelaPrateleiraCRUD(null, true);
+        t.setVisible(true);
+    }//GEN-LAST:event_btnArmazemActionPerformed
+
+    private void btnUsuáriosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUsuáriosActionPerformed
+        ListaUsuario objTela = new ListaUsuario(this, true);
+        objTela.setVisible(true);
+    }//GEN-LAST:event_btnUsuáriosActionPerformed
 
     /**
      * @param args the command line arguments
@@ -198,7 +258,10 @@ public class TelaPrincipal extends javax.swing.JDialog {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton btnArmazem;
+    private javax.swing.JButton btnDocumentos;
+    private javax.swing.JButton btnEmpresas;
+    private javax.swing.JButton btnUsuários;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;

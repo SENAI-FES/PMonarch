@@ -35,6 +35,7 @@ public class TelaPrincipal extends javax.swing.JDialog {
         btnDocumentos = new javax.swing.JButton();
         btnUsuários = new javax.swing.JButton();
         btnArmazem = new javax.swing.JButton();
+        btnProtocolar = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
@@ -78,6 +79,14 @@ public class TelaPrincipal extends javax.swing.JDialog {
         btnArmazem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnArmazemActionPerformed(evt);
+            }
+        });
+
+        btnProtocolar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/icoProtocolar.png"))); // NOI18N
+        btnProtocolar.setText("Protocolar");
+        btnProtocolar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnProtocolarActionPerformed(evt);
             }
         });
 
@@ -145,7 +154,8 @@ public class TelaPrincipal extends javax.swing.JDialog {
                 .addGap(72, 72, 72)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(btnEmpresas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnArmazem, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnArmazem, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnProtocolar, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(70, 70, 70)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(btnDocumentos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -163,7 +173,9 @@ public class TelaPrincipal extends javax.swing.JDialog {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnArmazem)
                     .addComponent(btnUsuários))
-                .addContainerGap(112, Short.MAX_VALUE))
+                .addGap(46, 46, 46)
+                .addComponent(btnProtocolar)
+                .addContainerGap(25, Short.MAX_VALUE))
         );
 
         pack();
@@ -175,7 +187,7 @@ public class TelaPrincipal extends javax.swing.JDialog {
 
     private void jMenuItem1MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenuItem1MouseReleased
         CadastroUsuario objTela = new CadastroUsuario(this, true);
-
+        
         objTela.setVisible(true);
     }//GEN-LAST:event_jMenuItem1MouseReleased
 
@@ -214,6 +226,11 @@ public class TelaPrincipal extends javax.swing.JDialog {
         ListaUsuario objTela = new ListaUsuario(this, true);
         objTela.setVisible(true);
     }//GEN-LAST:event_btnUsuáriosActionPerformed
+
+    private void btnProtocolarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProtocolarActionPerformed
+        TelaProtocolo t = new TelaProtocolo(null, true);
+        t.setVisible(true);
+    }//GEN-LAST:event_btnProtocolarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -261,6 +278,7 @@ public class TelaPrincipal extends javax.swing.JDialog {
     private javax.swing.JButton btnArmazem;
     private javax.swing.JButton btnDocumentos;
     private javax.swing.JButton btnEmpresas;
+    private javax.swing.JButton btnProtocolar;
     private javax.swing.JButton btnUsuários;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;

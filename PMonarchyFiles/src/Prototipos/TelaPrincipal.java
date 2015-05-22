@@ -38,10 +38,10 @@ public class TelaPrincipal extends javax.swing.JDialog {
         btnDocumentos1 = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
-        jMenuItem1 = new javax.swing.JMenuItem();
-        jMenuItem2 = new javax.swing.JMenuItem();
-        jMenuItem7 = new javax.swing.JMenuItem();
-        jMenuItem4 = new javax.swing.JMenuItem();
+        menuCadastroUsuario = new javax.swing.JMenuItem();
+        menuCadastroEmpresa = new javax.swing.JMenuItem();
+        menuCadastroPrateleira = new javax.swing.JMenuItem();
+        menuCadastroDocumentos = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
         jMenuItem5 = new javax.swing.JMenuItem();
         jMenuItem6 = new javax.swing.JMenuItem();
@@ -100,40 +100,40 @@ public class TelaPrincipal extends javax.swing.JDialog {
 
         jMenu1.setText("Cadastrar");
 
-        jMenuItem1.setText("Usuário");
-        jMenuItem1.addMouseListener(new java.awt.event.MouseAdapter() {
+        menuCadastroUsuario.setText("Usuário");
+        menuCadastroUsuario.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jMenuItem1MouseClicked(evt);
+                menuCadastroUsuarioMouseClicked(evt);
             }
             public void mouseReleased(java.awt.event.MouseEvent evt) {
-                jMenuItem1MouseReleased(evt);
+                menuCadastroUsuarioMouseReleased(evt);
             }
         });
-        jMenu1.add(jMenuItem1);
+        jMenu1.add(menuCadastroUsuario);
 
-        jMenuItem2.setText("Empresa");
-        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+        menuCadastroEmpresa.setText("Empresa");
+        menuCadastroEmpresa.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem2ActionPerformed(evt);
+                menuCadastroEmpresaActionPerformed(evt);
             }
         });
-        jMenu1.add(jMenuItem2);
+        jMenu1.add(menuCadastroEmpresa);
 
-        jMenuItem7.setText("Prateleira");
-        jMenuItem7.addActionListener(new java.awt.event.ActionListener() {
+        menuCadastroPrateleira.setText("Prateleira");
+        menuCadastroPrateleira.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem7ActionPerformed(evt);
+                menuCadastroPrateleiraActionPerformed(evt);
             }
         });
-        jMenu1.add(jMenuItem7);
+        jMenu1.add(menuCadastroPrateleira);
 
-        jMenuItem4.setText("Documentos");
-        jMenuItem4.addActionListener(new java.awt.event.ActionListener() {
+        menuCadastroDocumentos.setText("Documentos");
+        menuCadastroDocumentos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem4ActionPerformed(evt);
+                menuCadastroDocumentosActionPerformed(evt);
             }
         });
-        jMenu1.add(jMenuItem4);
+        jMenu1.add(menuCadastroDocumentos);
 
         jMenuBar1.add(jMenu1);
 
@@ -192,31 +192,34 @@ public class TelaPrincipal extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jMenuItem1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenuItem1MouseClicked
+    private void menuCadastroUsuarioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_menuCadastroUsuarioMouseClicked
 
-    }//GEN-LAST:event_jMenuItem1MouseClicked
+    }//GEN-LAST:event_menuCadastroUsuarioMouseClicked
 
-    private void jMenuItem1MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenuItem1MouseReleased
+    private void menuCadastroUsuarioMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_menuCadastroUsuarioMouseReleased
         CadastroUsuario objTela = new CadastroUsuario(this, true);
 
         objTela.setVisible(true);
-    }//GEN-LAST:event_jMenuItem1MouseReleased
+    }//GEN-LAST:event_menuCadastroUsuarioMouseReleased
 
     private void jMenuItem5MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenuItem5MouseReleased
 
     }//GEN-LAST:event_jMenuItem5MouseReleased
 
-    private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
+    private void menuCadastroDocumentosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuCadastroDocumentosActionPerformed
+        TelaCadastroDocumentos t = new TelaCadastroDocumentos(null, true);
+        t.setVisible(true);
+    }//GEN-LAST:event_menuCadastroDocumentosActionPerformed
 
-    }//GEN-LAST:event_jMenuItem4ActionPerformed
+    private void menuCadastroPrateleiraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuCadastroPrateleiraActionPerformed
+        TelaPrateleiraNovo t = new TelaPrateleiraNovo(null, true);
+        t.setVisible(true);
+    }//GEN-LAST:event_menuCadastroPrateleiraActionPerformed
 
-    private void jMenuItem7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem7ActionPerformed
-
-    }//GEN-LAST:event_jMenuItem7ActionPerformed
-
-    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
-
-    }//GEN-LAST:event_jMenuItem2ActionPerformed
+    private void menuCadastroEmpresaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuCadastroEmpresaActionPerformed
+        TelaCadastroEmpresa t = new TelaCadastroEmpresa(null, true);
+        t.setVisible(true);
+    }//GEN-LAST:event_menuCadastroEmpresaActionPerformed
 
     private void btnEmpresasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEmpresasActionPerformed
         TelaEmpresa t = new TelaEmpresa(null, true);
@@ -300,12 +303,12 @@ public class TelaPrincipal extends javax.swing.JDialog {
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenuItem jMenuItem1;
-    private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
-    private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JMenuItem jMenuItem6;
-    private javax.swing.JMenuItem jMenuItem7;
+    private javax.swing.JMenuItem menuCadastroDocumentos;
+    private javax.swing.JMenuItem menuCadastroEmpresa;
+    private javax.swing.JMenuItem menuCadastroPrateleira;
+    private javax.swing.JMenuItem menuCadastroUsuario;
     // End of variables declaration//GEN-END:variables
 }

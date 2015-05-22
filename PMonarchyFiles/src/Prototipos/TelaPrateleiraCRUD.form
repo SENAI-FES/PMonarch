@@ -30,8 +30,8 @@
               <EmptySpace min="-2" pref="37" max="-2" attributes="0"/>
               <Component id="btnAlterar" linkSize="1" min="-2" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="37" max="-2" attributes="0"/>
-              <Component id="btnInatAtiv" linkSize="1" min="-2" pref="74" max="-2" attributes="0"/>
-              <EmptySpace min="-2" pref="37" max="-2" attributes="0"/>
+              <Component id="btnInatAtiv" min="-2" pref="107" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
               <Component id="btnVoltar" linkSize="1" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
@@ -103,9 +103,9 @@
     <Component class="javax.swing.JButton" name="btnInatAtiv">
       <Properties>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="3" name="/image/Fall.png"/>
+          <Image iconType="3" name="/image/Raise.png"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="Inativar"/>
+        <Property name="text" type="java.lang.String" value="Ativar"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnInatAtivActionPerformed"/>

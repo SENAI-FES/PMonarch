@@ -62,7 +62,7 @@ public class TelaProtocolo extends javax.swing.JDialog {
 
         jLabel5.setText("CNPJ:");
 
-        ckbNomeEmpresa.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        ckbNomeEmpresa.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Google", "Yahoo", "MonarchyFile", "Almeida Jr" }));
 
         btnPesquisar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/Find.png"))); // NOI18N
         btnPesquisar.setText("Pesquisar");

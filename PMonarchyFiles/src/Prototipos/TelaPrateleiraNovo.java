@@ -51,7 +51,7 @@ public class TelaPrateleiraNovo extends javax.swing.JDialog {
 
         jLabel4.setText("Estante:");
 
-        ckbPreencherEstante.setText("Ocupar toda a estante");
+        ckbPreencherEstante.setText("Utilizar toda a estante");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);

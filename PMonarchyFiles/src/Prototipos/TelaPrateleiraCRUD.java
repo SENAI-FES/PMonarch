@@ -60,8 +60,8 @@ public class TelaPrateleiraCRUD extends javax.swing.JDialog {
             }
         });
 
-        btnInatAtiv.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/Fall.png"))); // NOI18N
-        btnInatAtiv.setText("Inativar");
+        btnInatAtiv.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/Raise.png"))); // NOI18N
+        btnInatAtiv.setText("Ativar");
         btnInatAtiv.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnInatAtivActionPerformed(evt);
@@ -105,8 +105,8 @@ public class TelaPrateleiraCRUD extends javax.swing.JDialog {
                 .addGap(37, 37, 37)
                 .addComponent(btnAlterar)
                 .addGap(37, 37, 37)
-                .addComponent(btnInatAtiv, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(37, 37, 37)
+                .addComponent(btnInatAtiv, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(27, 27, 27)
                 .addComponent(btnVoltar)
                 .addContainerGap())
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
@@ -122,7 +122,7 @@ public class TelaPrateleiraCRUD extends javax.swing.JDialog {
                 .addGap(50, 50, 50))
         );
 
-        layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {btnAlterar, btnInatAtiv, btnNovo, btnVoltar});
+        layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {btnAlterar, btnNovo, btnVoltar});
 
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -159,12 +159,12 @@ public class TelaPrateleiraCRUD extends javax.swing.JDialog {
     }//GEN-LAST:event_btnAlterarActionPerformed
 
     private void btnInatAtivActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInatAtivActionPerformed
-        if(btnInatAtiv.getText().equals("Inativar")){
+        if(btnInatAtiv.getText().equals("Desativar")){
             btnInatAtiv.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/Raise.png")));
             btnInatAtiv.setText("Ativar");
         }else{
             btnInatAtiv.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/Fall.png")));
-            btnInatAtiv.setText("Inativar");
+            btnInatAtiv.setText("Desativar");
         }
     }//GEN-LAST:event_btnInatAtivActionPerformed
 

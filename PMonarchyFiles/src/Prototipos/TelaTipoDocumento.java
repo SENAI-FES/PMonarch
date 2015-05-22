@@ -20,6 +20,7 @@ public class TelaTipoDocumento extends javax.swing.JDialog {
     public TelaTipoDocumento(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        setLocationRelativeTo(null);
     }
 
     /**

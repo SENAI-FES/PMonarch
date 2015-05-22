@@ -153,7 +153,7 @@
     </Component>
     <Component class="javax.swing.JCheckBox" name="ckbPreencherEstante">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Ocupar toda a estante"/>
+        <Property name="text" type="java.lang.String" value="Utilizar toda a estante"/>
       </Properties>
     </Component>
   </SubComponents>

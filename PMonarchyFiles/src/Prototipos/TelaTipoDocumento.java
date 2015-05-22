@@ -43,6 +43,7 @@ public class TelaTipoDocumento extends javax.swing.JDialog {
         jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Tipo de Documento");
 
         jLabel1.setText("Pesquisar Tipos de Documentos:");
 

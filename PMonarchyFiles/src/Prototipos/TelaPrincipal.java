@@ -37,14 +37,16 @@ public class TelaPrincipal extends javax.swing.JDialog {
         btnProtocolar = new javax.swing.JButton();
         btnDocumentos1 = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
-        jMenu1 = new javax.swing.JMenu();
+        menuCadastrar = new javax.swing.JMenu();
         menuCadastroUsuario = new javax.swing.JMenuItem();
         menuCadastroEmpresa = new javax.swing.JMenuItem();
         menuCadastroPrateleira = new javax.swing.JMenuItem();
         menuCadastroDocumentos = new javax.swing.JMenuItem();
-        jMenu2 = new javax.swing.JMenu();
-        jMenuItem5 = new javax.swing.JMenuItem();
-        jMenuItem6 = new javax.swing.JMenuItem();
+        menuPesquisar = new javax.swing.JMenu();
+        menuPesquisarUsuario = new javax.swing.JMenuItem();
+        menuPesquisarEmpresa = new javax.swing.JMenuItem();
+        menuPesquisarPrateleira = new javax.swing.JMenuItem();
+        menuPesquisarDocumento = new javax.swing.JMenuItem();
 
         jMenuItem3.setText("jMenuItem3");
 
@@ -98,7 +100,7 @@ public class TelaPrincipal extends javax.swing.JDialog {
             }
         });
 
-        jMenu1.setText("Cadastrar");
+        menuCadastrar.setText("Cadastrar");
 
         menuCadastroUsuario.setText("Usuário");
         menuCadastroUsuario.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -109,7 +111,7 @@ public class TelaPrincipal extends javax.swing.JDialog {
                 menuCadastroUsuarioMouseReleased(evt);
             }
         });
-        jMenu1.add(menuCadastroUsuario);
+        menuCadastrar.add(menuCadastroUsuario);
 
         menuCadastroEmpresa.setText("Empresa");
         menuCadastroEmpresa.addActionListener(new java.awt.event.ActionListener() {
@@ -117,7 +119,7 @@ public class TelaPrincipal extends javax.swing.JDialog {
                 menuCadastroEmpresaActionPerformed(evt);
             }
         });
-        jMenu1.add(menuCadastroEmpresa);
+        menuCadastrar.add(menuCadastroEmpresa);
 
         menuCadastroPrateleira.setText("Prateleira");
         menuCadastroPrateleira.addActionListener(new java.awt.event.ActionListener() {
@@ -125,7 +127,7 @@ public class TelaPrincipal extends javax.swing.JDialog {
                 menuCadastroPrateleiraActionPerformed(evt);
             }
         });
-        jMenu1.add(menuCadastroPrateleira);
+        menuCadastrar.add(menuCadastroPrateleira);
 
         menuCadastroDocumentos.setText("Documentos");
         menuCadastroDocumentos.addActionListener(new java.awt.event.ActionListener() {
@@ -133,24 +135,50 @@ public class TelaPrincipal extends javax.swing.JDialog {
                 menuCadastroDocumentosActionPerformed(evt);
             }
         });
-        jMenu1.add(menuCadastroDocumentos);
+        menuCadastrar.add(menuCadastroDocumentos);
 
-        jMenuBar1.add(jMenu1);
+        jMenuBar1.add(menuCadastrar);
 
-        jMenu2.setText("Pesquisar");
+        menuPesquisar.setText("Pesquisar");
 
-        jMenuItem5.setText("Usuário");
-        jMenuItem5.addMouseListener(new java.awt.event.MouseAdapter() {
+        menuPesquisarUsuario.setText("Usuário");
+        menuPesquisarUsuario.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseReleased(java.awt.event.MouseEvent evt) {
-                jMenuItem5MouseReleased(evt);
+                menuPesquisarUsuarioMouseReleased(evt);
             }
         });
-        jMenu2.add(jMenuItem5);
+        menuPesquisarUsuario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuPesquisarUsuarioActionPerformed(evt);
+            }
+        });
+        menuPesquisar.add(menuPesquisarUsuario);
 
-        jMenuItem6.setText("Documento");
-        jMenu2.add(jMenuItem6);
+        menuPesquisarEmpresa.setText("Empresa");
+        menuPesquisarEmpresa.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuPesquisarEmpresaActionPerformed(evt);
+            }
+        });
+        menuPesquisar.add(menuPesquisarEmpresa);
 
-        jMenuBar1.add(jMenu2);
+        menuPesquisarPrateleira.setText("Prateleira");
+        menuPesquisarPrateleira.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuPesquisarPrateleiraActionPerformed(evt);
+            }
+        });
+        menuPesquisar.add(menuPesquisarPrateleira);
+
+        menuPesquisarDocumento.setText("Documento");
+        menuPesquisarDocumento.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuPesquisarDocumentoActionPerformed(evt);
+            }
+        });
+        menuPesquisar.add(menuPesquisarDocumento);
+
+        jMenuBar1.add(menuPesquisar);
 
         setJMenuBar(jMenuBar1);
 
@@ -202,9 +230,9 @@ public class TelaPrincipal extends javax.swing.JDialog {
         objTela.setVisible(true);
     }//GEN-LAST:event_menuCadastroUsuarioMouseReleased
 
-    private void jMenuItem5MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenuItem5MouseReleased
+    private void menuPesquisarUsuarioMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_menuPesquisarUsuarioMouseReleased
 
-    }//GEN-LAST:event_jMenuItem5MouseReleased
+    }//GEN-LAST:event_menuPesquisarUsuarioMouseReleased
 
     private void menuCadastroDocumentosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuCadastroDocumentosActionPerformed
         TelaCadastroDocumentos t = new TelaCadastroDocumentos(null, true);
@@ -250,6 +278,26 @@ public class TelaPrincipal extends javax.swing.JDialog {
         TelaConsultaDocumento t = new TelaConsultaDocumento(null, true);
         t.setVisible(true);
     }//GEN-LAST:event_btnDocumentos1ActionPerformed
+
+    private void menuPesquisarUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuPesquisarUsuarioActionPerformed
+        ListaUsuario telaUsuarios = new ListaUsuario(null, true);
+        telaUsuarios.setVisible(true);
+    }//GEN-LAST:event_menuPesquisarUsuarioActionPerformed
+
+    private void menuPesquisarDocumentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuPesquisarDocumentoActionPerformed
+        TelaConsultaDocumento telaDocumentos = new TelaConsultaDocumento(null, true);
+        telaDocumentos.setVisible(true);
+    }//GEN-LAST:event_menuPesquisarDocumentoActionPerformed
+
+    private void menuPesquisarEmpresaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuPesquisarEmpresaActionPerformed
+        TelaEmpresa telaEmpresas = new TelaEmpresa(null, true);
+        telaEmpresas.setVisible(true);
+    }//GEN-LAST:event_menuPesquisarEmpresaActionPerformed
+
+    private void menuPesquisarPrateleiraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuPesquisarPrateleiraActionPerformed
+        TelaPrateleiraCRUD telaPrateleiras = new TelaPrateleiraCRUD(null, true);
+        telaPrateleiras.setVisible(true);
+    }//GEN-LAST:event_menuPesquisarPrateleiraActionPerformed
 
     /**
      * @param args the command line arguments
@@ -300,15 +348,17 @@ public class TelaPrincipal extends javax.swing.JDialog {
     private javax.swing.JButton btnEmpresas;
     private javax.swing.JButton btnProtocolar;
     private javax.swing.JButton btnUsuários;
-    private javax.swing.JMenu jMenu1;
-    private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem3;
-    private javax.swing.JMenuItem jMenuItem5;
-    private javax.swing.JMenuItem jMenuItem6;
+    private javax.swing.JMenu menuCadastrar;
     private javax.swing.JMenuItem menuCadastroDocumentos;
     private javax.swing.JMenuItem menuCadastroEmpresa;
     private javax.swing.JMenuItem menuCadastroPrateleira;
     private javax.swing.JMenuItem menuCadastroUsuario;
+    private javax.swing.JMenu menuPesquisar;
+    private javax.swing.JMenuItem menuPesquisarDocumento;
+    private javax.swing.JMenuItem menuPesquisarEmpresa;
+    private javax.swing.JMenuItem menuPesquisarPrateleira;
+    private javax.swing.JMenuItem menuPesquisarUsuario;
     // End of variables declaration//GEN-END:variables
 }

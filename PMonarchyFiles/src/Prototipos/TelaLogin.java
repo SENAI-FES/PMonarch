@@ -9,6 +9,7 @@ import java.awt.Font;
 import java.awt.font.TextAttribute;
 import java.util.HashMap;
 import java.util.Map;
+import javax.swing.JOptionPane;
 /**
  *
  * @author taynara_muren
@@ -172,7 +173,7 @@ public class TelaLogin extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextField2ActionPerformed
 
     private void lblEsqueceuSenhaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblEsqueceuSenhaMouseClicked
-        // TODO add your handling code here:
+        JOptionPane.showMessageDialog(null, "Faça o select você mesmo");
     }//GEN-LAST:event_lblEsqueceuSenhaMouseClicked
 
     private void lblEsqueceuSenhaMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblEsqueceuSenhaMouseEntered

@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package Prototipos;
 
 import javax.swing.DefaultListModel;
@@ -22,36 +21,34 @@ public class TelaConsultaDocumento extends javax.swing.JDialog {
         initComponents();
         setLocationRelativeTo(null);
         mostrarIntervalo(false);
-        
-        String marcador[] = new String[4];
+
         marcador[0] = "Atestado";
         marcador[1] = "Maria";
         marcador[2] = "Senai";
         marcador[3] = "ContraCheque";
 
-
         listarMarcadores(marcador);
-        
-        if(opcao = true){
-         //  pesquisarMarcador(marcador);
-        }
+
+        pesquisarMarcador();
+
     }
-    
-public void listarMarcadores(String[] marcador){    
+    String marcador[] = new String[4];
+
+    public void listarMarcadores(String[] marcador) {
         DefaultListModel modelo = new DefaultListModel();
         for (int i = 0; i < 4; i++) {
             modelo.addElement(marcador[i]);
         }
         lstMarcadores.setModel(modelo);
     }
-    
 
-    public void mostrarIntervalo(boolean flag){
+    public void mostrarIntervalo(boolean flag) {
         txtData1.setVisible(flag);
         txtData2.setVisible(flag);
         lblData1.setVisible(flag);
         lblData2.setVisible(flag);
     }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -102,6 +99,11 @@ public void listarMarcadores(String[] marcador){
         txtMarcadores.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseReleased(java.awt.event.MouseEvent evt) {
                 txtMarcadoresMouseReleased(evt);
+            }
+        });
+        txtMarcadores.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtMarcadoresKeyReleased(evt);
             }
         });
 
@@ -163,6 +165,11 @@ public void listarMarcadores(String[] marcador){
                 .addContainerGap(30, Short.MAX_VALUE))
         );
 
+        lstMarcadores.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                lstMarcadoresMouseReleased(evt);
+            }
+        });
         jScrollPane2.setViewportView(lstMarcadores);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -246,6 +253,11 @@ public void listarMarcadores(String[] marcador){
 
         btnVer.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/Info.png"))); // NOI18N
         btnVer.setText("Ver");
+        btnVer.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnVerActionPerformed(evt);
+            }
+        });
 
         btnAlterar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/Modify.png"))); // NOI18N
         btnAlterar.setText("Alterar");
@@ -295,13 +307,13 @@ public void listarMarcadores(String[] marcador){
     }// </editor-fold>//GEN-END:initComponents
 
     private void txtData2MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtData2MouseReleased
-        
+
     }//GEN-LAST:event_txtData2MouseReleased
 
     private void cbPeriodoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbPeriodoActionPerformed
-        if(cbPeriodo.getSelectedIndex() == 5){
+        if (cbPeriodo.getSelectedIndex() == 5) {
             mostrarIntervalo(true);
-        } else{
+        } else {
             mostrarIntervalo(false);
         }
     }//GEN-LAST:event_cbPeriodoActionPerformed
@@ -317,29 +329,48 @@ public void listarMarcadores(String[] marcador){
 
     boolean opcao = false;
     String nome = "";
-    
-    public void pesquisarMarcador(String[] marcador){
+    String texto = "";
+
+    public void pesquisarMarcador() {
         String marcadorPesquisa[] = new String[4];
         DefaultListModel modelo = new DefaultListModel();
-        if(nome.length() >= 0){ 
-            opcao = true;
-         for (int i = 0; i < 4; i++) {
-             int j = 0; 
-             if(marcador[i].startsWith(nome)){         
-                 marcadorPesquisa[j] = nome;
-             j++;
-             
-             modelo.addElement(marcadorPesquisa[j]);
+        if (nome.length() > 0) {
+
+            for (int i = 0; i < 4; i++) {
+                int j = 0;
+                if (marcador[i].startsWith(nome)) {
+                    marcadorPesquisa[j] = marcador[i];
+                    modelo.addElement(marcadorPesquisa[j]);
+                    j++;
+                    texto = marcador[i];
+
+                }
             }
-        } 
-        lstMarcadores.setModel(modelo);
+            lstMarcadores.setModel(modelo);
         }
     }
-    
+
     private void txtMarcadoresMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtMarcadoresMouseReleased
-        nome = txtMarcadores.getText();  
-        opcao = true;
+ 
     }//GEN-LAST:event_txtMarcadoresMouseReleased
+
+    private void btnVerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVerActionPerformed
+        TelaDetalheDocumento t = new TelaDetalheDocumento(null, true);
+        t.setVisible(true);
+    }//GEN-LAST:event_btnVerActionPerformed
+
+    private void txtMarcadoresKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtMarcadoresKeyReleased
+        nome = txtMarcadores.getText();
+        pesquisarMarcador();
+        if (nome.equals("")) {
+            listarMarcadores(marcador);
+        }
+    }//GEN-LAST:event_txtMarcadoresKeyReleased
+
+    private void lstMarcadoresMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lstMarcadoresMouseReleased
+        txtMarcadores.setText(texto);
+        
+    }//GEN-LAST:event_lstMarcadoresMouseReleased
 
     /**
      * @param args the command line arguments

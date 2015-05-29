@@ -52,6 +52,7 @@ public class TelaPrincipal extends javax.swing.JDialog {
         jMenuItem3.setText("jMenuItem3");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Monarchy Files");
 
         btnEmpresas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/icoEmpresa.png"))); // NOI18N
         btnEmpresas.setText("Empresas");

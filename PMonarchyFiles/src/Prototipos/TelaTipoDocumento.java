@@ -43,7 +43,7 @@ public class TelaTipoDocumento extends javax.swing.JDialog {
         jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Tipo de Documento");
+        setTitle("Tipos de Documento");
 
         jLabel1.setText("Pesquisar Tipos de Documentos:");
 
@@ -134,8 +134,6 @@ public class TelaTipoDocumento extends javax.swing.JDialog {
                             .addComponent(btnNovoTipos))))
                 .addContainerGap(27, Short.MAX_VALUE))
         );
-
-        getAccessibleContext().setAccessibleName("Tipo de Documento");
 
         pack();
     }// </editor-fold>//GEN-END:initComponents

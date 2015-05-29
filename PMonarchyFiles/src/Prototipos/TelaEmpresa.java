@@ -31,7 +31,7 @@ public class TelaEmpresa extends javax.swing.JDialog {
         jButton2 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Tela de Empresas");
+        setTitle("Empresas");
 
         btnCadastrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/New document.png"))); // NOI18N
         btnCadastrar.setText("Cadastrar");

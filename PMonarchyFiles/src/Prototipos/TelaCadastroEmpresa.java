@@ -71,6 +71,7 @@ public class TelaCadastroEmpresa extends javax.swing.JDialog {
         txtRamal = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Cadastro de Empresa");
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Dados"));
 

@@ -26,7 +26,7 @@ public class TelaPrateleiraNovo extends javax.swing.JDialog {
         ckbPreencherEstante = new javax.swing.JCheckBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Monarch Files");
+        setTitle("Cadastro de Prateleira");
 
         jLabel1.setText("Rua:");
 

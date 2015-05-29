@@ -45,6 +45,7 @@ public class TelaLogin extends javax.swing.JFrame {
         lblEsqueceuSenha = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Login");
 
         jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 

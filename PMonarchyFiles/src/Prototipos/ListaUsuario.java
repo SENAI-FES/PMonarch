@@ -45,6 +45,7 @@ public class ListaUsuario extends javax.swing.JDialog {
         jButton5 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Usuários");
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Lista de Usuário"));
 

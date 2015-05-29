@@ -41,6 +41,7 @@ public class TelaPrateleiraCRUD extends javax.swing.JDialog {
         btnVoltar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Prateleiras");
         setResizable(false);
 
         btnNovo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/New document.png"))); // NOI18N

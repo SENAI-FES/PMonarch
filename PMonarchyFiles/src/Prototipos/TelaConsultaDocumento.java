@@ -82,6 +82,7 @@ public class TelaConsultaDocumento extends javax.swing.JDialog {
         btnAlterar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Documentos");
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Buscar Documentos"));
 

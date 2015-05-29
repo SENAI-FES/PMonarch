@@ -50,8 +50,10 @@ public class CadastroUsuario extends javax.swing.JDialog {
         jLabel3.setText("jLabel3");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Cadastro de Usuário");
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("CadastroUsuario"));
+        jPanel1.setToolTipText("");
 
         jLabel1.setText("Matrícula:");
 

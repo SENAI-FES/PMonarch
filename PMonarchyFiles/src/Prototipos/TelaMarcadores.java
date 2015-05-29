@@ -43,6 +43,7 @@ public class TelaMarcadores extends javax.swing.JDialog {
         jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Marcadores de busca");
 
         lstMarcadoresDoDocumento.setBorder(javax.swing.BorderFactory.createTitledBorder("Marcadores do Documento"));
         jScrollPane1.setViewportView(lstMarcadoresDoDocumento);

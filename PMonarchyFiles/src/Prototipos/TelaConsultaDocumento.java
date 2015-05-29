@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package Prototipos;
 
 import javax.swing.DefaultListModel;
@@ -22,36 +21,34 @@ public class TelaConsultaDocumento extends javax.swing.JDialog {
         initComponents();
         setLocationRelativeTo(null);
         mostrarIntervalo(false);
-        
-        String marcador[] = new String[4];
+
         marcador[0] = "Atestado";
         marcador[1] = "Maria";
         marcador[2] = "Senai";
         marcador[3] = "ContraCheque";
 
-
         listarMarcadores(marcador);
-        
-        if(opcao = true){
-         //  pesquisarMarcador(marcador);
-        }
+
+        pesquisarMarcador();
+
     }
-    
-public void listarMarcadores(String[] marcador){    
+    String marcador[] = new String[4];
+
+    public void listarMarcadores(String[] marcador) {
         DefaultListModel modelo = new DefaultListModel();
         for (int i = 0; i < 4; i++) {
             modelo.addElement(marcador[i]);
         }
         lstMarcadores.setModel(modelo);
     }
-    
 
-    public void mostrarIntervalo(boolean flag){
+    public void mostrarIntervalo(boolean flag) {
         txtData1.setVisible(flag);
         txtData2.setVisible(flag);
         lblData1.setVisible(flag);
         lblData2.setVisible(flag);
     }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -104,6 +101,11 @@ public void listarMarcadores(String[] marcador){
                 txtMarcadoresMouseReleased(evt);
             }
         });
+        txtMarcadores.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtMarcadoresKeyReleased(evt);
+            }
+        });
 
         jPanel2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
@@ -132,19 +134,18 @@ public void listarMarcadores(String[] marcador){
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addContainerGap(21, Short.MAX_VALUE)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblData1, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING))
+                .addGap(10, 10, 10)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(lblData1)
-                        .addGap(10, 10, 10)
                         .addComponent(txtData1, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(12, 12, 12)
                         .addComponent(lblData2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(txtData2, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addGap(18, 18, 18)
-                        .addComponent(cbPeriodo, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(cbPeriodo, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(19, 19, 19))
         );
         jPanel2Layout.setVerticalGroup(
@@ -163,6 +164,11 @@ public void listarMarcadores(String[] marcador){
                 .addContainerGap(30, Short.MAX_VALUE))
         );
 
+        lstMarcadores.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                lstMarcadoresMouseReleased(evt);
+            }
+        });
         jScrollPane2.setViewportView(lstMarcadores);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -171,21 +177,21 @@ public void listarMarcadores(String[] marcador){
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(24, 24, 24)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel3)
-                        .addGap(18, 18, 18)
-                        .addComponent(txtBuscarDocumento))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel2)
-                        .addGap(46, 46, 46)
-                        .addComponent(cbTipoDoc, 0, 136, Short.MAX_VALUE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel4)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                            .addComponent(txtMarcadores, javax.swing.GroupLayout.DEFAULT_SIZE, 136, Short.MAX_VALUE))))
+                            .addComponent(txtMarcadores, javax.swing.GroupLayout.DEFAULT_SIZE, 136, Short.MAX_VALUE)))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(10, 10, 10)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtBuscarDocumento)
+                            .addComponent(cbTipoDoc, 0, 136, Short.MAX_VALUE))))
                 .addGap(64, 64, 64)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(btnBuscarDocumento)
@@ -246,6 +252,11 @@ public void listarMarcadores(String[] marcador){
 
         btnVer.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/Info.png"))); // NOI18N
         btnVer.setText("Ver");
+        btnVer.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnVerActionPerformed(evt);
+            }
+        });
 
         btnAlterar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/Modify.png"))); // NOI18N
         btnAlterar.setText("Alterar");
@@ -295,13 +306,13 @@ public void listarMarcadores(String[] marcador){
     }// </editor-fold>//GEN-END:initComponents
 
     private void txtData2MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtData2MouseReleased
-        
+
     }//GEN-LAST:event_txtData2MouseReleased
 
     private void cbPeriodoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbPeriodoActionPerformed
-        if(cbPeriodo.getSelectedIndex() == 5){
+        if (cbPeriodo.getSelectedIndex() == 5) {
             mostrarIntervalo(true);
-        } else{
+        } else {
             mostrarIntervalo(false);
         }
     }//GEN-LAST:event_cbPeriodoActionPerformed
@@ -317,29 +328,48 @@ public void listarMarcadores(String[] marcador){
 
     boolean opcao = false;
     String nome = "";
-    
-    public void pesquisarMarcador(String[] marcador){
+    String texto = "";
+
+    public void pesquisarMarcador() {
         String marcadorPesquisa[] = new String[4];
         DefaultListModel modelo = new DefaultListModel();
-        if(nome.length() >= 0){ 
-            opcao = true;
-         for (int i = 0; i < 4; i++) {
-             int j = 0; 
-             if(marcador[i].startsWith(nome)){         
-                 marcadorPesquisa[j] = nome;
-             j++;
-             
-             modelo.addElement(marcadorPesquisa[j]);
+        if (nome.length() > 0) {
+
+            for (int i = 0; i < 4; i++) {
+                int j = 0;
+                if (marcador[i].startsWith(nome)) {
+                    marcadorPesquisa[j] = marcador[i];
+                    modelo.addElement(marcadorPesquisa[j]);
+                    j++;
+                    texto = marcador[i];
+
+                }
             }
-        } 
-        lstMarcadores.setModel(modelo);
+            lstMarcadores.setModel(modelo);
         }
     }
-    
+
     private void txtMarcadoresMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtMarcadoresMouseReleased
-        nome = txtMarcadores.getText();  
-        opcao = true;
+ 
     }//GEN-LAST:event_txtMarcadoresMouseReleased
+
+    private void btnVerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVerActionPerformed
+        TelaDetalheDocumento t = new TelaDetalheDocumento(null, true);
+        t.setVisible(true);
+    }//GEN-LAST:event_btnVerActionPerformed
+
+    private void txtMarcadoresKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtMarcadoresKeyReleased
+        nome = txtMarcadores.getText();
+        pesquisarMarcador();
+        if (nome.equals("")) {
+            listarMarcadores(marcador);
+        }
+    }//GEN-LAST:event_txtMarcadoresKeyReleased
+
+    private void lstMarcadoresMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lstMarcadoresMouseReleased
+        txtMarcadores.setText(texto);
+        
+    }//GEN-LAST:event_lstMarcadoresMouseReleased
 
     /**
      * @param args the command line arguments

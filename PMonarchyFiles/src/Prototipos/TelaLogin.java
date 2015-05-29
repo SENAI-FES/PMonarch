@@ -87,6 +87,7 @@ public class TelaLogin extends javax.swing.JFrame {
         lblEsqueceuSenha.setFont(new java.awt.Font("Tahoma", 0, 9)); // NOI18N
         lblEsqueceuSenha.setForeground(new java.awt.Color(51, 102, 255));
         lblEsqueceuSenha.setText("Esqueceu a senha?");
+        lblEsqueceuSenha.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         lblEsqueceuSenha.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 lblEsqueceuSenhaMouseClicked(evt);

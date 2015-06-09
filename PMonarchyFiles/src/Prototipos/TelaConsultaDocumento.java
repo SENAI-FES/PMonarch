@@ -102,6 +102,11 @@ public class TelaConsultaDocumento extends javax.swing.JDialog {
                 txtMarcadoresMouseReleased(evt);
             }
         });
+        txtMarcadores.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtMarcadoresActionPerformed(evt);
+            }
+        });
         txtMarcadores.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 txtMarcadoresKeyReleased(evt);
@@ -368,9 +373,14 @@ public class TelaConsultaDocumento extends javax.swing.JDialog {
     }//GEN-LAST:event_txtMarcadoresKeyReleased
 
     private void lstMarcadoresMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lstMarcadoresMouseReleased
+        texto = lstMarcadores.getSelectedValue()+"";
         txtMarcadores.setText(texto);
         
     }//GEN-LAST:event_lstMarcadoresMouseReleased
+
+    private void txtMarcadoresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtMarcadoresActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtMarcadoresActionPerformed
 
     /**
      * @param args the command line arguments

@@ -10,6 +10,6 @@ package dao;
  *
  * @author matheus_santos_fraga
  */
-public class EmpresaDAO {
+public class EmpresaDAO extends MySQL {
     
 }

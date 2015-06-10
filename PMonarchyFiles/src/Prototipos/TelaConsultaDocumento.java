@@ -30,7 +30,7 @@ public class TelaConsultaDocumento extends javax.swing.JDialog {
         listarMarcadores(marcador);
 
         pesquisarMarcador();
-
+       
     }
     String marcador[] = new String[4];
 
@@ -69,10 +69,10 @@ public class TelaConsultaDocumento extends javax.swing.JDialog {
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         cbPeriodo = new javax.swing.JComboBox();
-        txtData1 = new javax.swing.JTextField();
-        txtData2 = new javax.swing.JTextField();
         lblData2 = new javax.swing.JLabel();
         lblData1 = new javax.swing.JLabel();
+        txtData1 = new javax.swing.JFormattedTextField();
+        txtData2 = new javax.swing.JFormattedTextField();
         jScrollPane2 = new javax.swing.JScrollPane();
         lstMarcadores = new javax.swing.JList();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -102,6 +102,11 @@ public class TelaConsultaDocumento extends javax.swing.JDialog {
                 txtMarcadoresMouseReleased(evt);
             }
         });
+        txtMarcadores.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtMarcadoresActionPerformed(evt);
+            }
+        });
         txtMarcadores.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 txtMarcadoresKeyReleased(evt);
@@ -119,21 +124,27 @@ public class TelaConsultaDocumento extends javax.swing.JDialog {
             }
         });
 
-        txtData2.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseReleased(java.awt.event.MouseEvent evt) {
-                txtData2MouseReleased(evt);
-            }
-        });
-
         lblData2.setText("á");
 
         lblData1.setText("De:");
+
+        try {
+            txtData1.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##/##/####")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+
+        try {
+            txtData2.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##/##/####")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+            .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap(21, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lblData1, javax.swing.GroupLayout.Alignment.TRAILING)
@@ -141,10 +152,10 @@ public class TelaConsultaDocumento extends javax.swing.JDialog {
                 .addGap(10, 10, 10)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(txtData1, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(12, 12, 12)
-                        .addComponent(lblData2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(txtData1, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(10, 10, 10)
+                        .addComponent(lblData2, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(txtData2, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(cbPeriodo, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(19, 19, 19))
@@ -158,10 +169,10 @@ public class TelaConsultaDocumento extends javax.swing.JDialog {
                     .addComponent(jLabel1))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtData1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblData2)
-                    .addComponent(txtData2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblData1))
+                    .addComponent(lblData1)
+                    .addComponent(txtData1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtData2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(30, Short.MAX_VALUE))
         );
 
@@ -306,10 +317,6 @@ public class TelaConsultaDocumento extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void txtData2MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtData2MouseReleased
-
-    }//GEN-LAST:event_txtData2MouseReleased
-
     private void cbPeriodoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbPeriodoActionPerformed
         if (cbPeriodo.getSelectedIndex() == 5) {
             mostrarIntervalo(true);
@@ -368,9 +375,14 @@ public class TelaConsultaDocumento extends javax.swing.JDialog {
     }//GEN-LAST:event_txtMarcadoresKeyReleased
 
     private void lstMarcadoresMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lstMarcadoresMouseReleased
+        texto = lstMarcadores.getSelectedValue()+"";
         txtMarcadores.setText(texto);
         
     }//GEN-LAST:event_lstMarcadoresMouseReleased
+
+    private void txtMarcadoresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtMarcadoresActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtMarcadoresActionPerformed
 
     /**
      * @param args the command line arguments
@@ -434,8 +446,8 @@ public class TelaConsultaDocumento extends javax.swing.JDialog {
     private javax.swing.JList lstMarcadores;
     private javax.swing.JTable tblDocumentos;
     private javax.swing.JTextField txtBuscarDocumento;
-    private javax.swing.JTextField txtData1;
-    private javax.swing.JTextField txtData2;
+    private javax.swing.JFormattedTextField txtData1;
+    private javax.swing.JFormattedTextField txtData2;
     private javax.swing.JTextField txtMarcadores;
     // End of variables declaration//GEN-END:variables
 }

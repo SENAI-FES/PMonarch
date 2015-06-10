@@ -8,8 +8,8 @@ package dao;
 
 /**
  *
- * @author matheus_santos_fraga
+ * @author elder_benites
  */
-public class EmpresaDAO extends MySQL {
+public class ContatoDao extends MySQL{
     
 }

@@ -11,6 +11,15 @@ public class Contato {
     private String telefone;
     private String ramal;
     private String email;
+    private Empresa empresa;
+
+    public Empresa getEmpresa() {
+        return empresa;
+    }
+
+    public void setEmpresa(Empresa empresa) {
+        this.empresa = empresa;
+    }
 
     public String getNome() {
         return nome;

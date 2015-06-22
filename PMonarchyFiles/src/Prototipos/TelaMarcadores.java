@@ -5,6 +5,9 @@
  */
 package Prototipos;
 
+import dao.MarcadorDAO;
+import entity.Marcador;
+
 /**
  *
  * @author ricardo_jose_santana
@@ -14,6 +17,7 @@ public class TelaMarcadores extends javax.swing.JDialog {
     /**
      * Creates new form TelaMarcadores
      */
+      MarcadorDAO dao = new MarcadorDAO();
     public TelaMarcadores(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
@@ -159,7 +163,8 @@ public class TelaMarcadores extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnAdicionarMarcadorDocumentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdicionarMarcadorDocumentoActionPerformed
-
+ Marcador objMarcador = new Marcador();
+       dao.insert(objMarcador);
     }//GEN-LAST:event_btnAdicionarMarcadorDocumentoActionPerformed
 
     private void btnVoltaarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVoltaarActionPerformed

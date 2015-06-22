@@ -6,6 +6,7 @@
 package Prototipos;
 
 import javax.swing.JOptionPane;
+import view.TelaMarcadores;
 
 /**
  *

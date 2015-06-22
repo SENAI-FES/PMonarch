@@ -10,6 +10,6 @@ package dao;
  *
  * @author Matheus_santos_fraga
  */
-public class ArmazemDAO {
+public class ArmazemDAO extends MySQL {
     
 }

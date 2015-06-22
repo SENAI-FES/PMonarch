@@ -20,7 +20,6 @@ public class Caixa {
     private String rua;
     private String andar;
     private String estante;
-    private String teste;
 
     public int getIdCaixa() {
         return idCaixa;

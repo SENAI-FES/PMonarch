@@ -65,7 +65,7 @@ public class TelaCadastroEmpresa extends javax.swing.JDialog {
         btnAdicionar = new javax.swing.JButton();
         jLabel15 = new javax.swing.JLabel();
         txtCargo = new javax.swing.JTextField();
-        jFormattedTextField1 = new javax.swing.JFormattedTextField();
+        txtTelefone = new javax.swing.JFormattedTextField();
         btnAlterar = new javax.swing.JButton();
         jLabel16 = new javax.swing.JLabel();
         txtRamal = new javax.swing.JTextField();
@@ -275,6 +275,12 @@ public class TelaCadastroEmpresa extends javax.swing.JDialog {
             }
         });
 
+        txtNome.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtNomeActionPerformed(evt);
+            }
+        });
+
         jScrollPane1.setViewportView(lstContatos);
 
         btnExcluir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/Delete.png"))); // NOI18N
@@ -295,7 +301,7 @@ public class TelaCadastroEmpresa extends javax.swing.JDialog {
         jLabel15.setText("Cargo:");
 
         try {
-            jFormattedTextField1.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("(##)####-####")));
+            txtTelefone.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("(##)####-####")));
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
@@ -332,7 +338,7 @@ public class TelaCadastroEmpresa extends javax.swing.JDialog {
                                 .addComponent(btnAdicionar)
                                 .addGap(0, 0, Short.MAX_VALUE))
                             .addGroup(jPanel4Layout.createSequentialGroup()
-                                .addComponent(jFormattedTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(txtTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(jLabel16)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -359,7 +365,7 @@ public class TelaCadastroEmpresa extends javax.swing.JDialog {
                 .addGap(10, 10, 10)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
-                    .addComponent(jFormattedTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel16)
                     .addComponent(txtRamal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -446,6 +452,10 @@ JOptionPane.showMessageDialog(null,"Contato excluído com sucesso!!!");
         // TODO add your handling code here:
     }//GEN-LAST:event_btnAlterarActionPerformed
 
+    private void txtNomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNomeActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtNomeActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -498,7 +508,6 @@ JOptionPane.showMessageDialog(null,"Contato excluído com sucesso!!!");
     private javax.swing.JComboBox cbEstado;
     private javax.swing.JComboBox cbTipo;
     private javax.swing.JCheckBox ckbDescarte;
-    private javax.swing.JFormattedTextField jFormattedTextField1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -535,5 +544,6 @@ JOptionPane.showMessageDialog(null,"Contato excluído com sucesso!!!");
     private javax.swing.JTextField txtRamal;
     private javax.swing.JTextField txtRazaoSocial;
     private javax.swing.JTextField txtSite;
+    private javax.swing.JFormattedTextField txtTelefone;
     // End of variables declaration//GEN-END:variables
 }

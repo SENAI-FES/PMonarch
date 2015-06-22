@@ -6,6 +6,7 @@
 
 package view;
 
+import entity.Usuario;
 import javax.swing.JOptionPane;
 
 /**
@@ -166,7 +167,18 @@ public class CadastroUsuario extends javax.swing.JDialog {
     }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
+        
+        Usuario objusuario = new Usuario();
+        
+            objusuario.setNome(txtNome.getText());
+            objusuario.setCPF(txtCpf.getText());
+            objusuario.setEmail(txtEmail.getText());
+            objusuario.setPerfil(cbPerfil.getSelectedIndex());
+            objusuario.setMatricula(Integer.parseInt(lblMatricula.getText()));
+            
         JOptionPane.showMessageDialog(this, "Salvo com sucesso!");
+        
+        
     }//GEN-LAST:event_btnSalvarActionPerformed
 
     /**

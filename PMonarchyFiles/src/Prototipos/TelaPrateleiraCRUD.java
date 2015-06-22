@@ -32,7 +32,7 @@ public class TelaPrateleiraCRUD extends javax.swing.JDialog {
 
         btnNovo = new javax.swing.JButton();
         btnAlterar = new javax.swing.JButton();
-        btnInatAtiv = new javax.swing.JButton();
+        btnAtivar = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         cbRua = new javax.swing.JComboBox();
         ckbColunasVazias = new javax.swing.JCheckBox();
@@ -61,11 +61,11 @@ public class TelaPrateleiraCRUD extends javax.swing.JDialog {
             }
         });
 
-        btnInatAtiv.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/Raise.png"))); // NOI18N
-        btnInatAtiv.setText("Ativar");
-        btnInatAtiv.addActionListener(new java.awt.event.ActionListener() {
+        btnAtivar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/Raise.png"))); // NOI18N
+        btnAtivar.setText("Ativar");
+        btnAtivar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnInatAtivActionPerformed(evt);
+                btnAtivarActionPerformed(evt);
             }
         });
 
@@ -106,7 +106,7 @@ public class TelaPrateleiraCRUD extends javax.swing.JDialog {
                 .addGap(37, 37, 37)
                 .addComponent(btnAlterar)
                 .addGap(37, 37, 37)
-                .addComponent(btnInatAtiv, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnAtivar, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(27, 27, 27)
                 .addComponent(btnVoltar)
                 .addContainerGap())
@@ -139,35 +139,35 @@ public class TelaPrateleiraCRUD extends javax.swing.JDialog {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnNovo)
                     .addComponent(btnAlterar)
-                    .addComponent(btnInatAtiv)
+                    .addComponent(btnAtivar)
                     .addComponent(btnVoltar))
                 .addGap(21, 21, 21))
         );
 
-        layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {btnAlterar, btnInatAtiv, btnNovo, btnVoltar});
+        layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {btnAlterar, btnAtivar, btnNovo, btnVoltar});
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNovoActionPerformed
-        TelaPrateleiraNovo telaNovo = new TelaPrateleiraNovo(null, true);
+        TelaPrateleiraNovo telaNovo = new TelaPrateleiraNovo(null, true, true);
         telaNovo.setVisible(true);
     }//GEN-LAST:event_btnNovoActionPerformed
 
     private void btnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlterarActionPerformed
-        TelaPrateleiraNovo telaNovo = new TelaPrateleiraNovo(null, true);
+        TelaPrateleiraNovo telaNovo = new TelaPrateleiraNovo(null, true, false);
         telaNovo.setVisible(true);
     }//GEN-LAST:event_btnAlterarActionPerformed
 
-    private void btnInatAtivActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInatAtivActionPerformed
-        if(btnInatAtiv.getText().equals("Desativar")){
-            btnInatAtiv.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/Raise.png")));
-            btnInatAtiv.setText("Ativar");
+    private void btnAtivarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAtivarActionPerformed
+        if(btnAtivar.getText().equals("Desativar")){
+            btnAtivar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/Raise.png")));
+            btnAtivar.setText("Ativar");
         }else{
-            btnInatAtiv.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/Fall.png")));
-            btnInatAtiv.setText("Desativar");
+            btnAtivar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/Fall.png")));
+            btnAtivar.setText("Desativar");
         }
-    }//GEN-LAST:event_btnInatAtivActionPerformed
+    }//GEN-LAST:event_btnAtivarActionPerformed
 
     private void btnVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVoltarActionPerformed
         this.dispose();
@@ -217,7 +217,7 @@ public class TelaPrateleiraCRUD extends javax.swing.JDialog {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAlterar;
-    private javax.swing.JButton btnInatAtiv;
+    private javax.swing.JButton btnAtivar;
     private javax.swing.JButton btnNovo;
     private javax.swing.JButton btnVoltar;
     private javax.swing.JComboBox cbRua;

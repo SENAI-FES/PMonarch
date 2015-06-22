@@ -5,6 +5,7 @@
  */
 package dao;
 
+import entity.Usuario;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -27,7 +28,7 @@ public class UsuarioDAO extends MySQL {
                             + "VALUES ( ?, ?, ?, ?, ? )");
             ps.setInt(1, usuario.getMatricula());
             ps.setString(2, usuario.getNome());
-            ps.setString(3, usuario.getCpf());
+            ps.setString(3, usuario.getCPF());
             ps.setInt(4, usuario.getPerfil());
             ps.setString(5, usuario.getEmail());
 
@@ -73,16 +74,17 @@ public class UsuarioDAO extends MySQL {
     }
 
     public boolean update(int matricula) {
+        Usuario objUsuario = new Usuario();
         Connection c = this.getConnection();
         try {
             PreparedStatement ps = c.prepareStatement("UPDATE usuario "
                     + " SET matricula = ?, nome = ?, cpf = ?, perfil = ?, email= ?"
                     + " WHERE matricula = ?");
-            ps.setInt(1, usuario.getMatricula());
-            ps.setString(2, usuario.getNome());
-            ps.setString(3, usuario.getCpf());
-            ps.setInt(4, usuario.getPerfil());
-            ps.setString(5, usuario.getEmail());
+            ps.setInt(1, objUsuario.getMatricula());
+            ps.setString(2, objUsuario.getNome());
+            ps.setString(3, objUsuario.getCPF());
+            ps.setInt(4, objUsuario.getPerfil());
+            ps.setString(5, objUsuario.getEmail());
 
             ps.execute();
 
@@ -101,7 +103,7 @@ public class UsuarioDAO extends MySQL {
         return false;
     }
 
-    public List<Usuarios> listarUsuarios(int matricula) {
+    public List<Usuario> listarUsuarios(int matricula) {
         List<Usuario> lista = new ArrayList<>();
         Connection c = this.getConnection();
         try {
@@ -109,7 +111,7 @@ public class UsuarioDAO extends MySQL {
                     = c.prepareStatement("SELECT matricula, nome, cpf , perfil, email "
                             + " FROM usuario"
                             + " WHERE matricula = ?");
-            ps.setDate(1, data);
+            ps.setInt(1, matricula);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
 
@@ -117,8 +119,8 @@ public class UsuarioDAO extends MySQL {
                 
                 objUsuario.setMatricula(rs.getInt("matricula"));
                 objUsuario.setNome(rs.getString("nome"));
-                objUsuario.setcpf(rs.getTime("cpf"));
-                objUsuario.setPerfil(rs.getString("perfil"));
+                objUsuario.setCPF(rs.getString("cpf"));
+                objUsuario.setPerfil(rs.getInt("perfil"));
                 objUsuario.setEmail(rs.getString("email"));
 
                 

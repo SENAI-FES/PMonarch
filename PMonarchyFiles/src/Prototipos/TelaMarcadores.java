@@ -5,6 +5,15 @@
  */
 package Prototipos;
 
+import view.*;
+import Prototipos.*;
+import dao.MarcadorDAO;
+import entity.Marcador;
+import java.util.List;
+import javax.swing.DefaultListModel;
+import javax.swing.JOptionPane;
+import javax.swing.ListModel;
+
 /**
  *
  * @author ricardo_jose_santana
@@ -40,7 +49,7 @@ public class TelaMarcadores extends javax.swing.JDialog {
         btnAdicionarMarcador = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         btnVoltaar = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
+        BtnExcluirMarcador = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Marcadores de busca");
@@ -65,10 +74,11 @@ public class TelaMarcadores extends javax.swing.JDialog {
 
         lstMarcadoreDiponiveis.setBorder(javax.swing.BorderFactory.createTitledBorder("Marcadores Diponíveis"));
         lstMarcadoreDiponiveis.setModel(new javax.swing.AbstractListModel() {
-            String[] strings = { "julio vendedor", "juliano atestado" };
+            String[] strings = { "dsfsdf" };
             public int getSize() { return strings.length; }
             public Object getElementAt(int i) { return strings[i]; }
         });
+        lstMarcadoreDiponiveis.setToolTipText("");
         jScrollPane2.setViewportView(lstMarcadoreDiponiveis);
 
         btnAdicionarMarcadorDocumento.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/Previous.png"))); // NOI18N
@@ -97,8 +107,13 @@ public class TelaMarcadores extends javax.swing.JDialog {
             }
         });
 
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/Delete.png"))); // NOI18N
-        jButton1.setText("Excluir Marcador");
+        BtnExcluirMarcador.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/Delete.png"))); // NOI18N
+        BtnExcluirMarcador.setText("Excluir Marcador");
+        BtnExcluirMarcador.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnExcluirMarcadorActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -108,7 +123,7 @@ public class TelaMarcadores extends javax.swing.JDialog {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jButton1)
+                        .addComponent(BtnExcluirMarcador)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(btnVoltaar))
                     .addGroup(layout.createSequentialGroup()
@@ -151,12 +166,14 @@ public class TelaMarcadores extends javax.swing.JDialog {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnVoltaar)
-                    .addComponent(jButton1))
+                    .addComponent(BtnExcluirMarcador))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    MarcadorDAO dao = new MarcadorDAO();
 
     private void btnAdicionarMarcadorDocumentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdicionarMarcadorDocumentoActionPerformed
 
@@ -168,7 +185,39 @@ public class TelaMarcadores extends javax.swing.JDialog {
 
     private void btnAdicionarMarcadorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdicionarMarcadorActionPerformed
 
+        Marcador objMarcador = new Marcador();
+        objMarcador.setDescricao(txtPesquisaAdiconar.getText());
+        //    dao.insert(objMarcador);
+
+        mostrarTela();
+
     }//GEN-LAST:event_btnAdicionarMarcadorActionPerformed
+
+    private void mostrarTela() {
+
+//        List<Marcador> listaMarcador = dao.listarMarcador();
+//        DefaultListModel modelo = new DefaultListModel();
+//               for (Marcador marcador : listaMarcador) {
+//                   modelo.addElement(marcador);
+//              }
+//              lstMarcadoreDiponiveis.setModel(modelo);
+    }
+ 
+    
+    private void BtnExcluirMarcadorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnExcluirMarcadorActionPerformed
+
+        int confirmacao = JOptionPane.showConfirmDialog(this, "Deseja Excluir?");
+        if (confirmacao == 0) {
+
+            Marcador c = (Marcador) lstMarcadoreDiponiveis.getSelectedValue();
+            int id = c.getIdMarcador();
+
+            //         dao.delete(id);
+            mostrarTela();
+        }
+
+
+    }//GEN-LAST:event_BtnExcluirMarcadorActionPerformed
 
     /**
      * @param args the command line arguments
@@ -213,11 +262,11 @@ public class TelaMarcadores extends javax.swing.JDialog {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton BtnExcluirMarcador;
     private javax.swing.JButton btnAdicionarMarcador;
     private javax.swing.JButton btnAdicionarMarcadorDocumento;
     private javax.swing.JButton btnExcluirMarcadorDocumento;
     private javax.swing.JButton btnVoltaar;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;

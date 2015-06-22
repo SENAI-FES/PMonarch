@@ -46,28 +46,18 @@ public class ArmazemDAO extends MySQL {
         }
         return false;
     }
-/*
-    public boolean update(FContratado funcionario) {
+
+    public boolean update(Caixa caixa) {
         Connection c = this.getConnection();
         try {
-            PreparedStatement ps = c.prepareStatement("UPDATE funcionario "
-                    + " SET matricula = ?, nome = ?, rua = ?, numero = ?, bairro = ?, cep = ?, uf = ?, "
-                    + " fone_residencial = ?, fone_celular = ?, salario = ?, funcao = ?, setor = ? "
-                    + " WHERE id_funcionario = ?");
-            ps.setInt(1, funcionario.getMatricula());
-            ps.setString(2, funcionario.getNome());
-            ps.setString(3, funcionario.getRua());
-            ps.setInt(4, funcionario.getNumero());
-            ps.setString(5, funcionario.getBairro());
-            ps.setString(6, funcionario.getCep());
-            ps.setString(7, funcionario.getUf());
-            ps.setString(8, funcionario.getResidencial());
-            ps.setString(9, funcionario.getCelular());
-            ps.setDouble(10, funcionario.getSalario());
-            ps.setInt(11, funcionario.getFuncao().getCodigo());
-            ps.setInt(12, funcionario.getSetor().getCodigo());
-            ps.setInt(13, funcionario.getId_funcionario());
-
+            PreparedStatement ps = c.prepareStatement("UPDATE caixa "
+                    + " SET rua = ?, estante = ?, coluna = ?, andar = ? "
+                    + " WHERE idCaixa = ?");
+            ps.setString(1, caixa.getRua());
+            ps.setString(2, caixa.getColuna());
+            ps.setString(3, caixa.getEstante());
+            ps.setString(4, caixa.getAndar());
+           
             ps.execute();
 
             ps.close();
@@ -84,6 +74,7 @@ public class ArmazemDAO extends MySQL {
         }
         return false;
     }
+    /*
 
     public boolean delete(int id) {
         Connection c = this.getConnection();

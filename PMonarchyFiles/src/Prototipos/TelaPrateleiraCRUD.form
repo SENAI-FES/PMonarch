@@ -31,7 +31,7 @@
               <EmptySpace min="-2" pref="37" max="-2" attributes="0"/>
               <Component id="btnAlterar" linkSize="1" min="-2" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="37" max="-2" attributes="0"/>
-              <Component id="btnInatAtiv" min="-2" pref="107" max="-2" attributes="0"/>
+              <Component id="btnAtivar" min="-2" pref="107" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
               <Component id="btnVoltar" linkSize="1" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
@@ -67,7 +67,7 @@
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="btnNovo" linkSize="2" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="btnAlterar" linkSize="2" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="btnInatAtiv" linkSize="2" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="btnAtivar" linkSize="2" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="btnVoltar" linkSize="2" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace min="-2" pref="21" max="-2" attributes="0"/>
@@ -101,7 +101,7 @@
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnAlterarActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JButton" name="btnInatAtiv">
+    <Component class="javax.swing.JButton" name="btnAtivar">
       <Properties>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
           <Image iconType="3" name="/image/Raise.png"/>
@@ -109,7 +109,7 @@
         <Property name="text" type="java.lang.String" value="Ativar"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnInatAtivActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnAtivarActionPerformed"/>
       </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel1">

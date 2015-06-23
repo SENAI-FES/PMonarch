@@ -17,7 +17,7 @@ public class ContratoDao extends MySQL{
         Connection c = this.getConnection();
 
         try {
-            PreparedStatement ps = c.prepareStatement("insert into Contrato (tipoContrato,"
+            PreparedStatement ps = c.prepareStatement("insert into contrato (tipoContrato,"
                     + " dataInicial, idEmpresa) values( ? , ? , ?)");
                     
             
@@ -43,7 +43,7 @@ public class ContratoDao extends MySQL{
  public boolean update(Contrato contrato) {
         Connection c = this.getConnection();
         try {
-            PreparedStatement ps = c.prepareStatement("UPDATE Contrato "
+            PreparedStatement ps = c.prepareStatement("UPDATE contrato "
                     + "SET tipoContrato = ?, dataInicial = ?, idEmpresa = ? WHERE idContrato = ?");
             ps.setString(1, contrato.getTipoContrato());
             ps.setString(2, contrato.getDataInicial().toString());
@@ -70,7 +70,7 @@ public class ContratoDao extends MySQL{
         Connection c = this.getConnection();
         try {
             PreparedStatement ps
-                    = c.prepareStatement("DELETE FROM Contrato "
+                    = c.prepareStatement("DELETE FROM contrato "
                             + "WHERE idContrato = ?");
             ps.setInt(1, idContrato);
 
@@ -95,7 +95,7 @@ public class ContratoDao extends MySQL{
         java.util.List<Contrato> listaContratos = new ArrayList<Contrato>();
         try {
             PreparedStatement ps = c.prepareStatement(" select idContrato, tipoContrato, dataInicial, "
-                    + "idEmpresa from Contrato");
+                    + "idEmpresa from contrato");
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
 
@@ -105,7 +105,7 @@ public class ContratoDao extends MySQL{
                 contrato.setTipoContrato(rs.getString("tipoContrato"));
                 contrato.setDataInicial(rs.getDate("dataInicial"));
                 EmpresaDAO empresaDAO = new EmpresaDAO();
-                Empresa empresa = empresaDAO.getContratadoById(rs.getInt("idEmpresa"));
+                Empresa empresa = empresaDAO.getEmpresaById(rs.getInt("idEmpresa"));
                 contrato.setEmpresa(empresa);
                 
                 listaContratos.add(contrato);

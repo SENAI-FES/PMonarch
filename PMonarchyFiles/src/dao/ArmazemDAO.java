@@ -3,10 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
-
-    
-    package dao;
+package dao;
 
 import entity.Armazem;
 import java.sql.Connection;
@@ -26,7 +23,7 @@ public class ArmazemDAO extends MySQL {
         Connection c = this.getConnection();
         try {
             PreparedStatement ps
-                    = c.prepareStatement("INSERT INTO caixa "
+                    = c.prepareStatement("INSERT INTO armazem "
                             + "( Rua, Estante, Coluna, Andar )  "
                             + "VALUES ( ?, ?, ?, ?)");
             ps.setString(1, armazem.getRua());
@@ -168,5 +165,5 @@ public class ArmazemDAO extends MySQL {
         }
         return null;
     }
-    
+
 }

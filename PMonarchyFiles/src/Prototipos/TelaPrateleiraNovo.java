@@ -1,7 +1,9 @@
 package Prototipos;
 
+import dao.ArmazemDAO;
 import dao.CaixaDAO;
 import entity.Caixa;
+import entity.Armazem;
 import javax.swing.JOptionPane;
 
 public class TelaPrateleiraNovo extends javax.swing.JDialog {
@@ -140,29 +142,29 @@ public class TelaPrateleiraNovo extends javax.swing.JDialog {
     }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
-        Caixa caixa = new Caixa();
-        caixa.setColunaInicio(txtColunaInicio.getText());
-        caixa.setColunaFim(txtColunaFim.getText());
+        Armazem armazem = new Armazem();
+        armazem.setColunaInicio(txtColunaInicio.getText());
+        armazem.setColunaFim(txtColunaFim.getText());
         int colunaInicio, colunaFim;
-        colunaInicio = Integer.parseInt(caixa.getColunaInicio());
-        colunaFim = Integer.parseInt(caixa.getColunaFim());
-        CaixaDAO dao = new CaixaDAO();
+        colunaInicio = Integer.parseInt(armazem.getColunaInicio());
+        colunaFim = Integer.parseInt(armazem.getColunaFim());
+        ArmazemDAO dao = new ArmazemDAO();
         for (int i = colunaInicio; i <= colunaFim; i++) {
-            caixa = new Caixa();
-            caixa.setAndar(txtAndar.getText());
-            caixa.setRua(txtRua.getText());
-            caixa.setEstante(txtEstante.getText());
-            caixa.setColuna(i + "");
+            armazem = new Armazem();
+            armazem.setAndar(txtAndar.getText());
+            armazem.setRua(txtRua.getText());
+            armazem.setEstante(txtEstante.getText());
+            armazem.setColuna(i + "");
             if (novo) {
-                if (dao.insert(caixa)) {
+                if (dao.insert(armazem)) {
                     JOptionPane.showMessageDialog(null, "sucez0");
                 }
             } else {
                 JOptionPane.showMessageDialog(null, "deu merda");
             }
         }
-        System.out.println(caixa.getAndar() + "\n" + caixa.getRua() + "\n" + caixa.getEstante()
-                + "\n" + caixa.getColunaInicio() + "\n" + caixa.getColunaFim());
+        System.out.println(armazem.getAndar() + "\n" + armazem.getRua() + "\n" + armazem.getEstante()
+                + "\n" + armazem.getColunaInicio() + "\n" + armazem.getColunaFim());
     }//GEN-LAST:event_btnSalvarActionPerformed
 
     public static void main(String args[]) {

@@ -5,6 +5,9 @@
  */
 package Prototipos;
 
+import view.ListaUsuario;
+import view.CadastroUsuario;
+
 /**
  *
  * @author taynara_muren
@@ -238,7 +241,7 @@ public class TelaPrincipal extends javax.swing.JDialog {
     }//GEN-LAST:event_menuCadastroUsuarioMouseClicked
 
     private void menuCadastroUsuarioMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_menuCadastroUsuarioMouseReleased
-        CadastroUsuario objTela = new CadastroUsuario(this, true);
+        CadastroUsuario objTela = new CadastroUsuario(this, true, false, null);
 
         objTela.setVisible(true);
     }//GEN-LAST:event_menuCadastroUsuarioMouseReleased

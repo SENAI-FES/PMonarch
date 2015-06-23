@@ -24,7 +24,7 @@ public class CaixaDAO extends MySQL {
         try {
             PreparedStatement ps
                     = c.prepareStatement("INSERT INTO caixa "
-                            + "( Rua, Estante, Coluna, Andar )  "
+                            + "( rua, estante, coluna, andar )  "
                             + "VALUES ( ?, ?, ?, ?)");
             ps.setString(1, caixa.getRua());
             ps.setString(2, caixa.getEstante());

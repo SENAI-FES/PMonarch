@@ -10,7 +10,9 @@ public class TelaPrateleiraNovo extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
         this.setLocationRelativeTo(null);
+        this.novo = true;
     }
+
     public TelaPrateleiraNovo(java.awt.Frame parent, boolean modal, boolean novo) {
         super(parent, modal);
         initComponents();
@@ -139,18 +141,25 @@ public class TelaPrateleiraNovo extends javax.swing.JDialog {
 
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
         Caixa caixa = new Caixa();
-        caixa.setAndar(txtAndar.getText());
-        caixa.setRua(txtRua.getText());
-        caixa.setEstante(txtEstante.getText());
         caixa.setColunaInicio(txtColunaInicio.getText());
         caixa.setColunaFim(txtColunaFim.getText());
+        int colunaInicio, colunaFim;
+        colunaInicio = Integer.parseInt(caixa.getColunaInicio());
+        colunaFim = Integer.parseInt(caixa.getColunaFim());
         CaixaDAO dao = new CaixaDAO();
-        if (novo) {
-            if (dao.insert(caixa)) {
-                JOptionPane.showMessageDialog(null, "sucez0");
+        for (int i = colunaInicio; i <= colunaFim; i++) {
+            caixa = new Caixa();
+            caixa.setAndar(txtAndar.getText());
+            caixa.setRua(txtRua.getText());
+            caixa.setEstante(txtEstante.getText());
+            caixa.setColuna(i + "");
+            if (novo) {
+                if (dao.insert(caixa)) {
+                    JOptionPane.showMessageDialog(null, "sucez0");
+                }
+            } else {
+                JOptionPane.showMessageDialog(null, "deu merda");
             }
-        } else {
-
         }
         System.out.println(caixa.getAndar() + "\n" + caixa.getRua() + "\n" + caixa.getEstante()
                 + "\n" + caixa.getColunaInicio() + "\n" + caixa.getColunaFim());

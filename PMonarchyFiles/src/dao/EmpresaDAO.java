@@ -114,7 +114,7 @@ public class EmpresaDAO extends MySQL {
         return false;
     }
 
-    public List<Empresa> listarContratados() {
+    public List<Empresa> listarEmpresas() {
         List<Empresa> lista = new ArrayList<Empresa>();
         Connection c = this.getConnection();
         try {
@@ -153,7 +153,7 @@ public class EmpresaDAO extends MySQL {
         return lista;
     }
 
-    public Empresa getContratadoById(int id) {
+    public Empresa getEmpresaById(int id) {
         Connection c = this.getConnection();
         Empresa empresa = null;
         try {

@@ -26,7 +26,7 @@ public class MarcadorDAO extends MySQL{
         try {
             PreparedStatement ps
                     = c.prepareStatement("INSERT INTO Marcador "
-                            + "(decricao)  "
+                            + "( descricao )  "
                             + "VALUES ( ? )"); 
             ps.setString(1, marcador.getDescricao());
                                  

@@ -15,6 +15,13 @@ public class Marcador {
     private int idMarcador;
     private String Descricao;
 
+    @Override
+    public String toString() {
+        return Descricao;
+    }
+
+    
+    
     public int getIdMarcador() {
         return idMarcador;
     }

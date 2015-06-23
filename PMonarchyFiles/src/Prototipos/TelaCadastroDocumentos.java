@@ -246,8 +246,7 @@ public class TelaCadastroDocumentos extends javax.swing.JDialog {
     }//GEN-LAST:event_cbFormatoFolhaActionPerformed
 
     private void btnAdiconarMarcadorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdiconarMarcadorActionPerformed
-        TelaMarcadores t = new TelaMarcadores(null, true);
-        t.setVisible(true);
+       
     }//GEN-LAST:event_btnAdiconarMarcadorActionPerformed
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed

@@ -95,13 +95,18 @@ public class TelaCadastroEmpresa extends javax.swing.JDialog {
             ex.printStackTrace();
         }
 
-        cbTipo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Rua", "Av.", "Tv.", "Serv.", "Rod." }));
+        cbTipo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "ALAMEDA", "AVENIDA", "BECO", "BOULEVARD", "CAMINHO", "CAIS", "CAMPO", "ESCADA", "ESTRADA", "FAVELA", "FAZENDA", "FLORESTA", "ILHA", "JARDIM", "LADEIRA", "LARGO", "LOTEAMENTO", "LUGAR", "MORRO", "PARQUE", "PASSEIO", "PRAIA", "PRAÇA", "RECANTO", "RODOVIA", "RUA", "SERVIDAO", "TRAVESSA", "VIA", "VILA", " " }));
 
         jLabel8.setText("Compl.:");
 
         jLabel9.setText("Cidade:");
 
-        cbEstado.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "RS", "SC", "PR" }));
+        cbEstado.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "AC", "AL", "AM", "AP", "BA", "CE", "DF", "ES", "GO", "MA", "MG", "MS", "MT", "PA", "PB", "PE", "PR", "RJ", "RN", "RO", "RR", "RS", "SC", "SE", "SP", "TO", " " }));
+        cbEstado.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbEstadoActionPerformed(evt);
+            }
+        });
 
         try {
             txtCep.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("#####-###")));
@@ -455,6 +460,10 @@ JOptionPane.showMessageDialog(null,"Contato excluído com sucesso!!!");
     private void txtNomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNomeActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtNomeActionPerformed
+
+    private void cbEstadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbEstadoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cbEstadoActionPerformed
 
     /**
      * @param args the command line arguments

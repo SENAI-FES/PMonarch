@@ -11,7 +11,10 @@
 import entity.Caixa;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -30,7 +33,7 @@ public class ArmazemDAO extends MySQL {
             ps.setString(2, caixa.getEstante());
             ps.setString(3, caixa.getColuna());
             ps.setString(4, caixa.getAndar());
-            
+
             ps.execute();
             ps.close();
             return true;
@@ -57,32 +60,6 @@ public class ArmazemDAO extends MySQL {
             ps.setString(2, caixa.getColuna());
             ps.setString(3, caixa.getEstante());
             ps.setString(4, caixa.getAndar());
-           
-            ps.execute();
-
-            ps.close();
-            return true;
-
-        } catch (SQLException ex) {
-            ex.printStackTrace();
-        } finally {
-            try {
-                c.close();
-            } catch (SQLException ex) {
-                ex.printStackTrace();
-            }
-        }
-        return false;
-    }
-    /*
-
-    public boolean delete(int id) {
-        Connection c = this.getConnection();
-        try {
-            PreparedStatement ps
-                    = c.prepareStatement("DELETE FROM funcionario "
-                            + "WHERE id_funcionario = ?");
-            ps.setInt(1, id);
 
             ps.execute();
 
@@ -101,33 +78,48 @@ public class ArmazemDAO extends MySQL {
         return false;
     }
 
-    public List<Funcionario> listarFuncionarios() {
-        List<Funcionario> lista = new ArrayList<Funcionario>();
+    public boolean delete(int idCaixa) {
         Connection c = this.getConnection();
         try {
             PreparedStatement ps
-                    = c.prepareStatement("SELECT id_funcionario, matricula, nome, rua, numero, bairro,"
-                            + " cep, uf, fone_residencial, fone_celular, salario, setor, funcao "
-                            + "FROM funcionario");
+                    = c.prepareStatement("DELETE FROM caixa "
+                            + "WHERE idCaixa = ?");
+            ps.setInt(1, idCaixa);
+
+            ps.execute();
+
+            ps.close();
+            return true;
+
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        } finally {
+            try {
+                c.close();
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
+        }
+        return false;
+    }
+
+    public List<Caixa> listarCaixas() {
+        List<Caixa> lista = new ArrayList<>();
+        Connection c = this.getConnection();
+        try {
+            PreparedStatement ps
+                    = c.prepareStatement("SELECT rua, estante, coluna, andar"
+                            + "FROM caixa");
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
 
-                FContratado funcionario = new FContratado();
-                funcionario.setId_funcionario(rs.getInt("id_funcionario"));
-                funcionario.setMatricula(rs.getInt("Matricula"));
-                funcionario.setNome(rs.getString("Nome"));
-                funcionario.setRua(rs.getString("Rua"));
-                funcionario.setNumero(rs.getInt("Numero"));
-                funcionario.setBairro(rs.getString("Bairro"));
-                funcionario.setCep(rs.getString("Cep"));
-                funcionario.setUf(rs.getString("Uf"));
-                funcionario.setResidencial(rs.getString("fone_residencial"));
-                funcionario.setCelular(rs.getString("fone_celular"));
-                funcionario.setSalario(rs.getDouble("salario"));
-                funcionario.setSetor(EnumSetor.ADMINISTRATIVO.getEnumSetorPorCodigo(rs.getInt("setor")));
-                funcionario.setFuncao(EnumFuncao.ANALISTA.getEnumPorCodigo(rs.getInt("funcao")));
+                Caixa caixa = new Caixa();
+                caixa.setRua(rs.getString("Rua"));
+                caixa.setEstante(rs.getString("Estante"));
+                caixa.setColuna(rs.getString("Coluna"));
+                caixa.setAndar(rs.getString("Andar"));
 
-                lista.add(funcionario);
+                lista.add(caixa);
             }
             rs.close();
             ps.close();
@@ -143,28 +135,28 @@ public class ArmazemDAO extends MySQL {
         return lista;
     }
 
-    public FContratado getFuncionarioById(int id) {
+    public Caixa getCaixaById(int idCaixa) {
         Connection c = this.getConnection();
-        FContratado funcionario = null;
+        Caixa caixa = null;
         try {
-            PreparedStatement ps = c.prepareStatement("SELECT id_funcionario, "
-                    + "matricula, nome "
-                    + "FROM funcionario WHERE id_funcionario = ?");
-            ps.setInt(1, id);
+            PreparedStatement ps = c.prepareStatement("SELECT idCaixa, "
+                    + "rua, estante, coluna, andar "
+                    + "FROM caixa WHERE idCaixa = ?");
+            ps.setInt(1, idCaixa);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
 
-                funcionario = new FContratado();
-                funcionario.setId_funcionario(rs.getInt("id_funcionario"));
-                funcionario.setMatricula(rs.getInt("matricula"));
-                funcionario.setNome(rs.getString("nome"));
-                funcionario.setRua(rs.getString("rua"));
-                funcionario.setNumero(rs.getInt("numero"));
+                caixa = new Caixa();
+                caixa.setIdCaixa(rs.getInt("idCaixa"));
+                caixa.setRua(rs.getString("Rua"));
+                caixa.setEstante(rs.getString("Estante"));
+                caixa.setColuna(rs.getString("Coluna"));
+                caixa.setAndar(rs.getString("Andar"));
 
             }
             rs.close();
             ps.close();
-            return funcionario;
+            return caixa;
         } catch (SQLException ex) {
             ex.printStackTrace();
         } finally {
@@ -175,6 +167,6 @@ public class ArmazemDAO extends MySQL {
             }
         }
         return null;
-    }*/
+    }
     
 }

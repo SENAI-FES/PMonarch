@@ -9,7 +9,6 @@
     package dao;
 
 import entity.Armazem;
-import entity.Caixa;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;

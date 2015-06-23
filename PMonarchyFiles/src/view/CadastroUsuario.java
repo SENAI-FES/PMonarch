@@ -6,6 +6,7 @@
 
 package view;
 
+import dao.UsuarioDAO;
 import entity.Usuario;
 import javax.swing.JOptionPane;
 
@@ -18,10 +19,22 @@ public class CadastroUsuario extends javax.swing.JDialog {
     /**
      * Creates new form CadastroUsuario
      */
-    public CadastroUsuario(java.awt.Dialog parent, boolean modal) {
+    public CadastroUsuario(java.awt.Dialog parent, boolean modal, boolean alterar, Usuario usuario) {
         super(parent, modal);
         initComponents();
         setLocationRelativeTo(null);
+        
+        this.alterar = alterar;
+        uAlterar = usuario;
+        
+        if(alterar){
+            txtNome.setText(uAlterar.getNome());
+            txtCpf.setText(uAlterar.getCPF());
+            txtEmail.setText(uAlterar.getEmail());
+            //cbPerfil.set(uAlterar.getSelectedItem());
+            
+            btnSalvar.setText("Alterar");
+        }
     }
 
     /**
@@ -166,8 +179,13 @@ public class CadastroUsuario extends javax.swing.JDialog {
         dispose();
     }//GEN-LAST:event_btnCancelarActionPerformed
 
+    boolean alterar;
+    Usuario uAlterar;
+    
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
+        UsuarioDAO dao = new UsuarioDAO();
         
+        if(alterar == false){
         Usuario objusuario = new Usuario();
         
             objusuario.setNome(txtNome.getText());
@@ -176,8 +194,20 @@ public class CadastroUsuario extends javax.swing.JDialog {
             objusuario.setPerfil(cbPerfil.getSelectedIndex());
             objusuario.setMatricula(Integer.parseInt(lblMatricula.getText()));
             
-        JOptionPane.showMessageDialog(this, "Salvo com sucesso!");
+            dao.insert(objusuario);
+            
+        } else{
+            uAlterar.setNome(txtNome.getText());
+            uAlterar.setCPF(txtCpf.getText());
+            uAlterar.setCPF(txtEmail.getText());
+            uAlterar.setPerfil(cbPerfil.getSelectedIndex());
+            
+            alterar = false;
+            
+            btnSalvar.setText("Cadastrar");
+        }
         
+        JOptionPane.showMessageDialog(this, "Salvo com sucesso!");
         
     }//GEN-LAST:event_btnSalvarActionPerformed
 
@@ -211,7 +241,7 @@ public class CadastroUsuario extends javax.swing.JDialog {
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                CadastroUsuario dialog = new CadastroUsuario(new javax.swing.JDialog(), true);
+                CadastroUsuario dialog = new CadastroUsuario(new javax.swing.JDialog(), true, true, null);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {

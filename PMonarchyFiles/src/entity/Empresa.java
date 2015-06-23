@@ -20,9 +20,29 @@ public class Empresa {
     private String cnpj;
     private String inscricaoEstadual;
     private String site;
-    private String rua;
+    private String logradouro;
     private String complemento;
     private String cidade; 
+    private String uf;
+
+    public Empresa() {
+    }
+
+    public String getUf() {
+        return uf;
+    }
+
+    public void setUf(String uf) {
+        this.uf = uf;
+    }
+
+    public List<Contato> getContatos() {
+        return contatos;
+    }
+
+    public void setContatos(List<Contato> contatos) {
+        this.contatos = contatos;
+    }
     private String cep;
     private List<Contato> contatos;
 
@@ -78,14 +98,6 @@ public class Empresa {
         this.site = site;
     }
 
-    public String getRua() {
-        return rua;
-    }
-
-    public void setRua(String rua) {
-        this.rua = rua;
-    }
-
     public String getComplemento() {
         return complemento;
     }
@@ -108,6 +120,14 @@ public class Empresa {
 
     public void setCep(String cep) {
         this.cep = cep;
+    }
+
+    public String getLogradouro() {
+        return logradouro;
+    }
+
+    public void setLogradouro(String logradouro) {
+        this.logradouro = logradouro;
     }
     
 }

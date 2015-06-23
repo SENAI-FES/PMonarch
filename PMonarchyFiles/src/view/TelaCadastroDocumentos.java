@@ -5,7 +5,6 @@
  */
 package view;
 
-import Prototipos.*;
 import javax.swing.JOptionPane;
 
 

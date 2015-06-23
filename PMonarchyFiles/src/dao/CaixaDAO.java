@@ -17,7 +17,7 @@ import java.sql.SQLException;
  *
  * @author Matheus_santos_fraga
  */
-public class ArmazemDAO extends MySQL {
+public class CaixaDAO extends MySQL {
 
     public boolean insert(Caixa caixa) {
         Connection c = this.getConnection();

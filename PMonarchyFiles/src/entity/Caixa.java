@@ -1,16 +1,5 @@
 package entity;
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
-
-/**
- *
- * @author gabriel_pereira
- */
 public class Caixa {
 
     private int idCaixa;
@@ -20,7 +9,6 @@ public class Caixa {
     private String rua;
     private String andar;
     private String estante;
-    private String teste;
 
     public int getIdCaixa() {
         return idCaixa;

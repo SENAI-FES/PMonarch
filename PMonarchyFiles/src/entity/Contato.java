@@ -6,12 +6,21 @@ package entity;
  * @author eduardo_ciepanski
  */
 public class Contato {
+    private int idContato;
     private String nome;
     private String cargo;
     private String telefone;
     private String ramal;
     private String email;
     private Empresa empresa;
+
+    public int getIdContato() {
+        return idContato;
+    }
+
+    public void setIdContato(int idContato) {
+        this.idContato = idContato;
+    }
 
     public Empresa getEmpresa() {
         return empresa;

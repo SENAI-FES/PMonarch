@@ -14,12 +14,12 @@ import javax.swing.JOptionPane;
  *
  * @author felipe_tubandt
  */
-public class CadastroUsuario extends javax.swing.JDialog {
+public class TelaCadastroUsuario extends javax.swing.JDialog {
 
     /**
      * Creates new form CadastroUsuario
      */
-    public CadastroUsuario(java.awt.Dialog parent, boolean modal, boolean alterar, Usuario usuario) {
+    public TelaCadastroUsuario(java.awt.Dialog parent, boolean modal, boolean alterar, Usuario usuario) {
         super(parent, modal);
         initComponents();
         setLocationRelativeTo(null);
@@ -191,8 +191,7 @@ public class CadastroUsuario extends javax.swing.JDialog {
             objusuario.setNome(txtNome.getText());
             objusuario.setCPF(txtCpf.getText());
             objusuario.setEmail(txtEmail.getText());
-            objusuario.setPerfil(cbPerfil.getSelectedIndex());
-            objusuario.setMatricula(Integer.parseInt(lblMatricula.getText()));
+            objusuario.setPerfil(cbPerfil.getSelectedIndex());        
             
             dao.insert(objusuario);
             
@@ -228,20 +227,20 @@ public class CadastroUsuario extends javax.swing.JDialog {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(CadastroUsuario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaCadastroUsuario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(CadastroUsuario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaCadastroUsuario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(CadastroUsuario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaCadastroUsuario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(CadastroUsuario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaCadastroUsuario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                CadastroUsuario dialog = new CadastroUsuario(new javax.swing.JDialog(), true, true, null);
+                TelaCadastroUsuario dialog = new TelaCadastroUsuario(new javax.swing.JDialog(), true, true, null);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {

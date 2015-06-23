@@ -240,7 +240,7 @@ public class TelaPrincipal extends javax.swing.JDialog {
     }//GEN-LAST:event_menuCadastroUsuarioMouseClicked
 
     private void menuCadastroUsuarioMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_menuCadastroUsuarioMouseReleased
-        CadastroUsuario objTela = new CadastroUsuario(this, true, false, null);
+        TelaCadastroUsuario objTela = new TelaCadastroUsuario(this, true, false, null);
 
         objTela.setVisible(true);
     }//GEN-LAST:event_menuCadastroUsuarioMouseReleased
@@ -280,7 +280,7 @@ public class TelaPrincipal extends javax.swing.JDialog {
     }//GEN-LAST:event_btnArmazemActionPerformed
 
     private void btnUsuáriosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUsuáriosActionPerformed
-        ListaUsuario objTela = new ListaUsuario(this, true);
+        TelaUsuario objTela = new TelaUsuario(this, true);
         objTela.setVisible(true);
     }//GEN-LAST:event_btnUsuáriosActionPerformed
 
@@ -295,7 +295,7 @@ public class TelaPrincipal extends javax.swing.JDialog {
     }//GEN-LAST:event_btnDocumentos1ActionPerformed
 
     private void menuPesquisarUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuPesquisarUsuarioActionPerformed
-        ListaUsuario telaUsuarios = new ListaUsuario(null, true);
+        TelaUsuario telaUsuarios = new TelaUsuario(null, true);
         telaUsuarios.setVisible(true);
     }//GEN-LAST:event_menuPesquisarUsuarioActionPerformed
 

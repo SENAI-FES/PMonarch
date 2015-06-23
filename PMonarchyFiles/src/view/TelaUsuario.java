@@ -7,22 +7,27 @@
 package view;
 
 import dao.UsuarioDAO;
-import view.CadastroUsuario;
+import javax.swing.table.DefaultTableModel;
+import view.TelaCadastroUsuario;
+import entity.Usuario;
+import java.util.List;
 
 /**
  *
  * @author felipe_tubandt
  */
-public class ListaUsuario extends javax.swing.JDialog {
+public class TelaUsuario extends javax.swing.JDialog {
 
     /**
-     * Creates new form CadastroUsuario
+     * Creates new form TelaCadastroUsuario
      */
-    public ListaUsuario(java.awt.Dialog parent, boolean modal) {
+    public TelaUsuario(java.awt.Dialog parent, boolean modal) {
         super(parent, modal);
         initComponents();
         setLocationRelativeTo(null);
         btnAtivarUsuario.setText("Ativar");
+        
+        atualizaTabelaUsuarios();
     }
 
     /**
@@ -192,7 +197,7 @@ public class ListaUsuario extends javax.swing.JDialog {
 
     private void btnNovoUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNovoUsuarioActionPerformed
      
-        CadastroUsuario cUsuario = new CadastroUsuario(null, true, false, null);
+        TelaCadastroUsuario cUsuario = new TelaCadastroUsuario(null, true, false, null);
         cUsuario.setVisible(true);
         
     }//GEN-LAST:event_btnNovoUsuarioActionPerformed
@@ -202,7 +207,7 @@ public class ListaUsuario extends javax.swing.JDialog {
         UsuarioDAO dao = new UsuarioDAO();
         //Usuario usuario = dao.getUsuarioById(id);
         
-        CadastroUsuario cUsuario = new CadastroUsuario(null, true, true, null);
+        TelaCadastroUsuario cUsuario = new TelaCadastroUsuario(null, true, true, null);
         cUsuario.setVisible(true);
     }//GEN-LAST:event_btnAlterarUsuarioActionPerformed
 
@@ -220,6 +225,30 @@ public class ListaUsuario extends javax.swing.JDialog {
         }
     }//GEN-LAST:event_btnAtivarUsuarioActionPerformed
 
+    private void atualizaTabelaUsuarios() {    
+         UsuarioDAO dao = new UsuarioDAO();
+         List<Usuario> listarUsuarios = dao.listarUsuarios(WIDTH);
+        
+        //pega o modelo da Tabela e coloca na variavel "model"
+         DefaultTableModel model = 
+                (DefaultTableModel) this.tblUsuario.getModel();
+        //insere na tabela o número de linhas que a lista tem
+        model.setRowCount(listarUsuarios.size());
+        
+        //laço para inserir os dados dos objetos na Tabela
+        for (int i = 0; i < listarUsuarios.size(); i++) {
+            
+            model.setValueAt(listarUsuarios.get(i).getMatricula(), i, 0);
+            model.setValueAt(listarUsuarios.get(i).getNome(), i, 1);
+            model.setValueAt(listarUsuarios.get(i).getCPF(), i, 2);
+            model.setValueAt(listarUsuarios.get(i).getPerfil(), i, 3);
+            //model.setValueAt(listarUsuarios.get(i).getPerfil(), i, 4);
+        }
+        
+    }
+     
+    
+    
     /**
      * @param args the command line arguments
      */
@@ -237,20 +266,20 @@ public class ListaUsuario extends javax.swing.JDialog {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(ListaUsuario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaUsuario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(ListaUsuario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaUsuario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(ListaUsuario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaUsuario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(ListaUsuario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaUsuario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                ListaUsuario dialog = new ListaUsuario(new javax.swing.JDialog(), true);
+                TelaUsuario dialog = new TelaUsuario(new javax.swing.JDialog(), true);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {

@@ -213,8 +213,6 @@ public class TelaCadastroUsuario extends javax.swing.JDialog {
 
             dao.update(objUsuario, objUsuario.getMatricula());
 
-            novo = false;
-
             btnSalvar.setText("Cadastrar");
         }
 

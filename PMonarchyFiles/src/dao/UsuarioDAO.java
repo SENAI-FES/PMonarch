@@ -24,13 +24,14 @@ public class UsuarioDAO extends MySQL {
         try {
             PreparedStatement ps
                     = c.prepareStatement("INSERT INTO usuario "
-                            + "(matricula, nome, cpf, perfil, email )  "
-                            + "VALUES ( ?, ?, ?, ?, ? )");
+                            + "(matricula, nome, cpf, perfil, email, status )  "
+                            + "VALUES ( ?, ?, ?, ?, ?, ? )");
             ps.setInt(1, usuario.getMatricula());
             ps.setString(2, usuario.getNome());
             ps.setString(3, usuario.getCPF());
             ps.setInt(4, usuario.getPerfil());
             ps.setString(5, usuario.getEmail());
+            ps.setString(6, usuario.getStatus());
 
             ps.execute();
             ps.close();
@@ -80,7 +81,7 @@ public class UsuarioDAO extends MySQL {
         try {
 
             PreparedStatement ps = c.prepareStatement("UPDATE usuario "
-                    + "Set nome = ?, cpf = ?, perfil = ?, email= ? "
+                    + "Set nome = ?, cpf = ?, perfil = ?, email= ?, status = ? "
                     + "WHERE matricula = ? ");
 
             ps.setString(1, objUsuario.getNome());
@@ -88,6 +89,7 @@ public class UsuarioDAO extends MySQL {
             ps.setInt(3, objUsuario.getPerfil());
             ps.setString(4, objUsuario.getEmail());
             ps.setInt(5, objUsuario.getMatricula());
+            ps.setString(6, objUsuario.getStatus());
 
             ps.execute();
             ps.close();
@@ -108,7 +110,7 @@ public class UsuarioDAO extends MySQL {
         Connection c = this.getConnection();
         try {
             PreparedStatement ps
-                    = c.prepareStatement("SELECT matricula, nome, cpf , perfil, email "
+                    = c.prepareStatement("SELECT matricula, nome, cpf , perfil, email, status "
                             + " FROM usuario"
                             + " WHERE matricula = ?");
             ps.setInt(1, matricula);
@@ -120,6 +122,7 @@ public class UsuarioDAO extends MySQL {
                 objUsuario.setCPF(rs.getString("cpf"));
                 objUsuario.setPerfil(rs.getInt("perfil"));
                 objUsuario.setEmail(rs.getString("email"));
+                objUsuario.setStatus(rs.getString("status"));
 
             }
             rs.close();
@@ -142,7 +145,7 @@ public class UsuarioDAO extends MySQL {
         List<Usuario> listaUsuarios = new ArrayList<Usuario>();
         Connection c = this.getConnection();
         try {
-            PreparedStatement ps = c.prepareStatement("SELECT matricula, nome, cpf , perfil, email "
+            PreparedStatement ps = c.prepareStatement("SELECT matricula, nome, cpf , perfil, email, status "
                     + " FROM usuario");
             ResultSet rs = ps.executeQuery();
 
@@ -154,6 +157,7 @@ public class UsuarioDAO extends MySQL {
                 objUsuario.setCPF(rs.getString("cpf"));
                 objUsuario.setPerfil(rs.getInt("perfil"));
                 objUsuario.setEmail(rs.getString("email"));
+                objUsuario.setStatus(rs.getString("status"));
 
                 listaUsuarios.add(objUsuario);
 

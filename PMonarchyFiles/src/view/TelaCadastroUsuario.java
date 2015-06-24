@@ -203,7 +203,8 @@ public class TelaCadastroUsuario extends javax.swing.JDialog {
         objUsuario.setCPF(txtCpf.getText());
         objUsuario.setEmail(txtEmail.getText());
         objUsuario.setPerfil(cbPerfil.getSelectedIndex());
-
+        objUsuario.setStatus("Ativo");
+        
         UsuarioDAO dao = new UsuarioDAO();
         if (novo) {
 

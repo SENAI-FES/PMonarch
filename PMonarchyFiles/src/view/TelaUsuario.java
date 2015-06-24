@@ -9,6 +9,7 @@ import dao.UsuarioDAO;
 import javax.swing.table.DefaultTableModel;
 import view.TelaCadastroUsuario;
 import entity.Usuario;
+import java.awt.Color;
 import java.util.List;
 
 /**
@@ -29,6 +30,7 @@ public class TelaUsuario extends javax.swing.JDialog {
         atualizaTabelaUsuarios();
     }
     boolean novo = true;
+    Usuario objUsuario;
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -78,9 +80,16 @@ public class TelaUsuario extends javax.swing.JDialog {
                 "Matrícula", "Nome", "CPF", "Perfil", "Status"
             }
         ) {
+            Class[] types = new Class [] {
+                java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.String.class
+            };
             boolean[] canEdit = new boolean [] {
                 false, false, false, false, false
             };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
@@ -88,6 +97,9 @@ public class TelaUsuario extends javax.swing.JDialog {
         });
         tblUsuario.getTableHeader().setReorderingAllowed(false);
         tblUsuario.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblUsuarioMouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 tblUsuarioMouseEntered(evt);
             }
@@ -212,7 +224,7 @@ public class TelaUsuario extends javax.swing.JDialog {
 
         TelaCadastroUsuario cUsuario = new TelaCadastroUsuario(null, true, novo, null);
         cUsuario.setVisible(true);
-
+        atualizaTabelaUsuarios();
     }//GEN-LAST:event_btnNovoUsuarioActionPerformed
 
     private void btnAlterarUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlterarUsuarioActionPerformed
@@ -223,6 +235,7 @@ public class TelaUsuario extends javax.swing.JDialog {
         Usuario usuario = dao.getUsuarioById(id);
         TelaCadastroUsuario cUsuario = new TelaCadastroUsuario(null, true, novo, usuario);
         cUsuario.setVisible(true);
+        atualizaTabelaUsuarios();
     }//GEN-LAST:event_btnAlterarUsuarioActionPerformed
 
     private void btnVoltarUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVoltarUsuarioActionPerformed
@@ -231,7 +244,17 @@ public class TelaUsuario extends javax.swing.JDialog {
 
     private void btnAtivarUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAtivarUsuarioActionPerformed
         int linha = tblUsuario.getSelectedRow();
-        
+        int id = Integer.parseInt(tblUsuario.getValueAt(linha, 0).toString());
+        UsuarioDAO uDAO = new UsuarioDAO();
+        objUsuario = uDAO.getUsuarioById(id);
+
+        if (tblUsuario.getValueAt(linha, 4).equals("Ativo")) {
+            objUsuario.setStatus("Desativado");
+
+        } else {
+            objUsuario.setStatus("Ativado");
+        }
+
         if (btnAtivarUsuario.getText().equalsIgnoreCase("Ativar")) {
             btnAtivarUsuario.setText("Desativar");
             btnAtivarUsuario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/Fall.png")));
@@ -239,11 +262,29 @@ public class TelaUsuario extends javax.swing.JDialog {
             btnAtivarUsuario.setText("Ativar");
             btnAtivarUsuario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/Raise.png")));
         }
+        System.out.println("Status  " + objUsuario.getStatus());
+        System.out.println("nome  " + objUsuario.getNome());
+        System.out.println("id  " + objUsuario.getMatricula());
+
+        uDAO.update(objUsuario, linha);
+        atualizaTabelaUsuarios();
     }//GEN-LAST:event_btnAtivarUsuarioActionPerformed
 
     private void tblUsuarioMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblUsuarioMouseEntered
         atualizaTabelaUsuarios();
     }//GEN-LAST:event_tblUsuarioMouseEntered
+
+    private void tblUsuarioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblUsuarioMouseClicked
+        int linha = tblUsuario.getSelectedRow();
+        if (tblUsuario.getValueAt(linha, 4).equals("Ativo")) {
+            btnAtivarUsuario.setText("Desativar");
+            btnAtivarUsuario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/Fall.png")));
+        } else {
+            btnAtivarUsuario.setText("Ativar");
+            btnAtivarUsuario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/Raise.png")));
+
+        }
+    }//GEN-LAST:event_tblUsuarioMouseClicked
 
     private void atualizaTabelaUsuarios() {
         UsuarioDAO dao = new UsuarioDAO();
@@ -262,7 +303,8 @@ public class TelaUsuario extends javax.swing.JDialog {
             model.setValueAt(listarUsuarios.get(i).getNome(), i, 1);
             model.setValueAt(listarUsuarios.get(i).getCPF(), i, 2);
             model.setValueAt(listarUsuarios.get(i).getPerfil(), i, 3);
-            //model.setValueAt(listarUsuarios.get(i).getPerfil(), i, 4);
+            model.setValueAt(listarUsuarios.get(i).getStatus(), i, 4);
+
         }
 
     }

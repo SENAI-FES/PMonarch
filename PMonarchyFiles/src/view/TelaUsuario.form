@@ -159,7 +159,7 @@
                       <Data value="null"/>
                     </Column>
                     <Column editable="false" title="Perfil" type="java.lang.Object"/>
-                    <Column editable="false" title="Status" type="java.lang.Object"/>
+                    <Column editable="false" title="Status" type="java.lang.String"/>
                   </Table>
                 </Property>
                 <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
@@ -196,6 +196,7 @@
                 </Property>
               </Properties>
               <Events>
+                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="tblUsuarioMouseClicked"/>
                 <EventHandler event="mouseEntered" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="tblUsuarioMouseEntered"/>
               </Events>
             </Component>

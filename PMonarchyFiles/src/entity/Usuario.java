@@ -16,6 +16,15 @@ public class Usuario {
     private int Perfil;
     private String email;
     private int matricula;
+    private String status;
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
 
     public String getNome() {
         return nome;

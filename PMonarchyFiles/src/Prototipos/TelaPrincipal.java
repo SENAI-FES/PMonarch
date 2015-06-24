@@ -5,8 +5,10 @@
  */
 package Prototipos;
 
+import view.TelaCadastroEmpresa;
 import view.TelaUsuario;
 import view.TelaCadastroUsuario;
+import view.TelaEmpresa;
 
 /**
  *

@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package view;
 
 import dao.UsuarioDAO;
@@ -26,9 +25,10 @@ public class TelaUsuario extends javax.swing.JDialog {
         initComponents();
         setLocationRelativeTo(null);
         btnAtivarUsuario.setText("Ativar");
-        
+
         atualizaTabelaUsuarios();
     }
+    boolean novo = true;
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -77,8 +77,21 @@ public class TelaUsuario extends javax.swing.JDialog {
             new String [] {
                 "Matrícula", "Nome", "CPF", "Perfil", "Status"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         tblUsuario.getTableHeader().setReorderingAllowed(false);
+        tblUsuario.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                tblUsuarioMouseEntered(evt);
+            }
+        });
         jScrollPane1.setViewportView(tblUsuario);
 
         btnNovoUsuario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/New document.png"))); // NOI18N
@@ -196,18 +209,19 @@ public class TelaUsuario extends javax.swing.JDialog {
     }//GEN-LAST:event_btnPesquisarUsuarioActionPerformed
 
     private void btnNovoUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNovoUsuarioActionPerformed
-     
-        TelaCadastroUsuario cUsuario = new TelaCadastroUsuario(null, true, false, null);
+
+        TelaCadastroUsuario cUsuario = new TelaCadastroUsuario(null, true, novo, null);
         cUsuario.setVisible(true);
-        
+
     }//GEN-LAST:event_btnNovoUsuarioActionPerformed
 
     private void btnAlterarUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlterarUsuarioActionPerformed
-        int id = tblUsuario.getSelectedRow();
+        novo = false;
+        int linha = tblUsuario.getSelectedRow();
+        int id = Integer.parseInt(tblUsuario.getValueAt(linha, 0).toString());
         UsuarioDAO dao = new UsuarioDAO();
-        //Usuario usuario = dao.getUsuarioById(id);
-        
-        TelaCadastroUsuario cUsuario = new TelaCadastroUsuario(null, true, true, null);
+        Usuario usuario = dao.getUsuarioById(id);
+        TelaCadastroUsuario cUsuario = new TelaCadastroUsuario(null, true, novo, usuario);
         cUsuario.setVisible(true);
     }//GEN-LAST:event_btnAlterarUsuarioActionPerformed
 
@@ -216,39 +230,43 @@ public class TelaUsuario extends javax.swing.JDialog {
     }//GEN-LAST:event_btnVoltarUsuarioActionPerformed
 
     private void btnAtivarUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAtivarUsuarioActionPerformed
-        if (btnAtivarUsuario.getText().equalsIgnoreCase("Ativar")){
+        int linha = tblUsuario.getSelectedRow();
+        
+        if (btnAtivarUsuario.getText().equalsIgnoreCase("Ativar")) {
             btnAtivarUsuario.setText("Desativar");
             btnAtivarUsuario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/Fall.png")));
-        }else{
+        } else {
             btnAtivarUsuario.setText("Ativar");
             btnAtivarUsuario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/Raise.png")));
         }
     }//GEN-LAST:event_btnAtivarUsuarioActionPerformed
 
-    private void atualizaTabelaUsuarios() {    
-         UsuarioDAO dao = new UsuarioDAO();
-         List<Usuario> listarUsuarios = dao.listarUsuarios(WIDTH);
-        
+    private void tblUsuarioMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblUsuarioMouseEntered
+        atualizaTabelaUsuarios();
+    }//GEN-LAST:event_tblUsuarioMouseEntered
+
+    private void atualizaTabelaUsuarios() {
+        UsuarioDAO dao = new UsuarioDAO();
+        List<Usuario> listarUsuarios = dao.listarUsuarios();
+
         //pega o modelo da Tabela e coloca na variavel "model"
-         DefaultTableModel model = 
-                (DefaultTableModel) this.tblUsuario.getModel();
+        DefaultTableModel model
+                = (DefaultTableModel) this.tblUsuario.getModel();
         //insere na tabela o número de linhas que a lista tem
         model.setRowCount(listarUsuarios.size());
-        
+
         //laço para inserir os dados dos objetos na Tabela
         for (int i = 0; i < listarUsuarios.size(); i++) {
-            
+
             model.setValueAt(listarUsuarios.get(i).getMatricula(), i, 0);
             model.setValueAt(listarUsuarios.get(i).getNome(), i, 1);
             model.setValueAt(listarUsuarios.get(i).getCPF(), i, 2);
             model.setValueAt(listarUsuarios.get(i).getPerfil(), i, 3);
             //model.setValueAt(listarUsuarios.get(i).getPerfil(), i, 4);
         }
-        
+
     }
-     
-    
-    
+
     /**
      * @param args the command line arguments
      */

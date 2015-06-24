@@ -73,23 +73,24 @@ public class UsuarioDAO extends MySQL {
         return false;
     }
 
-    public boolean update(int matricula) {
-        Usuario objUsuario = new Usuario();
+    public void update(Usuario objUsuario, int matricula) {
+
         Connection c = this.getConnection();
+
         try {
+
             PreparedStatement ps = c.prepareStatement("UPDATE usuario "
-                    + " SET matricula = ?, nome = ?, cpf = ?, perfil = ?, email= ?"
-                    + " WHERE matricula = ?");
-            ps.setInt(1, objUsuario.getMatricula());
-            ps.setString(2, objUsuario.getNome());
-            ps.setString(3, objUsuario.getCPF());
-            ps.setInt(4, objUsuario.getPerfil());
-            ps.setString(5, objUsuario.getEmail());
+                    + "Set nome = ?, cpf = ?, perfil = ?, email= ? "
+                    + "WHERE matricula = ? ");
+
+            ps.setString(1, objUsuario.getNome());
+            ps.setString(2, objUsuario.getCPF());
+            ps.setInt(3, objUsuario.getPerfil());
+            ps.setString(4, objUsuario.getEmail());
+            ps.setInt(5, objUsuario.getMatricula());
 
             ps.execute();
-
             ps.close();
-            return true;
 
         } catch (SQLException ex) {
             ex.printStackTrace();
@@ -100,11 +101,10 @@ public class UsuarioDAO extends MySQL {
                 ex.printStackTrace();
             }
         }
-        return false;
     }
 
-    public List<Usuario> listarUsuarios(int matricula) {
-        List<Usuario> lista = new ArrayList<>();
+    public Usuario getUsuarioById(int matricula) {
+        Usuario objUsuario = new Usuario();
         Connection c = this.getConnection();
         try {
             PreparedStatement ps
@@ -115,20 +115,17 @@ public class UsuarioDAO extends MySQL {
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
 
-                Usuario objUsuario = new Usuario();
-                
                 objUsuario.setMatricula(rs.getInt("matricula"));
                 objUsuario.setNome(rs.getString("nome"));
                 objUsuario.setCPF(rs.getString("cpf"));
                 objUsuario.setPerfil(rs.getInt("perfil"));
                 objUsuario.setEmail(rs.getString("email"));
 
-                
-                lista.add(objUsuario);
-
             }
             rs.close();
             ps.close();
+            return objUsuario;
+
         } catch (SQLException ex) {
             ex.printStackTrace();
         } finally {
@@ -138,6 +135,41 @@ public class UsuarioDAO extends MySQL {
                 ex.printStackTrace();
             }
         }
-        return lista;
+        return null;
+    }
+
+    public List<Usuario> listarUsuarios() {
+        List<Usuario> listaUsuarios = new ArrayList<Usuario>();
+        Connection c = this.getConnection();
+        try {
+            PreparedStatement ps = c.prepareStatement("SELECT matricula, nome, cpf , perfil, email "
+                    + " FROM usuario");
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                Usuario objUsuario = new Usuario();
+
+                objUsuario.setMatricula(rs.getInt("matricula"));
+                objUsuario.setNome(rs.getString("nome"));
+                objUsuario.setCPF(rs.getString("cpf"));
+                objUsuario.setPerfil(rs.getInt("perfil"));
+                objUsuario.setEmail(rs.getString("email"));
+
+                listaUsuarios.add(objUsuario);
+
+            }
+            rs.close();
+            ps.close();
+
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        } finally {
+            try {
+                c.close();
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
+        }
+        return listaUsuarios;
     }
 }

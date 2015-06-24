@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package view;
 
 import dao.UsuarioDAO;
@@ -19,20 +18,35 @@ public class TelaCadastroUsuario extends javax.swing.JDialog {
     /**
      * Creates new form CadastroUsuario
      */
-    public TelaCadastroUsuario(java.awt.Dialog parent, boolean modal, boolean alterar, Usuario usuario) {
+    public TelaCadastroUsuario(java.awt.Dialog parent, boolean modal, boolean novo, Usuario usuario) {
         super(parent, modal);
         initComponents();
         setLocationRelativeTo(null);
-        
-        this.alterar = alterar;
-        uAlterar = usuario;
-        
-        if(alterar){
-            txtNome.setText(uAlterar.getNome());
-            txtCpf.setText(uAlterar.getCPF());
-            txtEmail.setText(uAlterar.getEmail());
-            //cbPerfil.set(uAlterar.getSelectedItem());
-            
+
+        this.novo = novo;
+        objUsuario = usuario;
+
+        if (novo) {
+
+            objUsuario = new Usuario();
+        } else {
+
+            lblMatricula.setText(objUsuario.getMatricula() + "");
+            txtNome.setText(objUsuario.getNome());
+            txtCpf.setText(objUsuario.getCPF());
+            txtEmail.setText(objUsuario.getEmail());
+
+            switch (objUsuario.getPerfil()) {
+                case 0:
+                    cbPerfil.setSelectedIndex(0);
+                    break;
+                case 1:
+                    cbPerfil.setSelectedIndex(1);
+                    break;
+                default:
+                    cbPerfil.setSelectedIndex(2);
+            }
+
             btnSalvar.setText("Alterar");
         }
     }
@@ -59,7 +73,7 @@ public class TelaCadastroUsuario extends javax.swing.JDialog {
         jLabel7 = new javax.swing.JLabel();
         cbPerfil = new javax.swing.JComboBox();
         btnSalvar = new javax.swing.JButton();
-        btnCancelar = new javax.swing.JButton();
+        btnVoltar = new javax.swing.JButton();
 
         jLabel3.setText("jLabel3");
 
@@ -83,6 +97,7 @@ public class TelaCadastroUsuario extends javax.swing.JDialog {
 
         cbPerfil.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Admin" }));
 
+        btnSalvar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/OK.png"))); // NOI18N
         btnSalvar.setText("Salvar");
         btnSalvar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -90,10 +105,11 @@ public class TelaCadastroUsuario extends javax.swing.JDialog {
             }
         });
 
-        btnCancelar.setText("Cancelar");
-        btnCancelar.addActionListener(new java.awt.event.ActionListener() {
+        btnVoltar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/Back.png"))); // NOI18N
+        btnVoltar.setText("Voltar");
+        btnVoltar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCancelarActionPerformed(evt);
+                btnVoltarActionPerformed(evt);
             }
         });
 
@@ -122,8 +138,8 @@ public class TelaCadastroUsuario extends javax.swing.JDialog {
                         .addGap(68, 68, 68)
                         .addComponent(btnSalvar)
                         .addGap(44, 44, 44)
-                        .addComponent(btnCancelar)))
-                .addContainerGap(68, Short.MAX_VALUE))
+                        .addComponent(btnVoltar)))
+                .addContainerGap(42, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -151,8 +167,8 @@ public class TelaCadastroUsuario extends javax.swing.JDialog {
                 .addGap(40, 40, 40)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnSalvar)
-                    .addComponent(btnCancelar))
-                .addContainerGap(40, Short.MAX_VALUE))
+                    .addComponent(btnVoltar))
+                .addContainerGap(38, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -175,39 +191,35 @@ public class TelaCadastroUsuario extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
+    private void btnVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVoltarActionPerformed
         dispose();
-    }//GEN-LAST:event_btnCancelarActionPerformed
+    }//GEN-LAST:event_btnVoltarActionPerformed
 
-    boolean alterar;
-    Usuario uAlterar;
-    
+    boolean novo;
+    Usuario objUsuario;
+
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
+        objUsuario.setNome(txtNome.getText());
+        objUsuario.setCPF(txtCpf.getText());
+        objUsuario.setEmail(txtEmail.getText());
+        objUsuario.setPerfil(cbPerfil.getSelectedIndex());
+
         UsuarioDAO dao = new UsuarioDAO();
-        
-        if(alterar == false){
-        Usuario objusuario = new Usuario();
-        
-            objusuario.setNome(txtNome.getText());
-            objusuario.setCPF(txtCpf.getText());
-            objusuario.setEmail(txtEmail.getText());
-            objusuario.setPerfil(cbPerfil.getSelectedIndex());        
-            
-            dao.insert(objusuario);
-            
-        } else{
-            uAlterar.setNome(txtNome.getText());
-            uAlterar.setCPF(txtCpf.getText());
-            uAlterar.setCPF(txtEmail.getText());
-            uAlterar.setPerfil(cbPerfil.getSelectedIndex());
-            
-            alterar = false;
-            
+        if (novo) {
+
+            dao.insert(objUsuario);
+
+        } else {
+
+            dao.update(objUsuario, objUsuario.getMatricula());
+
+            novo = false;
+
             btnSalvar.setText("Cadastrar");
         }
-        
+
         JOptionPane.showMessageDialog(this, "Salvo com sucesso!");
-        
+
     }//GEN-LAST:event_btnSalvarActionPerformed
 
     /**
@@ -253,8 +265,8 @@ public class TelaCadastroUsuario extends javax.swing.JDialog {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnCancelar;
     private javax.swing.JButton btnSalvar;
+    private javax.swing.JButton btnVoltar;
     private javax.swing.JComboBox cbPerfil;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel3;

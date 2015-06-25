@@ -25,7 +25,6 @@ public class TelaCadastroUsuario extends javax.swing.JDialog {
 
         this.novo = novo;
         objUsuario = usuario;
-
         if (novo) {
 
             objUsuario = new Usuario();
@@ -204,7 +203,7 @@ public class TelaCadastroUsuario extends javax.swing.JDialog {
         objUsuario.setEmail(txtEmail.getText());
         objUsuario.setPerfil(cbPerfil.getSelectedIndex());
         objUsuario.setStatus("Ativo");
-        
+
         UsuarioDAO dao = new UsuarioDAO();
         if (novo) {
 
@@ -212,7 +211,7 @@ public class TelaCadastroUsuario extends javax.swing.JDialog {
 
         } else {
 
-            dao.update(objUsuario, objUsuario.getMatricula());
+            dao.update(objUsuario);
 
             btnSalvar.setText("Cadastrar");
         }

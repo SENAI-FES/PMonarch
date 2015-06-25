@@ -74,14 +74,14 @@ public class UsuarioDAO extends MySQL {
         return false;
     }
 
-    public void update(Usuario objUsuario, int matricula) {
+    public void update(Usuario objUsuario) {
 
         Connection c = this.getConnection();
 
         try {
 
             PreparedStatement ps = c.prepareStatement("UPDATE usuario "
-                    + "Set nome = ?, cpf = ?, perfil = ?, email= ?, status = ? "
+                    + "Set nome = ?, cpf = ?, perfil = ?, email= ? "
                     + "WHERE matricula = ? ");
 
             ps.setString(1, objUsuario.getNome());
@@ -89,8 +89,32 @@ public class UsuarioDAO extends MySQL {
             ps.setInt(3, objUsuario.getPerfil());
             ps.setString(4, objUsuario.getEmail());
             ps.setInt(5, objUsuario.getMatricula());
-            ps.setString(6, objUsuario.getStatus());
 
+            ps.execute();
+            ps.close();
+
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        } finally {
+            try {
+                c.close();
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
+        }
+    }
+
+    public void atualizaStatus(Usuario usuario) {
+        Connection c = this.getConnection();
+
+        try {
+
+            PreparedStatement ps = c.prepareStatement("UPDATE usuario "
+                    + "Set status = ? "
+                    + "WHERE matricula = ? ");
+
+            ps.setString(1, usuario.getStatus());
+            ps.setInt(2, usuario.getMatricula());
             ps.execute();
             ps.close();
 

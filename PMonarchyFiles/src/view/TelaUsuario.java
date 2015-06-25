@@ -252,7 +252,7 @@ public class TelaUsuario extends javax.swing.JDialog {
             objUsuario.setStatus("Desativado");
 
         } else {
-            objUsuario.setStatus("Ativado");
+            objUsuario.setStatus("Ativo");
         }
 
         if (btnAtivarUsuario.getText().equalsIgnoreCase("Ativar")) {
@@ -262,11 +262,8 @@ public class TelaUsuario extends javax.swing.JDialog {
             btnAtivarUsuario.setText("Ativar");
             btnAtivarUsuario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/Raise.png")));
         }
-        System.out.println("Status  " + objUsuario.getStatus());
-        System.out.println("nome  " + objUsuario.getNome());
-        System.out.println("id  " + objUsuario.getMatricula());
 
-        uDAO.update(objUsuario, linha);
+        uDAO.atualizaStatus(objUsuario);
         atualizaTabelaUsuarios();
     }//GEN-LAST:event_btnAtivarUsuarioActionPerformed
 

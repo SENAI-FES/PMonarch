@@ -205,20 +205,32 @@ public class TelaCadastroUsuario extends javax.swing.JDialog {
         objUsuario.setStatus("Ativo");
 
         UsuarioDAO dao = new UsuarioDAO();
-        if (novo) {
 
-            dao.insert(objUsuario);
+        if (txtNome.getText().equals("") || txtCpf.getText().equals("") || txtEmail.getText().equals("")) {
+            
+            JOptionPane.showMessageDialog(rootPane, "Por favor preencha todos os campos!");
 
         } else {
+            if (novo) {
 
-            dao.update(objUsuario);
+                dao.insert(objUsuario);
+                limparTela();
 
-            btnSalvar.setText("Cadastrar");
+            } else {
+
+                dao.update(objUsuario);
+                limparTela();
+            }
+            JOptionPane.showMessageDialog(this, "Salvo com sucesso!");
         }
 
-        JOptionPane.showMessageDialog(this, "Salvo com sucesso!");
-
     }//GEN-LAST:event_btnSalvarActionPerformed
+
+    public void limparTela() {
+        txtCpf.setText("");
+        txtEmail.setText("");
+        txtNome.setText("");
+    }
 
     /**
      * @param args the command line arguments

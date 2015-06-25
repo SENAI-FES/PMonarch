@@ -7,10 +7,10 @@ package view;
 
 import dao.UsuarioDAO;
 import javax.swing.table.DefaultTableModel;
-import view.TelaCadastroUsuario;
 import entity.Usuario;
-import java.awt.Color;
+import java.util.ArrayList;
 import java.util.List;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -217,7 +217,14 @@ public class TelaUsuario extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnPesquisarUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPesquisarUsuarioActionPerformed
-        // TODO add your handling code here:
+        List<Usuario> u = new ArrayList<Usuario>();
+        UsuarioDAO dao = new UsuarioDAO();
+        for (Usuario usuario : dao.listarUsuarios()) {
+            if (usuario.getNome().startsWith(txtPesquisarUsuario.getText())) {
+                u.add(usuario);
+            }
+        }
+        mostraTela(u);
     }//GEN-LAST:event_btnPesquisarUsuarioActionPerformed
 
     private void btnNovoUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNovoUsuarioActionPerformed
@@ -228,13 +235,17 @@ public class TelaUsuario extends javax.swing.JDialog {
     }//GEN-LAST:event_btnNovoUsuarioActionPerformed
 
     private void btnAlterarUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlterarUsuarioActionPerformed
-        novo = false;
         int linha = tblUsuario.getSelectedRow();
-        int id = Integer.parseInt(tblUsuario.getValueAt(linha, 0).toString());
-        UsuarioDAO dao = new UsuarioDAO();
-        Usuario usuario = dao.getUsuarioById(id);
-        TelaCadastroUsuario cUsuario = new TelaCadastroUsuario(null, true, novo, usuario);
-        cUsuario.setVisible(true);
+        if (tblUsuario.getValueAt(linha, 4).equals("Ativo")) {
+            novo = false;
+            int id = Integer.parseInt(tblUsuario.getValueAt(linha, 0).toString());
+            UsuarioDAO dao = new UsuarioDAO();
+            Usuario usuario = dao.getUsuarioById(id);
+            TelaCadastroUsuario cUsuario = new TelaCadastroUsuario(null, true, novo, usuario);
+            cUsuario.setVisible(true);
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Não é possível alterar um usuário desativado!");
+        }
         atualizaTabelaUsuarios();
     }//GEN-LAST:event_btnAlterarUsuarioActionPerformed
 
@@ -282,6 +293,19 @@ public class TelaUsuario extends javax.swing.JDialog {
 
         }
     }//GEN-LAST:event_tblUsuarioMouseClicked
+
+    private void mostraTela(List<Usuario> mostraUsuarios) {
+        DefaultTableModel model = (DefaultTableModel) this.tblUsuario.getModel();
+        model.setRowCount(mostraUsuarios.size());
+        for (int i = 0; i < mostraUsuarios.size(); i++) {
+            model.setValueAt(mostraUsuarios.get(i).getMatricula(), i, 0);
+            model.setValueAt(mostraUsuarios.get(i).getNome(), i, 1);
+            model.setValueAt(mostraUsuarios.get(i).getCPF(), i, 2);
+            model.setValueAt(mostraUsuarios.get(i).getPerfil(), i, 3);
+            model.setValueAt(mostraUsuarios.get(i).getStatus(), i, 4);
+        }
+
+    }
 
     private void atualizaTabelaUsuarios() {
         UsuarioDAO dao = new UsuarioDAO();

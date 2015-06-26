@@ -18,18 +18,18 @@ public class TelaCadastroUsuario extends javax.swing.JDialog {
     /**
      * Creates new form CadastroUsuario
      */
-    public TelaCadastroUsuario(java.awt.Dialog parent, boolean modal, boolean novo, Usuario usuario) {
+    public TelaCadastroUsuario(java.awt.Dialog parent, boolean modal, boolean novo, Usuario usuario, int pegaMatricula) {
         super(parent, modal);
         initComponents();
         setLocationRelativeTo(null);
 
+        this.pegaMatricula = pegaMatricula;
         this.novo = novo;
         objUsuario = usuario;
         if (novo) {
-
+            lblMatricula.setText(pegaMatricula + "");
             objUsuario = new Usuario();
         } else {
-
             lblMatricula.setText(objUsuario.getMatricula() + "");
             txtNome.setText(objUsuario.getNome());
             txtCpf.setText(objUsuario.getCPF());
@@ -193,11 +193,13 @@ public class TelaCadastroUsuario extends javax.swing.JDialog {
     private void btnVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVoltarActionPerformed
         dispose();
     }//GEN-LAST:event_btnVoltarActionPerformed
-
+   
+    int pegaMatricula;
     boolean novo;
     Usuario objUsuario;
 
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
+
         objUsuario.setNome(txtNome.getText());
         objUsuario.setCPF(txtCpf.getText());
         objUsuario.setEmail(txtEmail.getText());
@@ -207,7 +209,7 @@ public class TelaCadastroUsuario extends javax.swing.JDialog {
         UsuarioDAO dao = new UsuarioDAO();
 
         if (txtNome.getText().equals("") || txtCpf.getText().equals("") || txtEmail.getText().equals("")) {
-            
+
             JOptionPane.showMessageDialog(rootPane, "Por favor preencha todos os campos!");
 
         } else {
@@ -262,7 +264,7 @@ public class TelaCadastroUsuario extends javax.swing.JDialog {
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                TelaCadastroUsuario dialog = new TelaCadastroUsuario(new javax.swing.JDialog(), true, true, null);
+                TelaCadastroUsuario dialog = new TelaCadastroUsuario(new javax.swing.JDialog(), true, true, null, 0);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {

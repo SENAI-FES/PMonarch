@@ -21,12 +21,11 @@ USE `dbmonarchyfiles` ;
 DROP TABLE IF EXISTS `dbmonarchyfiles`.`armazem` ;
 
 CREATE TABLE IF NOT EXISTS `dbmonarchyfiles`.`armazem` (
-  `idArmazem` INT(11) NOT NULL AUTO_INCREMENT,
   `rua` VARCHAR(100) NOT NULL,
   `estante` VARCHAR(100) NOT NULL,
   `coluna` VARCHAR(100) NOT NULL,
   `andar` VARCHAR(100) NOT NULL,
-  PRIMARY KEY (`idArmazem`, `rua`, `estante`, `coluna`, `andar`))
+  PRIMARY KEY (`rua`, `estante`, `coluna`, `andar`))
 ENGINE = InnoDB
 AUTO_INCREMENT = 16
 DEFAULT CHARACTER SET = utf8;

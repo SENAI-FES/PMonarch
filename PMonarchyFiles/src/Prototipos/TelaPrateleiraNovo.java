@@ -1,5 +1,6 @@
 package Prototipos;
 
+import com.mysql.jdbc.exceptions.MySQLIntegrityConstraintViolationException;
 import dao.ArmazemDAO;
 import dao.CaixaDAO;
 import entity.Caixa;
@@ -149,22 +150,35 @@ public class TelaPrateleiraNovo extends javax.swing.JDialog {
         colunaInicio = Integer.parseInt(armazem.getColunaInicio());
         colunaFim = Integer.parseInt(armazem.getColunaFim());
         ArmazemDAO dao = new ArmazemDAO();
-        for (int i = colunaInicio; i <= colunaFim; i++) {
-            armazem = new Armazem();
-            armazem.setAndar(txtAndar.getText());
-            armazem.setRua(txtRua.getText());
-            armazem.setEstante(txtEstante.getText());
-            armazem.setColuna(i + "");
-            if (novo) {
-                if (dao.insert(armazem)) {
-                    JOptionPane.showMessageDialog(null, "sucez0");
+        boolean sucesso = false;
+        if (colunaInicio < colunaFim
+                || colunaInicio == colunaFim) {
+            for (int i = colunaInicio; i <= colunaFim; i++) {
+                try {
+                    armazem = new Armazem();
+                    armazem.setAndar(txtAndar.getText());
+                    armazem.setRua(txtRua.getText());
+                    armazem.setEstante(txtEstante.getText());
+                    armazem.setColuna(i + "");
+                    if (novo) {
+                        if (dao.insert(armazem)) {
+                            sucesso = true;
+                        } else {
+                            sucesso = false;
+                            throw new MySQLIntegrityConstraintViolationException();
+                        }
+                    } else {
+                    }
+                } catch (MySQLIntegrityConstraintViolationException e) {
+                    JOptionPane.showMessageDialog(null, "A coluna " + i + " já existe");
                 }
-            } else {
-                JOptionPane.showMessageDialog(null, "deu merda");
             }
+        } else {
+            JOptionPane.showMessageDialog(null, "A coluna inicial deve ser menor que a coluna final");
         }
-        System.out.println(armazem.getAndar() + "\n" + armazem.getRua() + "\n" + armazem.getEstante()
-                + "\n" + armazem.getColunaInicio() + "\n" + armazem.getColunaFim());
+        if (sucesso) {
+            JOptionPane.showMessageDialog(null, "Prateleiras cadastrada com sucesso");
+        }
     }//GEN-LAST:event_btnSalvarActionPerformed
 
     public static void main(String args[]) {

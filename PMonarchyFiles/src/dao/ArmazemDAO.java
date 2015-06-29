@@ -100,13 +100,13 @@ public class ArmazemDAO extends MySQL {
         return false;
     }
 
-    public List<Armazem> listarArmazem() {
+    public List<Armazem> listarArmazem(String rua) {
         List<Armazem> lista = new ArrayList<>();
         Connection c = this.getConnection();
         try {
             PreparedStatement ps
-                    = c.prepareStatement("SELECT rua, estante, coluna, andar"
-                            + "FROM armazem");
+                    = c.prepareStatement("SELECT rua, estante, coluna, andar FROM armazem WHERE rua = ?");
+            ps.setString(1, rua);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
 

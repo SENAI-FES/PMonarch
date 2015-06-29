@@ -1,4 +1,3 @@
-
 package view;
 
 import Prototipos.*;
@@ -281,8 +280,8 @@ public class TelaDetalhesEmpresa extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-TelaVisualisarContatos telaVisualisarContatos = new TelaVisualisarContatos(null,true);
-telaVisualisarContatos.setVisible(true);
+        TelaVisualisarContatos telaVisualisarContatos = new TelaVisualisarContatos(null, true);
+        telaVisualisarContatos.setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**

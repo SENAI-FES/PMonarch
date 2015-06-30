@@ -131,6 +131,35 @@ public class ArmazemDAO extends MySQL {
         }
         return lista;
     }
+    
+    public List<Armazem> listaRuaCombo() {
+        List<Armazem> lista = new ArrayList<>();
+        Connection c = this.getConnection();
+        try {
+            PreparedStatement ps
+                    = c.prepareStatement("SELECT DISTINCT rua FROM armazem");
+          
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+
+                Armazem armazem = new Armazem();
+                armazem.setRua(rs.getString("Rua"));
+               
+                lista.add(armazem);
+            }
+            rs.close();
+            ps.close();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        } finally {
+            try {
+                c.close();
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
+        }
+        return lista;
+    }
 
     public Armazem getArmazemById(int idArmazem) {
         Connection c = this.getConnection();

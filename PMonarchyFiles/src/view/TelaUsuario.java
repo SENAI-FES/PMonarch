@@ -29,7 +29,7 @@ public class TelaUsuario extends javax.swing.JDialog {
 
         atualizaTabelaUsuarios();
     }
-    boolean novo;
+    boolean novo = true;
     Usuario objUsuario;
 
     /**
@@ -228,14 +228,8 @@ public class TelaUsuario extends javax.swing.JDialog {
     }//GEN-LAST:event_btnPesquisarUsuarioActionPerformed
 
     private void btnNovoUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNovoUsuarioActionPerformed
-        novo = true;
-        UsuarioDAO dao = new UsuarioDAO();
-        int pegaMatricula = 0;
-        for (int i = 0; i < dao.listarUsuarios().size(); i++) {
-            pegaMatricula = Integer.parseInt(tblUsuario.getValueAt(i, 0).toString());
-            pegaMatricula += 1;
-        }
-        TelaCadastroUsuario cUsuario = new TelaCadastroUsuario(null, true, novo, null, pegaMatricula);
+
+        TelaCadastroUsuario cUsuario = new TelaCadastroUsuario(null, true, novo, null);
         cUsuario.setVisible(true);
         atualizaTabelaUsuarios();
     }//GEN-LAST:event_btnNovoUsuarioActionPerformed
@@ -247,7 +241,7 @@ public class TelaUsuario extends javax.swing.JDialog {
             int id = Integer.parseInt(tblUsuario.getValueAt(linha, 0).toString());
             UsuarioDAO dao = new UsuarioDAO();
             Usuario usuario = dao.getUsuarioById(id);
-            TelaCadastroUsuario cUsuario = new TelaCadastroUsuario(null, true, novo, usuario, 0);
+            TelaCadastroUsuario cUsuario = new TelaCadastroUsuario(null, true, novo, usuario);
             cUsuario.setVisible(true);
         } else {
             JOptionPane.showMessageDialog(rootPane, "Não é possível alterar um usuário desativado!");

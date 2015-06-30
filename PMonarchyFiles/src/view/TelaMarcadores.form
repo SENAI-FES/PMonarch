@@ -180,12 +180,16 @@
       </Events>
     </Component>
     <Component class="javax.swing.JTextField" name="txtPesquisaAdiconar">
+      <Events>
+        <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtPesquisaAdiconarKeyReleased"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="btnAdicionarMarcador">
       <Properties>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
           <Image iconType="3" name="/image/Create.png"/>
         </Property>
+        <Property name="enabled" type="boolean" value="false"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnAdicionarMarcadorActionPerformed"/>

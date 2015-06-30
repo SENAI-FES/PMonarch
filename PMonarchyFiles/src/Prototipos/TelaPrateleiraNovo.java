@@ -179,6 +179,7 @@ public class TelaPrateleiraNovo extends javax.swing.JDialog {
         if (sucesso) {
             JOptionPane.showMessageDialog(null, "Prateleiras cadastrada com sucesso");
         }
+        this.dispose();
     }//GEN-LAST:event_btnSalvarActionPerformed
 
     public static void main(String args[]) {

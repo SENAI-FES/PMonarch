@@ -27,11 +27,7 @@ public class TelaPrateleiraCRUD extends javax.swing.JDialog {
         initComponents();
         this.setLocationRelativeTo(null);
         cbRua.addItem("Selecione a rua");
-        ArmazemDAO aDAO = new ArmazemDAO();
-        List<Armazem> lista = aDAO.listaRuaCombo();
-        for (Armazem rua : lista) {
-            cbRua.addItem(rua.getRua());
-        }
+        combo();
     }
 
     /**
@@ -165,6 +161,8 @@ public class TelaPrateleiraCRUD extends javax.swing.JDialog {
     private void btnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlterarActionPerformed
         TelaPrateleiraNovo telaNovo = new TelaPrateleiraNovo(null, true, false);
         telaNovo.setVisible(true);
+        atualizarTabela();
+        combo();
     }//GEN-LAST:event_btnAlterarActionPerformed
 
     private void btnAtivarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAtivarActionPerformed
@@ -214,6 +212,14 @@ public class TelaPrateleiraCRUD extends javax.swing.JDialog {
             model.setValueAt(limpa, i, 2);
             model.setValueAt(limpa, i, 3);
             model.removeRow(i);
+        }
+    }
+
+    public void combo() {
+        ArmazemDAO aDAO = new ArmazemDAO();
+        List<Armazem> lista = aDAO.listaRuaCombo();
+        for (Armazem rua : lista) {
+            cbRua.addItem(rua.getRua());
         }
     }
 

@@ -33,7 +33,6 @@ public class TelaPrateleiraNovo extends javax.swing.JDialog {
         txtColunaInicio.setText(armazem.getColuna());
         txtColunaFim.setText(armazem.getColuna());
         txtColunaFim.setEnabled(false);
-        
     }
 
     @SuppressWarnings("unchecked")
@@ -188,6 +187,10 @@ public class TelaPrateleiraNovo extends javax.swing.JDialog {
                     } else {
                         if (dao.update(armazem, armazemKey)) { 
                             sucesso = true;
+                            System.out.println("R " + armazem.getRua() + "\n" + "E " + armazem.getEstante() + "\n" + 
+                                    "C " + armazem.getColuna() + "\nA " + armazem.getAndar());
+                            System.out.println("R2 "+ armazemKey.getRua() + "\nE2 " + armazemKey.getEstante() + "\nC2 " + 
+                                    armazemKey.getColuna() + "\nA2 " + armazemKey.getAndar());
                         } else { 
                             sucesso = false;
                             throw new MySQLIntegrityConstraintViolationException();

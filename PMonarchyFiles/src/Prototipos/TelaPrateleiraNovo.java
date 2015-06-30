@@ -2,8 +2,6 @@ package Prototipos;
 
 import com.mysql.jdbc.exceptions.MySQLIntegrityConstraintViolationException;
 import dao.ArmazemDAO;
-import dao.CaixaDAO;
-import entity.Caixa;
 import entity.Armazem;
 import javax.swing.JOptionPane;
 
@@ -21,6 +19,21 @@ public class TelaPrateleiraNovo extends javax.swing.JDialog {
         initComponents();
         this.setLocationRelativeTo(null);
         this.novo = novo;
+    }
+    public TelaPrateleiraNovo(java.awt.Frame parent, boolean modal, boolean novo, Armazem armazem) {
+        super(parent, modal);
+        initComponents();
+        this.setLocationRelativeTo(null);
+        this.novo = novo;
+        this.armazem = armazem;
+        this.armazemKey = armazem;
+        txtRua.setText(armazem.getRua());
+        txtAndar.setText(armazem.getAndar());
+        txtEstante.setText(armazem.getEstante());
+        txtColunaInicio.setText(armazem.getColuna());
+        txtColunaFim.setText(armazem.getColuna());
+        txtColunaFim.setEnabled(false);
+        
     }
 
     @SuppressWarnings("unchecked")
@@ -50,6 +63,11 @@ public class TelaPrateleiraNovo extends javax.swing.JDialog {
         jLabel3.setText("Coluna:");
 
         txtColunaInicio.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(java.text.NumberFormat.getIntegerInstance())));
+        txtColunaInicio.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtColunaInicioKeyReleased(evt);
+            }
+        });
 
         btnSalvar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/OK.png"))); // NOI18N
         btnSalvar.setText("Salvar");
@@ -143,7 +161,7 @@ public class TelaPrateleiraNovo extends javax.swing.JDialog {
     }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
-        Armazem armazem = new Armazem();
+        armazem = new Armazem();
         armazem.setColunaInicio(txtColunaInicio.getText());
         armazem.setColunaFim(txtColunaFim.getText());
         int colunaInicio, colunaFim;
@@ -168,6 +186,12 @@ public class TelaPrateleiraNovo extends javax.swing.JDialog {
                             throw new MySQLIntegrityConstraintViolationException();
                         }
                     } else {
+                        if (dao.update(armazem, armazemKey)) { 
+                            sucesso = true;
+                        } else { 
+                            sucesso = false;
+                            throw new MySQLIntegrityConstraintViolationException();
+                        }
                     }
                 } catch (MySQLIntegrityConstraintViolationException e) {
                     JOptionPane.showMessageDialog(null, "A coluna " + i + " já existe");
@@ -180,6 +204,12 @@ public class TelaPrateleiraNovo extends javax.swing.JDialog {
             JOptionPane.showMessageDialog(null, "Prateleiras cadastrada com sucesso");
         }
     }//GEN-LAST:event_btnSalvarActionPerformed
+
+    private void txtColunaInicioKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtColunaInicioKeyReleased
+        if (!novo) { 
+            txtColunaFim.setText(txtColunaInicio.getText());
+        }
+    }//GEN-LAST:event_txtColunaInicioKeyReleased
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -240,4 +270,6 @@ public class TelaPrateleiraNovo extends javax.swing.JDialog {
     private javax.swing.JTextField txtRua;
     // End of variables declaration//GEN-END:variables
     boolean novo;
+    Armazem armazem;
+    Armazem armazemKey;
 }

@@ -47,17 +47,21 @@ public class ArmazemDAO extends MySQL {
         return false;
     }
 
-    public boolean update(Armazem armazem) {
+    public boolean update(Armazem armazem, Armazem armazemKey) {
         Connection c = this.getConnection();
         try {
             PreparedStatement ps = c.prepareStatement("UPDATE armazem "
                     + " SET rua = ?, estante = ?, coluna = ?, andar = ? "
-                    + " WHERE idArmazem = ?");
+                    + " WHERE rua = ? and estante = ? and coluna = ? and andar = ?");
             ps.setString(1, armazem.getRua());
-            ps.setString(2, armazem.getColuna());
             ps.setString(3, armazem.getEstante());
+            ps.setString(2, armazem.getColuna());
             ps.setString(4, armazem.getAndar());
-
+            ps.setString(5, armazemKey.getRua());
+            ps.setString(7, armazemKey.getEstante());
+            ps.setString(6, armazemKey.getColuna());
+            ps.setString(8, armazemKey.getAndar());
+            
             ps.execute();
 
             ps.close();

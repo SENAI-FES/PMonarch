@@ -6,11 +6,14 @@
 
 package dao;
 
+import entity.Contato;
+import entity.Contrato;
 import entity.Empresa;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,7 +30,7 @@ public class EmpresaDAO extends MySQL {
                     = c.prepareStatement("INSERT INTO empresa "
                             + "(nomeFantasia, razaoSocial, CNPJ, IE, site, logradouro, complemento "
                             + "cidade, CEP, UF )  "
-                            + "VALUES (?,?,?,?,?,?,?,?,?,?)");
+                            + "VALUES (?,?,?,?,?,?,?,?,?,?)", Statement.RETURN_GENERATED_KEYS);
             ps.setString(1, empresa.getNomeFantasia());
             ps.setString(2, empresa.getRazaoSocial());
             ps.setString(3, empresa.getCnpj());
@@ -37,8 +40,25 @@ public class EmpresaDAO extends MySQL {
             ps.setString(7, empresa.getComplemento());
             ps.setString(8, empresa.getCidade());
             ps.setString(9, empresa.getCep());
-            ps.setString(10, empresa.getUf());
+            ps.setString(10, empresa.getUf()+"");
             ps.execute();
+            
+            ps.executeUpdate();  
+            ResultSet rs = ps.getGeneratedKeys();  
+            int id = 0;  
+            if(rs.next()){  
+                id = rs.getInt(1);  
+            }
+            empresa.setIdEmpresa(id);
+            ContatoDao contatoDao = new ContatoDao();
+            for (Contato contato : empresa.getContatos()) {
+                contato.setEmpresa(empresa);
+                contatoDao.insert(contato);
+            }
+            ContratoDao contratoDao = new ContratoDao();
+            Contrato contrato = empresa.getContrato();
+            contrato.setEmpresa(empresa);
+            contratoDao.insert(contrato);
             
             ps.close();
             return true;
@@ -71,7 +91,7 @@ public class EmpresaDAO extends MySQL {
             ps.setString(7, empresa.getComplemento());
             ps.setString(8, empresa.getCidade());
             ps.setString(9, empresa.getCep());
-            ps.setString(10, empresa.getUf());
+            ps.setString(10, empresa.getUf()+"");
             ps.execute();
 
             ps.close();

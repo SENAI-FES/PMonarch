@@ -24,10 +24,18 @@ public class Empresa {
     private String complemento;
     private String cidade; 
     private String uf;
+    private String cep;
+    private String tipo;
+    private List<Contato> contatos;
+    private Contrato contrato;
 
     public Empresa() {
     }
 
+    public Empresa(List<Contato> contatos) {
+        this.contatos = contatos;
+    }
+    
     public String getUf() {
         return uf;
     }
@@ -41,12 +49,6 @@ public class Empresa {
     }
 
     public void setContatos(List<Contato> contatos) {
-        this.contatos = contatos;
-    }
-    private String cep;
-    private List<Contato> contatos;
-
-    public Empresa(List<Contato> contatos) {
         this.contatos = contatos;
     }
     
@@ -128,6 +130,22 @@ public class Empresa {
 
     public void setLogradouro(String logradouro) {
         this.logradouro = logradouro;
+    }
+
+    public String getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(String tipo) {
+        this.tipo = tipo;
+    }
+
+    public Contrato getContrato() {
+        return contrato;
+    }
+
+    public void setContrato(Contrato contrato) {
+        this.contrato = contrato;
     }
     
 }

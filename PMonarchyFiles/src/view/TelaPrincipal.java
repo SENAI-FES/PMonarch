@@ -260,7 +260,7 @@ public class TelaPrincipal extends javax.swing.JDialog {
     }//GEN-LAST:event_menuCadastroPrateleiraActionPerformed
 
     private void menuCadastroEmpresaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuCadastroEmpresaActionPerformed
-        TelaCadastroEmpresa t = new TelaCadastroEmpresa(null, true);
+        TelaCadastroEmpresa t = new TelaCadastroEmpresa(null, true, true, null);
         t.setVisible(true);
     }//GEN-LAST:event_menuCadastroEmpresaActionPerformed
 

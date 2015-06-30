@@ -2,16 +2,50 @@
 
 package view;
 
+import dao.ContatoDao;
+import dao.EmpresaDAO;
+import entity.Contato;
+import entity.Contrato;
+import entity.Empresa;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
 
 
 public class TelaCadastroEmpresa extends javax.swing.JDialog {
 
-    
-    public TelaCadastroEmpresa(java.awt.Frame parent, boolean modal) {
+    List<Contato> contatos = new ArrayList<Contato>();
+    boolean novo;
+    Empresa objEmpresa;
+    public TelaCadastroEmpresa(java.awt.Frame parent, boolean modal, boolean novo, Empresa empresa) {
         super(parent, modal);
         initComponents();
         setLocationRelativeTo(null);
+        
+        this.novo = novo;
+        objEmpresa = empresa;
+        if (novo) {
+            objEmpresa = new Empresa();
+        } else {
+            txtRazaoSocial.setText(objEmpresa.getRazaoSocial());
+            txtNomeFantasia.setText(objEmpresa.getNomeFantasia());
+            txtCnpj.setText(objEmpresa.getCnpj());
+            txtInsEst.setText(objEmpresa.getInscricaoEstadual());
+            txtSite.setText(objEmpresa.getSite());
+            txtLogradouro.setText(objEmpresa.getLogradouro());
+            txtCompl.setText(objEmpresa.getComplemento());
+            txtCidade.setText(objEmpresa.getCidade());
+            txtCep.setText(objEmpresa.getCep());
+            cbTipo.setSelectedItem(objEmpresa.getTipo());
+            cbEstado.setSelectedItem(objEmpresa.getUf());
+            
+            btnSalvar.setText("Alterar");
+        }
     }
 
     /**
@@ -102,11 +136,6 @@ public class TelaCadastroEmpresa extends javax.swing.JDialog {
         jLabel9.setText("Cidade:");
 
         cbEstado.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "AC", "AL", "AM", "AP", "BA", "CE", "DF", "ES", "GO", "MA", "MG", "MS", "MT", "PA", "PB", "PE", "PR", "RJ", "RN", "RO", "RR", "RS", "SC", "SE", "SP", "TO", " " }));
-        cbEstado.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cbEstadoActionPerformed(evt);
-            }
-        });
 
         try {
             txtCep.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("#####-###")));
@@ -274,18 +303,6 @@ public class TelaCadastroEmpresa extends javax.swing.JDialog {
 
         jLabel7.setText("E-mail:");
 
-        txtEmail.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtEmailActionPerformed(evt);
-            }
-        });
-
-        txtNome.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtNomeActionPerformed(evt);
-            }
-        });
-
         jScrollPane1.setViewportView(lstContatos);
 
         btnExcluir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/Delete.png"))); // NOI18N
@@ -433,38 +450,82 @@ public class TelaCadastroEmpresa extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void txtEmailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtEmailActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtEmailActionPerformed
-
     private void btnVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVoltarActionPerformed
        this.dispose();
     }//GEN-LAST:event_btnVoltarActionPerformed
 
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
-  JOptionPane.showMessageDialog(null,"Cadastro efetuado!!!");
+        
+        objEmpresa.setRazaoSocial(txtRazaoSocial.getText());
+        objEmpresa.setNomeFantasia(txtNomeFantasia.getText());
+        objEmpresa.setCnpj(txtCnpj.getText());
+        objEmpresa.setInscricaoEstadual(txtInsEst.getText());
+        objEmpresa.setSite(txtSite.getText());
+        objEmpresa.setLogradouro(txtLogradouro.getText());
+        objEmpresa.setComplemento(txtCompl.getText());
+        objEmpresa.setCidade(txtCidade.getText());
+        objEmpresa.setCep(txtCep.getText());
+        objEmpresa.setTipo((String) cbTipo.getSelectedItem());
+        objEmpresa.setUf((String) cbEstado.getSelectedItem());
+        
+        Contrato contrato = new Contrato();
+        SimpleDateFormat formdata = new SimpleDateFormat("dd/MM/yyyy");
+        try {
+            contrato.setValidade(formdata.parse(txtDtValidade.getText()));
+            contrato.setDataInicial(formdata.parse(txtDtInicial.getText()));
+            contrato.setTipoContrato((String) cbContrato.getSelectedItem());
+        } catch (ParseException ex) {
+            JOptionPane.showMessageDialog(null, "Data invalida.");
+        }
+        
+        objEmpresa.setContrato(contrato);
+        objEmpresa.setContatos(contatos);
+        EmpresaDAO empresaDAO = new EmpresaDAO();
+        if (novo) {
+            empresaDAO.insert(objEmpresa);
+            atualizarTabelaContato();
+        } else {
+            empresaDAO.update(objEmpresa);
+            atualizarTabelaContato();
+        }
+        JOptionPane.showMessageDialog(this, "Salvo com sucesso!");
     }//GEN-LAST:event_btnSalvarActionPerformed
 
     private void btnAdicionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdicionarActionPerformed
-        // TODO add your handling code here:
+        Contato contato = new Contato();
+        contato.setNome(txtNome.getText());
+        contato.setCargo(txtCargo.getText());
+        contato.setEmail(txtEmail.getText());
+        contato.setRamal(txtRamal.getText());
+        contato.setTelefone(txtTelefone.getText());
+        
+        contatos.add(contato);
+        atualizarTabelaContato();
     }//GEN-LAST:event_btnAdicionarActionPerformed
 
     private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
-JOptionPane.showMessageDialog(null,"Contato excluído com sucesso!!!");
+        Contato contato = (Contato) lstContatos.getSelectedValue();
+        contatos.remove(contato);
+        atualizarTabelaContato();
+        JOptionPane.showMessageDialog(null,"Contato excluído com sucesso!!!");
     }//GEN-LAST:event_btnExcluirActionPerformed
 
     private void btnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlterarActionPerformed
-        // TODO add your handling code here:
+        
     }//GEN-LAST:event_btnAlterarActionPerformed
 
-    private void txtNomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNomeActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtNomeActionPerformed
+    public void atualizarTabelaContato() {
 
-    private void cbEstadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbEstadoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cbEstadoActionPerformed
+        DefaultListModel model = new DefaultListModel();
+        
+         for (Contato contato : contatos) {
+            model.addElement(contato.toString());
+        }
 
+        lstContatos.setModel(model);
+
+    }
+    
     /**
      * @param args the command line arguments
      */
@@ -495,7 +556,7 @@ JOptionPane.showMessageDialog(null,"Contato excluído com sucesso!!!");
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                TelaCadastroEmpresa dialog = new TelaCadastroEmpresa(new javax.swing.JFrame(), true);
+                TelaCadastroEmpresa dialog = new TelaCadastroEmpresa(new javax.swing.JFrame(), true, true, null);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {

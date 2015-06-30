@@ -14,6 +14,13 @@ public class Contato {
     private String email;
     private Empresa empresa;
 
+    @Override
+    public String toString() {
+        return "telefone: " + telefone + ", ramal: " + ramal + ", email: " + email + '}';
+    }
+
+    
+    
     public int getIdContato() {
         return idContato;
     }

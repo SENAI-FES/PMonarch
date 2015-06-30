@@ -3,6 +3,10 @@
 package view;
 
 import Prototipos.TelaDetalheEmpresa;
+import dao.EmpresaDAO;
+import entity.Empresa;
+import java.util.List;
+import javax.swing.table.DefaultTableModel;
 
 
 public class TelaEmpresa extends javax.swing.JDialog {
@@ -12,7 +16,9 @@ public class TelaEmpresa extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
         setLocationRelativeTo(null);
+        atualizaTabelaEmpresas();
     }
+    Empresa objEmpresa;
 
    
     @SuppressWarnings("unchecked")
@@ -45,40 +51,53 @@ public class TelaEmpresa extends javax.swing.JDialog {
 
         btnAlterar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/Modify.png"))); // NOI18N
         btnAlterar.setText("Alterar");
+        btnAlterar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAlterarActionPerformed(evt);
+            }
+        });
 
         tbEmpresa.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {"", null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, "", null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null}
             },
             new String [] {
-                "Nome Fantasia", "CNPJ", "Responsável", "Telefone"
+                "Matricula", "Nome Fantasia", "CNPJ"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         jScrollPane2.setViewportView(tbEmpresa);
 
         btnVoltar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/Back.png"))); // NOI18N
@@ -123,7 +142,7 @@ public class TelaEmpresa extends javax.swing.JDialog {
                 .addGap(102, 102, 102))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 614, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 578, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -165,7 +184,7 @@ public class TelaEmpresa extends javax.swing.JDialog {
                 .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 20, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 585, Short.MAX_VALUE)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 585, Short.MAX_VALUE)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -191,12 +210,13 @@ public class TelaEmpresa extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarActionPerformed
-        TelaCadastroEmpresa telaCadastroEmpresa = new TelaCadastroEmpresa(null,true);
+        TelaCadastroEmpresa telaCadastroEmpresa = new TelaCadastroEmpresa(null, true, true, null);
         telaCadastroEmpresa.setVisible(true);
+        atualizaTabelaEmpresas();
     }//GEN-LAST:event_btnCadastrarActionPerformed
 
     private void btnVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVoltarActionPerformed
-this.dispose();
+        this.dispose();
     }//GEN-LAST:event_btnVoltarActionPerformed
 
     private void btnAtivarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAtivarActionPerformed
@@ -214,6 +234,35 @@ this.dispose();
         telaDetalheEmpresa.setVisible(true);
     }//GEN-LAST:event_btnDetalhesActionPerformed
 
+    private void btnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlterarActionPerformed
+        int linha = tbEmpresa.getSelectedRow();
+            int id = Integer.parseInt(tbEmpresa.getValueAt(linha, 0).toString());
+            EmpresaDAO dao = new EmpresaDAO();
+            Empresa empresa = dao.getEmpresaById(id);
+            TelaCadastroEmpresa cadastroEmpresa = new TelaCadastroEmpresa(null, true, false, empresa);
+            cadastroEmpresa.setVisible(true);
+    }//GEN-LAST:event_btnAlterarActionPerformed
+
+    private void atualizaTabelaEmpresas() {
+        EmpresaDAO dao = new EmpresaDAO();
+        List<Empresa> listarEmpresas = dao.listarEmpresas();
+
+        //pega o modelo da Tabela e coloca na variavel "model"
+        DefaultTableModel model = (DefaultTableModel) this.tbEmpresa.getModel();
+        //insere na tabela o número de linhas que a lista tem
+        model.setRowCount(listarEmpresas.size());
+
+        //laço para inserir os dados dos objetos na Tabela
+        for (int i = 0; i < listarEmpresas.size(); i++) {
+
+            model.setValueAt(listarEmpresas.get(i).getIdEmpresa(), i, 0);
+            model.setValueAt(listarEmpresas.get(i).getNomeFantasia(), i, 1);
+            model.setValueAt(listarEmpresas.get(i).getCnpj(), i, 2);
+
+        }
+
+    }
+    
     /**
      * @param args the command line arguments
      */

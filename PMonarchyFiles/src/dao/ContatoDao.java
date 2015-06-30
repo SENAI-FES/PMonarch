@@ -101,7 +101,7 @@ public boolean insert(Contato contato) {
         }
         return false;
     }
-    public java.util.List<Contato> listarContrato() {
+    public java.util.List<Contato> listarContato() {
         Connection c = this.getConnection();
         java.util.List<Contato> listaContatos = new ArrayList<Contato>();
         try {

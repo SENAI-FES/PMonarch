@@ -27,10 +27,12 @@ public class TelaMarcadores extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
         this.setLocationRelativeTo(null);
-        mostrarTela();
+        listamarcadoresDisponiveis = dao.listarMarcador();
+        listamarcadoresDisponiveis.removeAll(listaMarcadorDocumento);
+        mostrarListaMarcadoresDisponiveis();
+        mostrarListaMarcadoresDoDocumento();
 
     }
-    List<Marcador> listaMarcadorDocumento = new ArrayList<Marcador>();
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -93,7 +95,14 @@ public class TelaMarcadores extends javax.swing.JDialog {
             }
         });
 
+        txtPesquisaAdiconar.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtPesquisaAdiconarKeyReleased(evt);
+            }
+        });
+
         btnAdicionarMarcador.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/Create.png"))); // NOI18N
+        btnAdicionarMarcador.setEnabled(false);
         btnAdicionarMarcador.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnAdicionarMarcadorActionPerformed(evt);
@@ -177,12 +186,21 @@ public class TelaMarcadores extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     MarcadorDAO dao = new MarcadorDAO();
+    List<Marcador> listaMarcadorDocumento = new ArrayList<Marcador>();
+    List<Marcador> listamarcadoresDisponiveis = new ArrayList<Marcador>();
 
 
     private void btnAdicionarMarcadorDocumentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdicionarMarcadorDocumentoActionPerformed
-        Marcador objMarcador = new Marcador();
+
+        Marcador objMarcador;
         objMarcador = (Marcador) lstMarcadoreDiponiveis.getSelectedValue();
         listaMarcadorDocumento.add(objMarcador);
+        mostrarListaMarcadoresDoDocumento();
+        listamarcadoresDisponiveis.remove(objMarcador);
+        mostrarListaMarcadoresDisponiveis();
+
+    }//GEN-LAST:event_btnAdicionarMarcadorDocumentoActionPerformed
+    public void mostrarListaMarcadoresDoDocumento() {
 
         DefaultListModel modelo = new DefaultListModel();
         for (Marcador marcador : listaMarcadorDocumento) {
@@ -190,9 +208,17 @@ public class TelaMarcadores extends javax.swing.JDialog {
         }
         lstMarcadoresDoDocumento.setModel(modelo);
 
+    }
 
-    }//GEN-LAST:event_btnAdicionarMarcadorDocumentoActionPerformed
+    public void mostrarListaMarcadoresDisponiveis() {
 
+        DefaultListModel modelo = new DefaultListModel();
+        for (Marcador marcador : listamarcadoresDisponiveis) {
+            modelo.addElement(marcador);
+        }
+        lstMarcadoreDiponiveis.setModel(modelo);
+
+    }
     private void btnVoltaarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVoltaarActionPerformed
         dispose();
     }//GEN-LAST:event_btnVoltaarActionPerformed
@@ -203,14 +229,16 @@ public class TelaMarcadores extends javax.swing.JDialog {
         objMarcador.setDescricao(txtPesquisaAdiconar.getText());
         dao.insert(objMarcador);
         mostrarTela();
+        mostrarListaMarcadoresDisponiveis();
         txtPesquisaAdiconar.setText("");
+        btnAdicionarMarcador.setEnabled(false);
     }//GEN-LAST:event_btnAdicionarMarcadorActionPerformed
 
     private void mostrarTela() {
 
-        List<Marcador> listaMarcador = dao.listarMarcador();
+        listamarcadoresDisponiveis = dao.listarMarcador();
         DefaultListModel modelo = new DefaultListModel();
-        for (Marcador marcador : listaMarcador) {
+        for (Marcador marcador : listamarcadoresDisponiveis) {
             modelo.addElement(marcador);
         }
         lstMarcadoreDiponiveis.setModel(modelo);
@@ -230,21 +258,37 @@ public class TelaMarcadores extends javax.swing.JDialog {
     }//GEN-LAST:event_BtnExcluirMarcadorActionPerformed
 
     private void btnExcluirMarcadorDocumentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirMarcadorDocumentoActionPerformed
-        
-            Marcador c = (Marcador) lstMarcadoreDiponiveis.getSelectedValue();
-            
 
-            listaMarcadorDocumento.remove(c);
-            mostrarTela(); 
-        
-        DefaultListModel modelo = new DefaultListModel();
-        for (Marcador marcador : listaMarcadorDocumento) {
-            modelo.addElement(marcador);
-        }
-        lstMarcadoresDoDocumento.setModel(modelo);
+        Marcador c = (Marcador) lstMarcadoresDoDocumento.getSelectedValue();
+        listamarcadoresDisponiveis.add(c);
+        listaMarcadorDocumento.remove(c);
+        mostrarListaMarcadoresDisponiveis();
+        mostrarListaMarcadoresDoDocumento();
 
+   //     Marcador objMarcador;
+        //     objMarcador = (Marcador) lstMarcadoreDiponiveis.getSelectedValue();
+        //     listaMarcadorDocumento.add(objMarcador);
+        //   mostrarListaMarcadoresDoDocumento();
+        //   listamarcadoresDisponiveis.remove(objMarcador);
+        //   mostrarListaMarcadoresDisponiveis();
 
     }//GEN-LAST:event_btnExcluirMarcadorDocumentoActionPerformed
+
+    private void txtPesquisaAdiconarKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPesquisaAdiconarKeyReleased
+        if (txtPesquisaAdiconar.getText().length() > 3) {
+            btnAdicionarMarcador.setEnabled(true);
+        } else {
+            btnAdicionarMarcador.setEnabled(false);
+
+        }
+        DefaultListModel modelo = new DefaultListModel();
+        for (Marcador marcador : listamarcadoresDisponiveis) {
+            if (marcador.getDescricao().startsWith(txtPesquisaAdiconar.getText())) {
+                modelo.addElement(marcador);
+            }
+        }
+        lstMarcadoreDiponiveis.setModel(modelo);
+    }//GEN-LAST:event_txtPesquisaAdiconarKeyReleased
 
     /**
      * @param args the command line arguments

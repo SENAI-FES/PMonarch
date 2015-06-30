@@ -47,17 +47,21 @@ public class ArmazemDAO extends MySQL {
         return false;
     }
 
-    public boolean update(Armazem armazem) {
+    public boolean update(Armazem armazem, Armazem armazemKey) {
         Connection c = this.getConnection();
         try {
             PreparedStatement ps = c.prepareStatement("UPDATE armazem "
                     + " SET rua = ?, estante = ?, coluna = ?, andar = ? "
-                    + " WHERE idArmazem = ?");
+                    + " WHERE rua = ? and estante = ? and coluna = ? and andar = ?");
             ps.setString(1, armazem.getRua());
-            ps.setString(2, armazem.getColuna());
             ps.setString(3, armazem.getEstante());
+            ps.setString(2, armazem.getColuna());
             ps.setString(4, armazem.getAndar());
-
+            ps.setString(5, armazemKey.getRua());
+            ps.setString(7, armazemKey.getEstante());
+            ps.setString(6, armazemKey.getColuna());
+            ps.setString(8, armazemKey.getAndar());
+            
             ps.execute();
 
             ps.close();
@@ -100,13 +104,13 @@ public class ArmazemDAO extends MySQL {
         return false;
     }
 
-    public List<Armazem> listarArmazem() {
+    public List<Armazem> listarArmazem(String rua) {
         List<Armazem> lista = new ArrayList<>();
         Connection c = this.getConnection();
         try {
             PreparedStatement ps
-                    = c.prepareStatement("SELECT rua, estante, coluna, andar"
-                            + "FROM armazem");
+                    = c.prepareStatement("SELECT rua, estante, coluna, andar FROM armazem WHERE rua = ?");
+            ps.setString(1, rua);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
 
@@ -116,6 +120,35 @@ public class ArmazemDAO extends MySQL {
                 armazem.setColuna(rs.getString("Coluna"));
                 armazem.setAndar(rs.getString("Andar"));
 
+                lista.add(armazem);
+            }
+            rs.close();
+            ps.close();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        } finally {
+            try {
+                c.close();
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
+        }
+        return lista;
+    }
+    
+    public List<Armazem> listaRuaCombo() {
+        List<Armazem> lista = new ArrayList<>();
+        Connection c = this.getConnection();
+        try {
+            PreparedStatement ps
+                    = c.prepareStatement("SELECT DISTINCT rua FROM armazem");
+          
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+
+                Armazem armazem = new Armazem();
+                armazem.setRua(rs.getString("Rua"));
+               
                 lista.add(armazem);
             }
             rs.close();

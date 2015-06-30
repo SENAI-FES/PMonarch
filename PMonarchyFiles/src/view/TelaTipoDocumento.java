@@ -7,6 +7,7 @@ package view;
 
 import dao.TipoDocumentoDAO;
 import entity.TipoDocumento;
+import java.util.ArrayList;
 import java.util.List;
 import javax.swing.DefaultListModel;
 import view.*;
@@ -20,6 +21,7 @@ import javax.swing.table.DefaultTableModel;
 public class TelaTipoDocumento extends javax.swing.JDialog {
 
     TipoDocumento objTipoDocumento = new TipoDocumento();
+    List<TipoDocumento> lista = new ArrayList<TipoDocumento>();
 
     /**
      * Creates new form TelaTipo
@@ -47,7 +49,6 @@ public class TelaTipoDocumento extends javax.swing.JDialog {
         btnAlterarTipos = new javax.swing.JButton();
         btnExcluirTipos = new javax.swing.JButton();
         btnVoltar = new javax.swing.JButton();
-        btnPesquisarTipos = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         lstTiposDocumentos = new javax.swing.JList();
 
@@ -55,6 +56,12 @@ public class TelaTipoDocumento extends javax.swing.JDialog {
         setTitle("Tipos de Documento");
 
         jLabel1.setText("Pesquisar Tipos de Documentos:");
+
+        txtPesquisarTipos.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtPesquisarTiposKeyReleased(evt);
+            }
+        });
 
         btnNovoTipos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/New document.png"))); // NOI18N
         btnNovoTipos.setText("Novo");
@@ -88,8 +95,6 @@ public class TelaTipoDocumento extends javax.swing.JDialog {
             }
         });
 
-        btnPesquisarTipos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/Find.png"))); // NOI18N
-
         lstTiposDocumentos.setModel(new javax.swing.AbstractListModel() {
             String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
             public int getSize() { return strings.length; }
@@ -107,9 +112,7 @@ public class TelaTipoDocumento extends javax.swing.JDialog {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(txtPesquisarTipos, javax.swing.GroupLayout.PREFERRED_SIZE, 223, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btnPesquisarTipos, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(txtPesquisarTipos, javax.swing.GroupLayout.PREFERRED_SIZE, 223, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 418, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
@@ -120,20 +123,16 @@ public class TelaTipoDocumento extends javax.swing.JDialog {
                             .addComponent(btnExcluirTipos, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                             .addComponent(btnVoltar, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addGap(24, 24, 24))
+                .addGap(28, 28, 28))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(23, 23, 23)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(7, 7, 7)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(txtPesquisarTipos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel1)))
-                    .addComponent(btnPesquisarTipos, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(30, 30, 30)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtPesquisarTipos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel1))
+                .addGap(11, 11, 11)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(24, 24, 24)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -154,24 +153,49 @@ public class TelaTipoDocumento extends javax.swing.JDialog {
         TipoDocumentoDAO dao = new TipoDocumentoDAO();
         dao.insert(objTipoDocumento);
         atualizarTabelaTipoDocumento();
-        
+
     }//GEN-LAST:event_btnNovoTiposActionPerformed
 
     private void btnAlterarTiposActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlterarTiposActionPerformed
-
+//recebe objeto inteiro
         objTipoDocumento = (TipoDocumento) lstTiposDocumentos.getSelectedValue();
         objTipoDocumento.setDescricao(JOptionPane.showInputDialog("Informe a alteração do tipo de documento:", objTipoDocumento.getDescricao()));
+
+        TipoDocumentoDAO dao = new TipoDocumentoDAO();
+        dao.update(objTipoDocumento);
+
+        atualizarTabelaTipoDocumento();
+
 
     }//GEN-LAST:event_btnAlterarTiposActionPerformed
 
     private void btnExcluirTiposActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirTiposActionPerformed
-        JOptionPane.showConfirmDialog(this, "Deseja realmente excluir este tipo de documento:");
-        
+        int confirmacao = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir este tipo de documento:");
+        if (confirmacao == 0) {
+
+            objTipoDocumento = (TipoDocumento) lstTiposDocumentos.getSelectedValue();
+
+            TipoDocumentoDAO dao = new TipoDocumentoDAO();
+            dao.delete(objTipoDocumento.getIdTipodeDocumento());
+
+            this.atualizarTabelaTipoDocumento();
+        }
+
     }//GEN-LAST:event_btnExcluirTiposActionPerformed
 
     private void btnVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVoltarActionPerformed
         this.dispose();
     }//GEN-LAST:event_btnVoltarActionPerformed
+
+    private void txtPesquisarTiposKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPesquisarTiposKeyReleased
+        DefaultListModel model = new DefaultListModel();
+        for (TipoDocumento tipoDocumento : lista) {
+            if (tipoDocumento.getDescricao().startsWith(txtPesquisarTipos.getText())) {
+                model.addElement(tipoDocumento);
+            }
+        }
+        lstTiposDocumentos.setModel(model);
+    }//GEN-LAST:event_txtPesquisarTiposKeyReleased
 
     /**
      * @param args the command line arguments
@@ -219,7 +243,6 @@ public class TelaTipoDocumento extends javax.swing.JDialog {
     private javax.swing.JButton btnAlterarTipos;
     private javax.swing.JButton btnExcluirTipos;
     private javax.swing.JButton btnNovoTipos;
-    private javax.swing.JButton btnPesquisarTipos;
     private javax.swing.JButton btnVoltar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
@@ -230,12 +253,11 @@ public class TelaTipoDocumento extends javax.swing.JDialog {
     public void atualizarTabelaTipoDocumento() {
 
         TipoDocumentoDAO dao = new TipoDocumentoDAO();
-        List<TipoDocumento> lista = dao.listarTipoDocumento();
-       
+        lista = dao.listarTipoDocumento();
+
         DefaultListModel model = new DefaultListModel();
-        
-            
-         for (TipoDocumento tipoDocumento : lista) {
+
+        for (TipoDocumento tipoDocumento : lista) {
             model.addElement(tipoDocumento);
         }
 

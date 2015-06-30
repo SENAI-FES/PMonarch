@@ -1,11 +1,18 @@
 package Prototipos;
 
+import dao.ArmazemDAO;
+import entity.Armazem;
+import java.util.ArrayList;
+import java.util.List;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 /**
  *
  * @author matheus_santos_fraga
@@ -19,6 +26,8 @@ public class TelaPrateleiraCRUD extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
         this.setLocationRelativeTo(null);
+        cbRua.addItem("Selecione a rua");
+        combo();
     }
 
     /**
@@ -35,7 +44,6 @@ public class TelaPrateleiraCRUD extends javax.swing.JDialog {
         btnAtivar = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         cbRua = new javax.swing.JComboBox();
-        ckbColunasVazias = new javax.swing.JCheckBox();
         jScrollPane1 = new javax.swing.JScrollPane();
         tbPrateleira = new javax.swing.JTable();
         btnVoltar = new javax.swing.JButton();
@@ -71,16 +79,15 @@ public class TelaPrateleiraCRUD extends javax.swing.JDialog {
 
         jLabel1.setText("Rua:");
 
-        cbRua.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "A", "B", "C", "D", "E" }));
-
-        ckbColunasVazias.setText("Mostrar colunas vazias");
+        cbRua.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbRuaActionPerformed(evt);
+            }
+        });
 
         tbPrateleira.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+
             },
             new String [] {
                 "Rua", "Estante", "Coluna", "Andar", "QtdCaixas"
@@ -117,9 +124,7 @@ public class TelaPrateleiraCRUD extends javax.swing.JDialog {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(cbRua, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(ckbColunasVazias)))
+                        .addComponent(cbRua, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(50, 50, 50))
         );
 
@@ -131,8 +136,7 @@ public class TelaPrateleiraCRUD extends javax.swing.JDialog {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(cbRua, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(ckbColunasVazias))
+                    .addComponent(cbRua, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(38, 38, 38)
@@ -157,13 +161,15 @@ public class TelaPrateleiraCRUD extends javax.swing.JDialog {
     private void btnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlterarActionPerformed
         TelaPrateleiraNovo telaNovo = new TelaPrateleiraNovo(null, true, false);
         telaNovo.setVisible(true);
+        atualizarTabela();
+        combo();
     }//GEN-LAST:event_btnAlterarActionPerformed
 
     private void btnAtivarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAtivarActionPerformed
-        if(btnAtivar.getText().equals("Desativar")){
+        if (btnAtivar.getText().equals("Desativar")) {
             btnAtivar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/Raise.png")));
             btnAtivar.setText("Ativar");
-        }else{
+        } else {
             btnAtivar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/Fall.png")));
             btnAtivar.setText("Desativar");
         }
@@ -172,6 +178,50 @@ public class TelaPrateleiraCRUD extends javax.swing.JDialog {
     private void btnVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVoltarActionPerformed
         this.dispose();
     }//GEN-LAST:event_btnVoltarActionPerformed
+
+    private void cbRuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbRuaActionPerformed
+        limparTabela();
+        atualizarTabela();
+    }//GEN-LAST:event_cbRuaActionPerformed
+
+    public void atualizarTabela() {
+
+        String rua = cbRua.getSelectedItem().toString();
+        ArmazemDAO aDAO = new ArmazemDAO();
+        Armazem a = new Armazem();
+        List<Armazem> lista = aDAO.listarArmazem(rua);
+        DefaultTableModel model = (DefaultTableModel) this.tbPrateleira.getModel();
+        for (int i = 0; i < lista.size(); i++) {
+            if (tbPrateleira.getRowCount() < lista.size()) {
+                model.addRow(new Object[]{});
+            }
+            model.setValueAt(lista.get(i).getRua(), i, 0);
+            model.setValueAt(lista.get(i).getEstante(), i, 1);
+            model.setValueAt(lista.get(i).getColuna(), i, 2);
+            model.setValueAt(lista.get(i).getAndar(), i, 3);
+
+        }
+    }
+
+    public void limparTabela() {
+        DefaultTableModel model = (DefaultTableModel) this.tbPrateleira.getModel();
+        String limpa = "";
+        for (int i = 0; i < tbPrateleira.getRowCount(); i++) {
+            model.setValueAt(limpa, i, 0);
+            model.setValueAt(limpa, i, 1);
+            model.setValueAt(limpa, i, 2);
+            model.setValueAt(limpa, i, 3);
+            model.removeRow(i);
+        }
+    }
+
+    public void combo() {
+        ArmazemDAO aDAO = new ArmazemDAO();
+        List<Armazem> lista = aDAO.listaRuaCombo();
+        for (Armazem rua : lista) {
+            cbRua.addItem(rua.getRua());
+        }
+    }
 
     /**
      * @param args the command line arguments
@@ -221,7 +271,6 @@ public class TelaPrateleiraCRUD extends javax.swing.JDialog {
     private javax.swing.JButton btnNovo;
     private javax.swing.JButton btnVoltar;
     private javax.swing.JComboBox cbRua;
-    private javax.swing.JCheckBox ckbColunasVazias;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tbPrateleira;

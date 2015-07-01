@@ -87,9 +87,17 @@ public class TelaPrateleiraCRUD extends javax.swing.JDialog {
 
             },
             new String [] {
-                "Rua", "Estante", "Coluna", "Andar", "QtdCaixas"
+                "Rua", "Estante", "Coluna", "Andar", "Status"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         tbPrateleira.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseReleased(java.awt.event.MouseEvent evt) {
                 tbPrateleiraMouseReleased(evt);
@@ -202,8 +210,7 @@ public class TelaPrateleiraCRUD extends javax.swing.JDialog {
             btnAtivar.setText("Ativar");
             armazem.setAtivo(false);
             dao.ativarDesativar(armazem);
-            atualizarTabelaAtivos();
-
+            atualizarTabelaInativos();
         } else {
             btnAtivar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/Fall.png")));
             btnAtivar.setText("Inativar");
@@ -230,7 +237,12 @@ public class TelaPrateleiraCRUD extends javax.swing.JDialog {
         armazem.setEstante((String) tbPrateleira.getValueAt(linha, 1));
         armazem.setColuna((String) tbPrateleira.getValueAt(linha, 2));
         armazem.setAndar((String) tbPrateleira.getValueAt(linha, 3));
-        if (true) {
+        if (tbPrateleira.getValueAt(linha, 4).equals("Ativo")) {
+            armazem.setAtivo(true);
+        } else {
+            armazem.setAtivo(false);
+        }
+        if (armazem.isAtivo()) {
             btnAtivar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/Fall.png")));
             btnAtivar.setText("Inativar");
         } else {
@@ -240,7 +252,12 @@ public class TelaPrateleiraCRUD extends javax.swing.JDialog {
     }//GEN-LAST:event_tbPrateleiraMouseReleased
 
     private void cbMostrarInativosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbMostrarInativosActionPerformed
-        atualizarTabelaInativos();
+        if (cbMostrarInativos.isSelected()) {
+            atualizarTabelaInativos();
+        } else {
+            atualizarTabelaAtivos();
+        }
+
     }//GEN-LAST:event_cbMostrarInativosActionPerformed
 
     public void atualizarTabelaAtivos() {
@@ -257,6 +274,11 @@ public class TelaPrateleiraCRUD extends javax.swing.JDialog {
                 model.setValueAt(lista.get(i).getEstante(), i, 1);
                 model.setValueAt(lista.get(i).getColuna(), i, 2);
                 model.setValueAt(lista.get(i).getAndar(), i, 3);
+                if (lista.get(i).isAtivo()) {
+                    model.setValueAt("Ativo", i, 4);
+                } else {
+                    model.setValueAt("Inativo", i, 4);
+                }
 
             }
         }
@@ -266,7 +288,7 @@ public class TelaPrateleiraCRUD extends javax.swing.JDialog {
         if (cbRua.getModel().getSize() > 0) {
             String rua = cbRua.getSelectedItem().toString();
             ArmazemDAO aDAO = new ArmazemDAO();
-            List<Armazem> lista = aDAO.listarArmazem(rua);
+            List<Armazem> lista = aDAO.listarArmazemDesativado();
             DefaultTableModel model = (DefaultTableModel) this.tbPrateleira.getModel();
             for (int i = 0; i < lista.size(); i++) {
                 if (tbPrateleira.getRowCount() < lista.size()) {
@@ -276,6 +298,11 @@ public class TelaPrateleiraCRUD extends javax.swing.JDialog {
                 model.setValueAt(lista.get(i).getEstante(), i, 1);
                 model.setValueAt(lista.get(i).getColuna(), i, 2);
                 model.setValueAt(lista.get(i).getAndar(), i, 3);
+                if (lista.get(i).isAtivo()) {
+                    model.setValueAt("Ativo", i, 4);
+                } else {
+                    model.setValueAt("Inativo", i, 4);
+                }
 
             }
         }

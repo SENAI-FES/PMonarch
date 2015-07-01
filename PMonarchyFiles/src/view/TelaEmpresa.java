@@ -6,6 +6,7 @@ import Prototipos.TelaDetalheEmpresa;
 import dao.EmpresaDAO;
 import entity.Empresa;
 import java.util.List;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 
@@ -59,39 +60,39 @@ public class TelaEmpresa extends javax.swing.JDialog {
 
         tbEmpresa.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, "", null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null}
+                {null, "", null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
             },
             new String [] {
-                "Matricula", "Nome Fantasia", "CNPJ"
+                "Matricula", "Nome Fantasia", "CNPJ", "status"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false
+                false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -220,13 +221,29 @@ public class TelaEmpresa extends javax.swing.JDialog {
     }//GEN-LAST:event_btnVoltarActionPerformed
 
     private void btnAtivarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAtivarActionPerformed
-       if (btnAtivar.getText().equalsIgnoreCase("Ativar")){
+       int linha = tbEmpresa.getSelectedRow();
+        int id = Integer.parseInt(tbEmpresa.getValueAt(linha, 0).toString());
+        EmpresaDAO empresaDAO = new EmpresaDAO();
+        objEmpresa = empresaDAO.getEmpresaById(id);
+
+        if (tbEmpresa.getValueAt(linha, 3).equals("Ativo")) {
+            objEmpresa.setStatus("Desativado");
+
+        } else {
+            objEmpresa.setStatus("Ativo");
+        }
+
+        if (btnAtivar.getText().equalsIgnoreCase("Ativar")) {
             btnAtivar.setText("Desativar");
             btnAtivar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/Fall.png")));
-        }else{
+        } else {
             btnAtivar.setText("Ativar");
             btnAtivar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/Raise.png")));
         }
+
+        empresaDAO.update(objEmpresa);
+        //uDAO.atualizaStatus(objUsuario); criar
+        atualizaTabelaEmpresas();
     }//GEN-LAST:event_btnAtivarActionPerformed
 
     private void btnDetalhesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDetalhesActionPerformed
@@ -236,6 +253,9 @@ public class TelaEmpresa extends javax.swing.JDialog {
 
     private void btnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlterarActionPerformed
         int linha = tbEmpresa.getSelectedRow();
+        if(linha == -1){
+            JOptionPane.showMessageDialog(rootPane, "Selecione o usuário que deseja alterar!");
+        }
         int id = Integer.parseInt(tbEmpresa.getValueAt(linha, 0).toString());
         EmpresaDAO dao = new EmpresaDAO();
         Empresa empresa = dao.getEmpresaById(id);
@@ -258,7 +278,7 @@ public class TelaEmpresa extends javax.swing.JDialog {
             model.setValueAt(listarEmpresas.get(i).getIdEmpresa(), i, 0);
             model.setValueAt(listarEmpresas.get(i).getNomeFantasia(), i, 1);
             model.setValueAt(listarEmpresas.get(i).getCnpj(), i, 2);
-
+            model.setValueAt(listarEmpresas.get(i).getStatus(), i, 3);
         }
 
     }

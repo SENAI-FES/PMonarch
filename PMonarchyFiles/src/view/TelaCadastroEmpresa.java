@@ -31,6 +31,7 @@ public class TelaCadastroEmpresa extends javax.swing.JDialog {
         objEmpresa = empresa;
         if (novo) {
             objEmpresa = new Empresa();
+            objEmpresa.setStatus("Ativo");
         } else {
             txtRazaoSocial.setText(objEmpresa.getRazaoSocial());
             txtNomeFantasia.setText(objEmpresa.getNomeFantasia());
@@ -545,10 +546,13 @@ public class TelaCadastroEmpresa extends javax.swing.JDialog {
         if(lstContatos.isSelectionEmpty()){
             JOptionPane.showMessageDialog(null,"Selecione um contato!!!");
         }else{
-            Contato contato = (Contato) lstContatos.getSelectedValue();
-            contatos.remove(contato);
-            atualizarTabelaContato();
-            JOptionPane.showMessageDialog(null,"Contato excluído com sucesso!!!");
+            int confirmacao = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir?");
+            if (confirmacao == 0) {
+                Contato contato = (Contato) lstContatos.getSelectedValue();
+                contatos.remove(contato);
+                atualizarTabelaContato();
+                JOptionPane.showMessageDialog(null,"Contato excluído com sucesso!!!");
+            }
         }
     }//GEN-LAST:event_btnExcluirActionPerformed
 

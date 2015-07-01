@@ -26,6 +26,7 @@ public class Empresa {
     private String uf;
     private String cep;
     private String tipo;
+    private String status;
     private List<Contato> contatos;
     private Contrato contrato;
 
@@ -146,6 +147,14 @@ public class Empresa {
 
     public void setContrato(Contrato contrato) {
         this.contrato = contrato;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
     
 }

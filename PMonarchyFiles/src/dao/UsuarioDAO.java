@@ -183,7 +183,7 @@ public class UsuarioDAO extends MySQL {
                 objUsuario.setMatricula(rs.getInt("matricula"));
                 objUsuario.setNome(rs.getString("nome"));
                 objUsuario.setCPF(rs.getString("cpf"));
-                objUsuario.setPerfil(rs.getInt("perfil"));
+                objUsuario.setPerfil(EnumPerfil.ADMINISTRADOR.getPerfil(rs.getInt("perfil")));
                 objUsuario.setEmail(rs.getString("email"));
                 objUsuario.setStatus(rs.getString("status"));
 

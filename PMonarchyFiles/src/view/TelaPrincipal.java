@@ -6,6 +6,7 @@
 package view;
 
 import Prototipos.*;
+import entity.Usuario;
 
 /**
  *
@@ -16,10 +17,16 @@ public class TelaPrincipal extends javax.swing.JDialog {
     /**
      * Creates new form TelaPrincipal
      */
-    public TelaPrincipal(java.awt.Frame parent, boolean modal, String obj) {
+    public TelaPrincipal(java.awt.Frame parent, boolean modal, Usuario usuario) {
         super(parent, modal);
         initComponents();
         setLocationRelativeTo(null);
+        
+        Usuario objUsuario = usuario;
+        
+//        if(objUsuario.getPerfil()){
+//            
+//        }
     }
 
     /**

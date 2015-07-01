@@ -21,7 +21,7 @@ USE `dbmonarchyfiles` ;
 DROP TABLE IF EXISTS `dbmonarchyfiles`.`armazem` ;
 
 CREATE TABLE IF NOT EXISTS `dbmonarchyfiles`.`armazem` (
-  `ativo` BOOLEAN NOT NULL,
+  `status` BOOLEAN NOT NULL,
   `rua` VARCHAR(100) NOT NULL,
   `estante` VARCHAR(100) NOT NULL,
   `coluna` VARCHAR(100) NOT NULL,

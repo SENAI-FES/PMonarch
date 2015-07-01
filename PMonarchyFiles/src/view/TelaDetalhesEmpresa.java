@@ -1,6 +1,9 @@
 package view;
 
 import Prototipos.*;
+import entity.Empresa;
+import entity.Contrato;
+
 
 /**
  *
@@ -15,6 +18,25 @@ public class TelaDetalhesEmpresa extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
         setLocationRelativeTo(null);
+    }
+    public TelaDetalhesEmpresa(java.awt.Frame parent, boolean modal, Empresa empresa, Contrato contrato) {
+        super(parent, modal);
+        initComponents();
+        setLocationRelativeTo(null);
+        lblNomeFantasia.setText(empresa.getNomeFantasia());
+        lblRazaoSocial.setText(empresa.getRazaoSocial());
+        lblCnpj.setText(empresa.getCnpj());
+        lblInscEstadual.setText(empresa.getInscricaoEstadual());
+        lblSite.setText(empresa.getSite());
+        lblTipo.setText(empresa.getTipo());
+        lblComplemento.setText(empresa.getComplemento());
+        lblCidade.setText(empresa.getCidade());
+        lblUf.setText(empresa.getUf());
+        lblCep.setText(empresa.getCep());
+        lblTipoContrato.setText(contrato.getTipoContrato());
+        lblDtInicial.setText(contrato.getDataInicial().toString());
+        lblDtValidade.setText(contrato.getValidade().toString());
+        //lblDescarte.setText(contrato.getDescarte()); qndo corrigir a entity contrato
     }
 
     /**
@@ -43,7 +65,7 @@ public class TelaDetalhesEmpresa extends javax.swing.JDialog {
         jLabel9 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
-        lblNomeFatasia = new javax.swing.JLabel();
+        lblNomeFantasia = new javax.swing.JLabel();
         lblRazaoSocial = new javax.swing.JLabel();
         lblCnpj = new javax.swing.JLabel();
         lblInscEstadual = new javax.swing.JLabel();
@@ -67,13 +89,13 @@ public class TelaDetalhesEmpresa extends javax.swing.JDialog {
 
         jLabel14.setText("Tipo de contrato:");
 
-        lblTipoContrato.setText("jLabel46");
+        lblTipoContrato.setText("-");
 
-        lblDtInicial.setText("jLabel47");
+        lblDtInicial.setText("-");
 
-        lblDtValidade.setText("jLabel48");
+        lblDtValidade.setText("-");
 
-        lblDescarte.setText("jLabel17");
+        lblDescarte.setText("-");
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -134,27 +156,27 @@ public class TelaDetalhesEmpresa extends javax.swing.JDialog {
 
         jLabel11.setText("Site:");
 
-        lblNomeFatasia.setText("jLabel31");
+        lblNomeFantasia.setText("-");
 
-        lblRazaoSocial.setText("jLabel32");
+        lblRazaoSocial.setText("-");
 
-        lblCnpj.setText("jLabel33");
+        lblCnpj.setText("-");
 
-        lblInscEstadual.setText("jLabel34");
+        lblInscEstadual.setText("-");
 
-        lblComplemento.setText("jLabel35");
+        lblComplemento.setText("-");
 
-        lblCep.setText("jLabel36");
+        lblCep.setText("-");
 
         lblTipo.setText("Tipo");
 
-        lblLogradouro.setText("Logradouro");
+        lblLogradouro.setText("-");
 
-        lblCidade.setText("jLabel44");
+        lblCidade.setText("-");
 
         lblUf.setText("UF");
 
-        lblSite.setText("jLabel17");
+        lblSite.setText("-");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -184,7 +206,7 @@ public class TelaDetalhesEmpresa extends javax.swing.JDialog {
                                 .addGap(60, 60, 60))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(lblNomeFatasia)
+                                    .addComponent(lblNomeFantasia)
                                     .addComponent(lblRazaoSocial)
                                     .addComponent(lblComplemento)
                                     .addComponent(lblCep)
@@ -206,7 +228,7 @@ public class TelaDetalhesEmpresa extends javax.swing.JDialog {
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(lblNomeFatasia))
+                    .addComponent(lblNomeFantasia))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
@@ -262,7 +284,7 @@ public class TelaDetalhesEmpresa extends javax.swing.JDialog {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(147, 147, 147)
                         .addComponent(jButton1)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(13, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -350,7 +372,7 @@ public class TelaDetalhesEmpresa extends javax.swing.JDialog {
     private javax.swing.JLabel lblDtValidade;
     private javax.swing.JLabel lblInscEstadual;
     private javax.swing.JLabel lblLogradouro;
-    private javax.swing.JLabel lblNomeFatasia;
+    private javax.swing.JLabel lblNomeFantasia;
     private javax.swing.JLabel lblRazaoSocial;
     private javax.swing.JLabel lblSite;
     private javax.swing.JLabel lblTipo;

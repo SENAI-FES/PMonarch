@@ -38,7 +38,7 @@
                       <Component id="jButton1" min="-2" max="-2" attributes="0"/>
                   </Group>
               </Group>
-              <EmptySpace max="32767" attributes="0"/>
+              <EmptySpace pref="13" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -133,22 +133,22 @@
         </Component>
         <Component class="javax.swing.JLabel" name="lblTipoContrato">
           <Properties>
-            <Property name="text" type="java.lang.String" value="jLabel46"/>
+            <Property name="text" type="java.lang.String" value="-"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="lblDtInicial">
           <Properties>
-            <Property name="text" type="java.lang.String" value="jLabel47"/>
+            <Property name="text" type="java.lang.String" value="-"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="lblDtValidade">
           <Properties>
-            <Property name="text" type="java.lang.String" value="jLabel48"/>
+            <Property name="text" type="java.lang.String" value="-"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="lblDescarte">
           <Properties>
-            <Property name="text" type="java.lang.String" value="jLabel17"/>
+            <Property name="text" type="java.lang.String" value="-"/>
           </Properties>
         </Component>
       </SubComponents>
@@ -191,7 +191,7 @@
                               </Group>
                               <Group type="102" attributes="0">
                                   <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="lblNomeFatasia" min="-2" max="-2" attributes="0"/>
+                                      <Component id="lblNomeFantasia" min="-2" max="-2" attributes="0"/>
                                       <Component id="lblRazaoSocial" min="-2" max="-2" attributes="0"/>
                                       <Component id="lblComplemento" min="-2" max="-2" attributes="0"/>
                                       <Component id="lblCep" min="-2" max="-2" attributes="0"/>
@@ -222,7 +222,7 @@
                   <EmptySpace min="-2" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="jLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="lblNomeFatasia" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="lblNomeFantasia" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace min="-2" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
@@ -308,34 +308,34 @@
             <Property name="text" type="java.lang.String" value="Site:"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JLabel" name="lblNomeFatasia">
+        <Component class="javax.swing.JLabel" name="lblNomeFantasia">
           <Properties>
-            <Property name="text" type="java.lang.String" value="jLabel31"/>
+            <Property name="text" type="java.lang.String" value="-"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="lblRazaoSocial">
           <Properties>
-            <Property name="text" type="java.lang.String" value="jLabel32"/>
+            <Property name="text" type="java.lang.String" value="-"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="lblCnpj">
           <Properties>
-            <Property name="text" type="java.lang.String" value="jLabel33"/>
+            <Property name="text" type="java.lang.String" value="-"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="lblInscEstadual">
           <Properties>
-            <Property name="text" type="java.lang.String" value="jLabel34"/>
+            <Property name="text" type="java.lang.String" value="-"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="lblComplemento">
           <Properties>
-            <Property name="text" type="java.lang.String" value="jLabel35"/>
+            <Property name="text" type="java.lang.String" value="-"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="lblCep">
           <Properties>
-            <Property name="text" type="java.lang.String" value="jLabel36"/>
+            <Property name="text" type="java.lang.String" value="-"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="lblTipo">
@@ -345,12 +345,12 @@
         </Component>
         <Component class="javax.swing.JLabel" name="lblLogradouro">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Logradouro"/>
+            <Property name="text" type="java.lang.String" value="-"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="lblCidade">
           <Properties>
-            <Property name="text" type="java.lang.String" value="jLabel44"/>
+            <Property name="text" type="java.lang.String" value="-"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="lblUf">
@@ -360,7 +360,7 @@
         </Component>
         <Component class="javax.swing.JLabel" name="lblSite">
           <Properties>
-            <Property name="text" type="java.lang.String" value="jLabel17"/>
+            <Property name="text" type="java.lang.String" value="-"/>
           </Properties>
         </Component>
       </SubComponents>

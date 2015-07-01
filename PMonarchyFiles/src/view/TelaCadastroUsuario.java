@@ -6,6 +6,7 @@
 package view;
 
 import dao.UsuarioDAO;
+import entity.EnumPerfil;
 import entity.Usuario;
 import javax.swing.JOptionPane;
 
@@ -22,7 +23,6 @@ public class TelaCadastroUsuario extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
         setLocationRelativeTo(null);
-
         this.novo = novo;
         objUsuario = usuario;
         if (novo) {
@@ -32,20 +32,8 @@ public class TelaCadastroUsuario extends javax.swing.JDialog {
 
             lblMatricula.setText(objUsuario.getMatricula() + "");
             txtNome.setText(objUsuario.getNome());
-            txtCpf.setText(objUsuario.getCPF());
+            ftxtCPF.setText(objUsuario.getCPF());
             txtEmail.setText(objUsuario.getEmail());
-
-            switch (objUsuario.getPerfil()) {
-                case 0:
-                    cbPerfil.setSelectedIndex(0);
-                    break;
-                case 1:
-                    cbPerfil.setSelectedIndex(1);
-                    break;
-                default:
-                    cbPerfil.setSelectedIndex(2);
-            }
-
             btnSalvar.setText("Alterar");
         }
     }
@@ -66,13 +54,13 @@ public class TelaCadastroUsuario extends javax.swing.JDialog {
         jLabel4 = new javax.swing.JLabel();
         txtNome = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
-        txtCpf = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
         txtEmail = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
         cbPerfil = new javax.swing.JComboBox();
         btnSalvar = new javax.swing.JButton();
         btnVoltar = new javax.swing.JButton();
+        ftxtCPF = new javax.swing.JFormattedTextField();
 
         jLabel3.setText("jLabel3");
 
@@ -94,7 +82,7 @@ public class TelaCadastroUsuario extends javax.swing.JDialog {
 
         jLabel7.setText("Perfil:");
 
-        cbPerfil.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Admin" }));
+        cbPerfil.setModel(new javax.swing.DefaultComboBoxModel(EnumPerfil.values()));
 
         btnSalvar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/OK.png"))); // NOI18N
         btnSalvar.setText("Salvar");
@@ -111,6 +99,12 @@ public class TelaCadastroUsuario extends javax.swing.JDialog {
                 btnVoltarActionPerformed(evt);
             }
         });
+
+        try {
+            ftxtCPF.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("###.###.###-##")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -130,9 +124,9 @@ public class TelaCadastroUsuario extends javax.swing.JDialog {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(lblMatricula, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(txtNome)
-                            .addComponent(txtCpf)
                             .addComponent(txtEmail)
-                            .addComponent(cbPerfil, 0, 166, Short.MAX_VALUE)))
+                            .addComponent(cbPerfil, 0, 166, Short.MAX_VALUE)
+                            .addComponent(ftxtCPF)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(68, 68, 68)
                         .addComponent(btnSalvar)
@@ -151,10 +145,10 @@ public class TelaCadastroUsuario extends javax.swing.JDialog {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
                     .addComponent(txtNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGap(14, 14, 14)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
-                    .addComponent(txtCpf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(ftxtCPF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
@@ -167,7 +161,7 @@ public class TelaCadastroUsuario extends javax.swing.JDialog {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnSalvar)
                     .addComponent(btnVoltar))
-                .addContainerGap(38, Short.MAX_VALUE))
+                .addContainerGap(35, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -196,18 +190,20 @@ public class TelaCadastroUsuario extends javax.swing.JDialog {
 
     boolean novo;
     Usuario objUsuario;
-
+    String senha;
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
         objUsuario.setNome(txtNome.getText());
-        objUsuario.setCPF(txtCpf.getText());
+        objUsuario.setCPF(ftxtCPF.getText());
         objUsuario.setEmail(txtEmail.getText());
-        objUsuario.setPerfil(cbPerfil.getSelectedIndex());
+        objUsuario.setPerfil((EnumPerfil) cbPerfil.getSelectedItem());
         objUsuario.setStatus("Ativo");
-
+        senha = objUsuario.getCPF().substring(0, 3);
+        senha += objUsuario.getCPF().substring(4, 7);
+        objUsuario.setSenha(senha);
         UsuarioDAO dao = new UsuarioDAO();
 
-        if (txtNome.getText().equals("") || txtCpf.getText().equals("") || txtEmail.getText().equals("")) {
-            
+        if (txtNome.getText().equals("") || ftxtCPF.getText().equals("") || txtEmail.getText().equals("")) {
+
             JOptionPane.showMessageDialog(rootPane, "Por favor preencha todos os campos!");
 
         } else {
@@ -227,7 +223,7 @@ public class TelaCadastroUsuario extends javax.swing.JDialog {
     }//GEN-LAST:event_btnSalvarActionPerformed
 
     public void limparTela() {
-        txtCpf.setText("");
+        ftxtCPF.setText("");
         txtEmail.setText("");
         txtNome.setText("");
     }
@@ -278,6 +274,7 @@ public class TelaCadastroUsuario extends javax.swing.JDialog {
     private javax.swing.JButton btnSalvar;
     private javax.swing.JButton btnVoltar;
     private javax.swing.JComboBox cbPerfil;
+    private javax.swing.JFormattedTextField ftxtCPF;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -286,7 +283,6 @@ public class TelaCadastroUsuario extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JLabel lblMatricula;
-    private javax.swing.JTextField txtCpf;
     private javax.swing.JTextField txtEmail;
     private javax.swing.JTextField txtNome;
     // End of variables declaration//GEN-END:variables

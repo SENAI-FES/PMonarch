@@ -23,6 +23,7 @@ CREATE TABLE IF NOT EXISTS `dbmonarchyfiles`.`armazem` (
   `estante` VARCHAR(100) NOT NULL,
   `coluna` VARCHAR(100) NOT NULL,
   `andar` VARCHAR(100) NOT NULL,
+  `status` Boolean NOT NULL,
   PRIMARY KEY (`rua`, `estante`, `coluna`, `andar`))
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8;

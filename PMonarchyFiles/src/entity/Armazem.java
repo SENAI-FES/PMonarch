@@ -9,6 +9,15 @@ public class Armazem {
     private String rua;
     private String andar;
     private String estante;
+    private boolean ativo;
+
+    public boolean isAtivo() {
+        return ativo;
+    }
+
+    public void setAtivo(boolean ativo) {
+        this.ativo = ativo;
+    }
 
     public int getIdArmazem() {
         return idArmazem;

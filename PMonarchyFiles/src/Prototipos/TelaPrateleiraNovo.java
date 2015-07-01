@@ -178,6 +178,7 @@ public class TelaPrateleiraNovo extends javax.swing.JDialog {
                     armazem.setEstante(txtEstante.getText());
                     armazem.setColuna(i + "");
                     if (novo) {
+                        armazem.setAtivo(true);
                         if (dao.insert(armazem)) {
                             sucesso = true;
                         } else {
@@ -187,10 +188,6 @@ public class TelaPrateleiraNovo extends javax.swing.JDialog {
                     } else {
                         if (dao.update(armazem, armazemKey)) { 
                             sucesso = true;
-                            System.out.println("R " + armazem.getRua() + "\n" + "E " + armazem.getEstante() + "\n" + 
-                                    "C " + armazem.getColuna() + "\nA " + armazem.getAndar());
-                            System.out.println("R2 "+ armazemKey.getRua() + "\nE2 " + armazemKey.getEstante() + "\nC2 " + 
-                                    armazemKey.getColuna() + "\nA2 " + armazemKey.getAndar());
                         } else { 
                             sucesso = false;
                             throw new MySQLIntegrityConstraintViolationException();

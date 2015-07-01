@@ -167,6 +167,9 @@ public class TelaPrateleiraCRUD extends javax.swing.JDialog {
         armazem.setAndar((String) tbPrateleira.getValueAt(linha, 3));
         TelaPrateleiraNovo telaNovo = new TelaPrateleiraNovo(null, true, false, armazem);
         telaNovo.setVisible(true);
+        String cbSelecionado = (String) cbRua.getSelectedItem();
+        combo();
+        cbRua.setSelectedItem(cbSelecionado);
     }//GEN-LAST:event_btnAlterarActionPerformed
 
     private void btnAtivarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAtivarActionPerformed
@@ -175,7 +178,7 @@ public class TelaPrateleiraCRUD extends javax.swing.JDialog {
             btnAtivar.setText("Ativar");
         } else {
             btnAtivar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/Fall.png")));
-            btnAtivar.setText("Desativar");
+            btnAtivar.setText("Inativar");
         }
     }//GEN-LAST:event_btnAtivarActionPerformed
 

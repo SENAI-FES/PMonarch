@@ -236,6 +236,9 @@ public class TelaUsuario extends javax.swing.JDialog {
 
     private void btnAlterarUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlterarUsuarioActionPerformed
         int linha = tblUsuario.getSelectedRow();
+        if(linha == -1){
+            JOptionPane.showMessageDialog(rootPane, "Selecione o usuário que deseja alterar!");
+        }
         if (tblUsuario.getValueAt(linha, 4).equals("Ativo")) {
             novo = false;
             int id = Integer.parseInt(tblUsuario.getValueAt(linha, 0).toString());
@@ -319,17 +322,18 @@ public class TelaUsuario extends javax.swing.JDialog {
 
         //laço para inserir os dados dos objetos na Tabela
         for (int i = 0; i < listarUsuarios.size(); i++) {
-
+            
             model.setValueAt(listarUsuarios.get(i).getMatricula(), i, 0);
             model.setValueAt(listarUsuarios.get(i).getNome(), i, 1);
             model.setValueAt(listarUsuarios.get(i).getCPF(), i, 2);
-            model.setValueAt(listarUsuarios.get(i).getPerfil(), i, 3);
+            model.setValueAt(listarUsuarios.get(i).getPerfil().getDescricao(), i, 3);
             model.setValueAt(listarUsuarios.get(i).getStatus(), i, 4);
 
         }
 
     }
-
+    
+    
     /**
      * @param args the command line arguments
      */

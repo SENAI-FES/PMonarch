@@ -3,17 +3,21 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+package view;
 
-package Prototipos;
+import dao.ProtocoloDAO;
+import entity.Protocolo;
+import java.util.List;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
- * @author joabe_oliveira
+ * @author elder_benites
  */
 public class TelaPesquisarProtocolo extends javax.swing.JDialog {
 
     /**
-     * Creates new form TelaPesquisarProtocolo
+     * Creates new form TelaPesquisarProtocolo1
      */
     public TelaPesquisarProtocolo(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
@@ -34,18 +38,19 @@ public class TelaPesquisarProtocolo extends javax.swing.JDialog {
         jLabel1 = new javax.swing.JLabel();
         txtNumeroProtocolo = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
-        dtEntrada = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
-        dtSaida = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         txtCnpj = new javax.swing.JTextField();
-        ckbNomeEmpresa = new javax.swing.JComboBox();
+        cbNomeEmpresa = new javax.swing.JComboBox();
         btnPesquisar = new javax.swing.JButton();
+        txtDataEntrada = new javax.swing.JFormattedTextField();
+        txtDataSaida = new javax.swing.JFormattedTextField();
         jPanel3 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tbDadosFiltro = new javax.swing.JTable();
+        tblDadosFiltro = new javax.swing.JTable();
         btVoltar = new javax.swing.JButton();
+        btnDetalhe = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -63,10 +68,27 @@ public class TelaPesquisarProtocolo extends javax.swing.JDialog {
 
         jLabel5.setText("CNPJ:");
 
-        ckbNomeEmpresa.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Google", "Yahoo", "MonarchyFile", "Almeida Jr" }));
+        cbNomeEmpresa.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Google", "Yahoo", "MonarchyFile", "Almeida Jr" }));
 
         btnPesquisar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/Find.png"))); // NOI18N
         btnPesquisar.setText("Pesquisar");
+        btnPesquisar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPesquisarActionPerformed(evt);
+            }
+        });
+
+        try {
+            txtDataEntrada.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##/##/####")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+
+        try {
+            txtDataSaida.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##/##/####")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -79,7 +101,7 @@ public class TelaPesquisarProtocolo extends javax.swing.JDialog {
                     .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(ckbNomeEmpresa, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cbNomeEmpresa, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtNumeroProtocolo, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -87,18 +109,18 @@ public class TelaPesquisarProtocolo extends javax.swing.JDialog {
                     .addComponent(jLabel5))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(dtEntrada)
-                    .addComponent(txtCnpj, javax.swing.GroupLayout.DEFAULT_SIZE, 119, Short.MAX_VALUE))
+                    .addComponent(txtCnpj, javax.swing.GroupLayout.DEFAULT_SIZE, 119, Short.MAX_VALUE)
+                    .addComponent(txtDataEntrada))
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(46, 46, 46)
                         .addComponent(jLabel3)
-                        .addGap(27, 27, 27)
-                        .addComponent(dtSaida, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtDataSaida))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(148, 148, 148)
                         .addComponent(btnPesquisar)))
-                .addContainerGap(22, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -108,22 +130,22 @@ public class TelaPesquisarProtocolo extends javax.swing.JDialog {
                     .addComponent(jLabel1)
                     .addComponent(txtNumeroProtocolo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2)
-                    .addComponent(dtEntrada, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3)
-                    .addComponent(dtSaida, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtDataEntrada, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtDataSaida, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
                     .addComponent(jLabel5)
                     .addComponent(txtCnpj, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(ckbNomeEmpresa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cbNomeEmpresa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnPesquisar))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder("Dados Filtro"));
 
-        tbDadosFiltro.setModel(new javax.swing.table.DefaultTableModel(
+        tblDadosFiltro.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null},
                 {null, null, null, null, null, null},
@@ -142,7 +164,7 @@ public class TelaPesquisarProtocolo extends javax.swing.JDialog {
                 return types [columnIndex];
             }
         });
-        jScrollPane1.setViewportView(tbDadosFiltro);
+        jScrollPane1.setViewportView(tblDadosFiltro);
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -151,7 +173,7 @@ public class TelaPesquisarProtocolo extends javax.swing.JDialog {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGap(19, 19, 19)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 775, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(14, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -164,6 +186,14 @@ public class TelaPesquisarProtocolo extends javax.swing.JDialog {
         btVoltar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/Back.png"))); // NOI18N
         btVoltar.setText("Voltar");
 
+        btnDetalhe.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/List.png"))); // NOI18N
+        btnDetalhe.setText("Detalhe");
+        btnDetalhe.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDetalheActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -175,6 +205,8 @@ public class TelaPesquisarProtocolo extends javax.swing.JDialog {
                     .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(btnDetalhe)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btVoltar, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
@@ -186,7 +218,9 @@ public class TelaPesquisarProtocolo extends javax.swing.JDialog {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 16, Short.MAX_VALUE)
-                .addComponent(btVoltar, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btVoltar, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnDetalhe)))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -208,6 +242,39 @@ public class TelaPesquisarProtocolo extends javax.swing.JDialog {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPesquisarActionPerformed
+        if (txtNumeroProtocolo.equals("")) {
+//            Protocolo objPesquisarProtocolo = new Protocolo();
+//            objPesquisarProtocolo.setCnpj(txtCnpj.getText());
+//            objPesquisarProtocolo.setDataEntrada(txtDataEntrada.getText());
+//            objPesquisarProtocolo.setDataSaida(txtDataSaida.getText());
+
+            AtualizarTabela();
+            
+            ProtocoloDAO dao = new ProtocoloDAO();
+            //dao.select(objPesquisarProtocolo);
+
+        } else {
+            //se campo Numero protocolo estiver vazio irá executar essa função
+//            PesquisarProtocolo objPesquisarProtocolo = new PesquisarProtocolo();
+//            objPesquisarProtocolo.setNumeroProtocolo(txtNumeroProtocolo.getText());
+//            ProtocoloDAO dao = new ProtocoloDAO();
+            //dao.select(objPesquisarProtocolo.getNumeroProtocolo());
+
+        }
+    }//GEN-LAST:event_btnPesquisarActionPerformed
+
+    private void btnDetalheActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDetalheActionPerformed
+        int linha = tblDadosFiltro.getSelectedRow();
+        int id = Integer.parseInt(tblDadosFiltro.getValueAt(linha, 0).toString());
+        ProtocoloDAO dao = new ProtocoloDAO();
+        Protocolo objProtocolo = dao.getProtocoloById(id);
+
+        TelaDetalhePesquisarProtocolo tela = new TelaDetalhePesquisarProtocolo(null, rootPaneCheckingEnabled);
+        tela.setVisible(true);
+        tela.setLocationRelativeTo(null);
+    }//GEN-LAST:event_btnDetalheActionPerformed
 
     /**
      * @param args the command line arguments
@@ -253,10 +320,9 @@ public class TelaPesquisarProtocolo extends javax.swing.JDialog {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btVoltar;
+    private javax.swing.JButton btnDetalhe;
     private javax.swing.JButton btnPesquisar;
-    private javax.swing.JComboBox ckbNomeEmpresa;
-    private javax.swing.JTextField dtEntrada;
-    private javax.swing.JTextField dtSaida;
+    private javax.swing.JComboBox cbNomeEmpresa;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -266,8 +332,29 @@ public class TelaPesquisarProtocolo extends javax.swing.JDialog {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable tbDadosFiltro;
+    private javax.swing.JTable tblDadosFiltro;
     private javax.swing.JTextField txtCnpj;
+    private javax.swing.JFormattedTextField txtDataEntrada;
+    private javax.swing.JFormattedTextField txtDataSaida;
     private javax.swing.JTextField txtNumeroProtocolo;
     // End of variables declaration//GEN-END:variables
+
+    private void AtualizarTabela() {
+
+//        ProtocoloDAO dao = new ProtocoloDAO();
+//        List<Protocolo> listaProtocolo = dao.listarProtocolo();
+//
+//        DefaultTableModel model = (DefaultTableModel) this.tblDadosFiltro.getModel();
+//
+//        model.setRowCount(listaProtocolo.size());
+//
+//        for (int i = 0; i < listaProtocolo.size(); i++) {
+//            model.setValueAt(listaProtocolo.get(i).getId(), i, 0);
+//            model.setValueAt(listaProtocolo.get(i).getNumero(), i, 1);
+//            model.setValueAt(listaProtocolo.get(i).getDataEntrada(), i, 2);
+//            model.setValueAt(listaProtocolo.get(i).getDataSaida(), i, 3);
+//            model.setValueAt(listaProtocolo.get(i).getEmpresa(), i, 3);
+//            model.setValueAt(listaProtocolo.get(i).getCnpj(), i, 3);
+//        }
+    }
 }

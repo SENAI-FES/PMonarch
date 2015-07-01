@@ -11,6 +11,7 @@ SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL,ALLOW_INVALID_DATES';
 -- -----------------------------------------------------
 -- Schema dbmonarchyfiles
 -- -----------------------------------------------------
+DROP SCHEMA IF EXISTS `dbmonarchyfiles` ; 
 CREATE SCHEMA IF NOT EXISTS `dbmonarchyfiles` DEFAULT CHARACTER SET utf8 ;
 USE `dbmonarchyfiles` ;
 

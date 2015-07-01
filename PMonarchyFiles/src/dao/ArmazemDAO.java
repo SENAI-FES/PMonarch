@@ -24,7 +24,7 @@ public class ArmazemDAO extends MySQL {
         try {
             PreparedStatement ps
                     = c.prepareStatement("INSERT INTO armazem "
-                            + "( Rua, Estante, Coluna, Andar, Ativo )  "
+                            + "( Rua, Estante, Coluna, Andar, Status )  "
                             + "VALUES ( ?, ?, ?, ?, ?)");
             ps.setString(1, armazem.getRua());
             ps.setString(2, armazem.getEstante());

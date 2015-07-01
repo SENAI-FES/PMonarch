@@ -43,6 +43,7 @@ public class TelaPrateleiraCRUD extends javax.swing.JDialog {
         jScrollPane1 = new javax.swing.JScrollPane();
         tbPrateleira = new javax.swing.JTable();
         btnVoltar = new javax.swing.JButton();
+        cbMostrarInativos = new javax.swing.JCheckBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Prateleiras");
@@ -89,6 +90,11 @@ public class TelaPrateleiraCRUD extends javax.swing.JDialog {
                 "Rua", "Estante", "Coluna", "Andar", "QtdCaixas"
             }
         ));
+        tbPrateleira.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                tbPrateleiraMouseReleased(evt);
+            }
+        });
         jScrollPane1.setViewportView(tbPrateleira);
 
         btnVoltar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/Back.png"))); // NOI18N
@@ -96,6 +102,13 @@ public class TelaPrateleiraCRUD extends javax.swing.JDialog {
         btnVoltar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnVoltarActionPerformed(evt);
+            }
+        });
+
+        cbMostrarInativos.setText("Mostrar inativos");
+        cbMostrarInativos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbMostrarInativosActionPerformed(evt);
             }
         });
 
@@ -120,7 +133,9 @@ public class TelaPrateleiraCRUD extends javax.swing.JDialog {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(cbRua, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(cbRua, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(cbMostrarInativos)))
                 .addGap(50, 50, 50))
         );
 
@@ -130,9 +145,11 @@ public class TelaPrateleiraCRUD extends javax.swing.JDialog {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(cbRua, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel1)
+                        .addComponent(cbRua, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(cbMostrarInativos, javax.swing.GroupLayout.Alignment.LEADING))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(38, 38, 38)
@@ -173,12 +190,26 @@ public class TelaPrateleiraCRUD extends javax.swing.JDialog {
     }//GEN-LAST:event_btnAlterarActionPerformed
 
     private void btnAtivarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAtivarActionPerformed
-        if (btnAtivar.getText().equals("Desativar")) {
+        ArmazemDAO dao = new ArmazemDAO();
+        Armazem armazem = new Armazem();
+        int linha = tbPrateleira.getSelectedRow();
+        armazem.setRua((String) tbPrateleira.getValueAt(linha, 0));
+        armazem.setEstante((String) tbPrateleira.getValueAt(linha, 1));
+        armazem.setColuna((String) tbPrateleira.getValueAt(linha, 2));
+        armazem.setAndar((String) tbPrateleira.getValueAt(linha, 3));
+        if (btnAtivar.getText().equals("Inativar")) {
             btnAtivar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/Raise.png")));
             btnAtivar.setText("Ativar");
+            armazem.setAtivo(false);
+            dao.ativarDesativar(armazem);
+            atualizarTabelaAtivos();
+
         } else {
             btnAtivar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/Fall.png")));
             btnAtivar.setText("Inativar");
+            armazem.setAtivo(true);
+            dao.ativarDesativar(armazem);
+            atualizarTabelaAtivos();
         }
     }//GEN-LAST:event_btnAtivarActionPerformed
 
@@ -188,10 +219,50 @@ public class TelaPrateleiraCRUD extends javax.swing.JDialog {
 
     private void cbRuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbRuaActionPerformed
         limparTabela();
-        atualizarTabela();
+        atualizarTabelaAtivos();
     }//GEN-LAST:event_cbRuaActionPerformed
 
-    public void atualizarTabela() {
+    private void tbPrateleiraMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbPrateleiraMouseReleased
+        ArmazemDAO dao = new ArmazemDAO();
+        Armazem armazem = new Armazem();
+        int linha = tbPrateleira.getSelectedRow();
+        armazem.setRua((String) tbPrateleira.getValueAt(linha, 0));
+        armazem.setEstante((String) tbPrateleira.getValueAt(linha, 1));
+        armazem.setColuna((String) tbPrateleira.getValueAt(linha, 2));
+        armazem.setAndar((String) tbPrateleira.getValueAt(linha, 3));
+        if (true) {
+            btnAtivar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/Fall.png")));
+            btnAtivar.setText("Inativar");
+        } else {
+            btnAtivar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/Raise.png")));
+            btnAtivar.setText("Ativar");
+        }
+    }//GEN-LAST:event_tbPrateleiraMouseReleased
+
+    private void cbMostrarInativosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbMostrarInativosActionPerformed
+        atualizarTabelaInativos();
+    }//GEN-LAST:event_cbMostrarInativosActionPerformed
+
+    public void atualizarTabelaAtivos() {
+        if (cbRua.getModel().getSize() > 0) {
+            String rua = cbRua.getSelectedItem().toString();
+            ArmazemDAO aDAO = new ArmazemDAO();
+            List<Armazem> lista = aDAO.listarArmazem(rua);
+            DefaultTableModel model = (DefaultTableModel) this.tbPrateleira.getModel();
+            for (int i = 0; i < lista.size(); i++) {
+                if (tbPrateleira.getRowCount() < lista.size()) {
+                    model.addRow(new Object[]{});
+                }
+                model.setValueAt(lista.get(i).getRua(), i, 0);
+                model.setValueAt(lista.get(i).getEstante(), i, 1);
+                model.setValueAt(lista.get(i).getColuna(), i, 2);
+                model.setValueAt(lista.get(i).getAndar(), i, 3);
+
+            }
+        }
+    }
+
+    public void atualizarTabelaInativos() {
         if (cbRua.getModel().getSize() > 0) {
             String rua = cbRua.getSelectedItem().toString();
             ArmazemDAO aDAO = new ArmazemDAO();
@@ -280,6 +351,7 @@ public class TelaPrateleiraCRUD extends javax.swing.JDialog {
     private javax.swing.JButton btnAtivar;
     private javax.swing.JButton btnNovo;
     private javax.swing.JButton btnVoltar;
+    private javax.swing.JCheckBox cbMostrarInativos;
     private javax.swing.JComboBox cbRua;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;

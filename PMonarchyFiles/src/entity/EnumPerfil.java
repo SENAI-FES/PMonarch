@@ -1,4 +1,3 @@
-
 package entity;
 
 public enum EnumPerfil {
@@ -9,6 +8,10 @@ public enum EnumPerfil {
     int id;
     String descricao;
 
+    private EnumPerfil(String descricao) {
+        this.descricao = descricao;
+    }
+
     public int getId() {
         return id;
     }
@@ -17,13 +20,11 @@ public enum EnumPerfil {
         return descricao;
     }
 
-    
     private EnumPerfil(int id, String descricao) {
         this.id = id;
         this.descricao = descricao;
     }
-    
-    
+
     public EnumPerfil getPerfil(int id) {
         for (EnumPerfil enumPerfil : EnumPerfil.values()) {
             if (enumPerfil.getId() == id) {
@@ -32,5 +33,5 @@ public enum EnumPerfil {
         }
         return null;
     }
-    
+
 }

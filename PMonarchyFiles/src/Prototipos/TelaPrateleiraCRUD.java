@@ -3,6 +3,7 @@ package Prototipos;
 import dao.ArmazemDAO;
 import entity.Armazem;
 import java.util.List;
+import java.util.Vector;
 import javax.swing.table.DefaultTableModel;
 
 /*
@@ -210,13 +211,13 @@ public class TelaPrateleiraCRUD extends javax.swing.JDialog {
             btnAtivar.setText("Ativar");
             armazem.setAtivo(false);
             dao.ativarDesativar(armazem);
-            atualizarTabelaInativos();
+            atualizarTabelaAtivos();
         } else {
             btnAtivar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/Fall.png")));
             btnAtivar.setText("Inativar");
             armazem.setAtivo(true);
             dao.ativarDesativar(armazem);
-            atualizarTabelaAtivos();
+            atualizarTabelaInativos();
         }
     }//GEN-LAST:event_btnAtivarActionPerformed
 
@@ -266,6 +267,7 @@ public class TelaPrateleiraCRUD extends javax.swing.JDialog {
             ArmazemDAO aDAO = new ArmazemDAO();
             List<Armazem> lista = aDAO.listarArmazem(rua);
             DefaultTableModel model = (DefaultTableModel) this.tbPrateleira.getModel();
+            model.setNumRows(0);
             for (int i = 0; i < lista.size(); i++) {
                 if (tbPrateleira.getRowCount() < lista.size()) {
                     model.addRow(new Object[]{});
@@ -284,12 +286,13 @@ public class TelaPrateleiraCRUD extends javax.swing.JDialog {
         }
     }
 
+
     public void atualizarTabelaInativos() {
         if (cbRua.getModel().getSize() > 0) {
-            String rua = cbRua.getSelectedItem().toString();
             ArmazemDAO aDAO = new ArmazemDAO();
             List<Armazem> lista = aDAO.listarArmazemDesativado();
             DefaultTableModel model = (DefaultTableModel) this.tbPrateleira.getModel();
+            model.setNumRows(0);
             for (int i = 0; i < lista.size(); i++) {
                 if (tbPrateleira.getRowCount() < lista.size()) {
                     model.addRow(new Object[]{});

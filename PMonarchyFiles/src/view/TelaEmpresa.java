@@ -236,11 +236,11 @@ public class TelaEmpresa extends javax.swing.JDialog {
 
     private void btnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlterarActionPerformed
         int linha = tbEmpresa.getSelectedRow();
-            int id = Integer.parseInt(tbEmpresa.getValueAt(linha, 0).toString());
-            EmpresaDAO dao = new EmpresaDAO();
-            Empresa empresa = dao.getEmpresaById(id);
-            TelaCadastroEmpresa cadastroEmpresa = new TelaCadastroEmpresa(null, true, false, empresa);
-            cadastroEmpresa.setVisible(true);
+        int id = Integer.parseInt(tbEmpresa.getValueAt(linha, 0).toString());
+        EmpresaDAO dao = new EmpresaDAO();
+        Empresa empresa = dao.getEmpresaById(id);
+        TelaCadastroEmpresa cadastroEmpresa = new TelaCadastroEmpresa(null, true, false, empresa);
+        cadastroEmpresa.setVisible(true);
     }//GEN-LAST:event_btnAlterarActionPerformed
 
     private void atualizaTabelaEmpresas() {

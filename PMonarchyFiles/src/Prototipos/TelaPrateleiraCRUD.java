@@ -2,11 +2,8 @@ package Prototipos;
 
 import dao.ArmazemDAO;
 import entity.Armazem;
-import java.util.ArrayList;
 import java.util.List;
-import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableModel;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -26,7 +23,6 @@ public class TelaPrateleiraCRUD extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
         this.setLocationRelativeTo(null);
-        cbRua.addItem("Selecione a rua");
         combo();
     }
 
@@ -156,6 +152,10 @@ public class TelaPrateleiraCRUD extends javax.swing.JDialog {
     private void btnNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNovoActionPerformed
         TelaPrateleiraNovo telaNovo = new TelaPrateleiraNovo(null, true, true);
         telaNovo.setVisible(true);
+        cbRua.addItem("Selecione a rua");
+        String cbSelecionado = (String) cbRua.getSelectedItem();
+        combo();
+        cbRua.setSelectedItem(cbSelecionado);
     }//GEN-LAST:event_btnNovoActionPerformed
 
     private void btnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlterarActionPerformed
@@ -167,6 +167,9 @@ public class TelaPrateleiraCRUD extends javax.swing.JDialog {
         armazem.setAndar((String) tbPrateleira.getValueAt(linha, 3));
         TelaPrateleiraNovo telaNovo = new TelaPrateleiraNovo(null, true, false, armazem);
         telaNovo.setVisible(true);
+        String cbSelecionado = (String) cbRua.getSelectedItem();
+        combo();
+        cbRua.setSelectedItem(cbSelecionado);
     }//GEN-LAST:event_btnAlterarActionPerformed
 
     private void btnAtivarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAtivarActionPerformed
@@ -175,7 +178,7 @@ public class TelaPrateleiraCRUD extends javax.swing.JDialog {
             btnAtivar.setText("Ativar");
         } else {
             btnAtivar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/Fall.png")));
-            btnAtivar.setText("Desativar");
+            btnAtivar.setText("Inativar");
         }
     }//GEN-LAST:event_btnAtivarActionPerformed
 
@@ -189,21 +192,21 @@ public class TelaPrateleiraCRUD extends javax.swing.JDialog {
     }//GEN-LAST:event_cbRuaActionPerformed
 
     public void atualizarTabela() {
+        if (cbRua.getModel().getSize() > 0) {
+            String rua = cbRua.getSelectedItem().toString();
+            ArmazemDAO aDAO = new ArmazemDAO();
+            List<Armazem> lista = aDAO.listarArmazem(rua);
+            DefaultTableModel model = (DefaultTableModel) this.tbPrateleira.getModel();
+            for (int i = 0; i < lista.size(); i++) {
+                if (tbPrateleira.getRowCount() < lista.size()) {
+                    model.addRow(new Object[]{});
+                }
+                model.setValueAt(lista.get(i).getRua(), i, 0);
+                model.setValueAt(lista.get(i).getEstante(), i, 1);
+                model.setValueAt(lista.get(i).getColuna(), i, 2);
+                model.setValueAt(lista.get(i).getAndar(), i, 3);
 
-        String rua = cbRua.getSelectedItem().toString();
-        ArmazemDAO aDAO = new ArmazemDAO();
-        Armazem a = new Armazem();
-        List<Armazem> lista = aDAO.listarArmazem(rua);
-        DefaultTableModel model = (DefaultTableModel) this.tbPrateleira.getModel();
-        for (int i = 0; i < lista.size(); i++) {
-            if (tbPrateleira.getRowCount() < lista.size()) {
-                model.addRow(new Object[]{});
             }
-            model.setValueAt(lista.get(i).getRua(), i, 0);
-            model.setValueAt(lista.get(i).getEstante(), i, 1);
-            model.setValueAt(lista.get(i).getColuna(), i, 2);
-            model.setValueAt(lista.get(i).getAndar(), i, 3);
-
         }
     }
 
@@ -220,6 +223,9 @@ public class TelaPrateleiraCRUD extends javax.swing.JDialog {
     }
 
     public void combo() {
+        cbRua.removeAll();
+        cbRua.removeAllItems();
+        cbRua.addItem("Selecione a rua");
         ArmazemDAO aDAO = new ArmazemDAO();
         List<Armazem> lista = aDAO.listaRuaCombo();
         for (Armazem rua : lista) {

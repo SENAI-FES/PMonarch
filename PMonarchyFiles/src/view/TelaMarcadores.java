@@ -60,6 +60,24 @@ public class TelaMarcadores extends javax.swing.JDialog {
         setTitle("Marcadores de busca");
 
         lstMarcadoresDoDocumento.setBorder(javax.swing.BorderFactory.createTitledBorder("Marcadores do Documento"));
+        lstMarcadoresDoDocumento.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                lstMarcadoresDoDocumentoFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                lstMarcadoresDoDocumentoFocusLost(evt);
+            }
+        });
+        lstMarcadoresDoDocumento.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lstMarcadoresDoDocumentoMouseClicked(evt);
+            }
+        });
+        lstMarcadoresDoDocumento.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
+            public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
+                lstMarcadoresDoDocumentoValueChanged(evt);
+            }
+        });
         jScrollPane1.setViewportView(lstMarcadoresDoDocumento);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -79,9 +97,28 @@ public class TelaMarcadores extends javax.swing.JDialog {
 
         lstMarcadoreDiponiveis.setBorder(javax.swing.BorderFactory.createTitledBorder("Marcadores Diponíveis"));
         lstMarcadoreDiponiveis.setToolTipText("");
+        lstMarcadoreDiponiveis.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                lstMarcadoreDiponiveisFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                lstMarcadoreDiponiveisFocusLost(evt);
+            }
+        });
+        lstMarcadoreDiponiveis.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lstMarcadoreDiponiveisMouseClicked(evt);
+            }
+        });
+        lstMarcadoreDiponiveis.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
+            public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
+                lstMarcadoreDiponiveisValueChanged(evt);
+            }
+        });
         jScrollPane2.setViewportView(lstMarcadoreDiponiveis);
 
         btnAdicionarMarcadorDocumento.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/Previous.png"))); // NOI18N
+        btnAdicionarMarcadorDocumento.setEnabled(false);
         btnAdicionarMarcadorDocumento.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnAdicionarMarcadorDocumentoActionPerformed(evt);
@@ -89,6 +126,7 @@ public class TelaMarcadores extends javax.swing.JDialog {
         });
 
         btnExcluirMarcadorDocumento.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/Next.png"))); // NOI18N
+        btnExcluirMarcadorDocumento.setEnabled(false);
         btnExcluirMarcadorDocumento.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnExcluirMarcadorDocumentoActionPerformed(evt);
@@ -121,6 +159,12 @@ public class TelaMarcadores extends javax.swing.JDialog {
 
         BtnExcluirMarcador.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/Delete.png"))); // NOI18N
         BtnExcluirMarcador.setText("Excluir Marcador");
+        BtnExcluirMarcador.setEnabled(false);
+        BtnExcluirMarcador.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                BtnExcluirMarcadorMouseClicked(evt);
+            }
+        });
         BtnExcluirMarcador.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 BtnExcluirMarcadorActionPerformed(evt);
@@ -136,7 +180,7 @@ public class TelaMarcadores extends javax.swing.JDialog {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(BtnExcluirMarcador)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnVoltaar))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -198,8 +242,10 @@ public class TelaMarcadores extends javax.swing.JDialog {
         mostrarListaMarcadoresDoDocumento();
         listamarcadoresDisponiveis.remove(objMarcador);
         mostrarListaMarcadoresDisponiveis();
-
+        btnAdicionarMarcadorDocumento.setEnabled(false);
+        BtnExcluirMarcador.setEnabled(false);
     }//GEN-LAST:event_btnAdicionarMarcadorDocumentoActionPerformed
+
     public void mostrarListaMarcadoresDoDocumento() {
 
         DefaultListModel modelo = new DefaultListModel();
@@ -228,10 +274,12 @@ public class TelaMarcadores extends javax.swing.JDialog {
         Marcador objMarcador = new Marcador();
         objMarcador.setDescricao(txtPesquisaAdiconar.getText());
         dao.insert(objMarcador);
-        mostrarTela();
+        listaMarcadorDocumento.add(objMarcador);
+        mostrarListaMarcadoresDoDocumento();
         mostrarListaMarcadoresDisponiveis();
         txtPesquisaAdiconar.setText("");
         btnAdicionarMarcador.setEnabled(false);
+        BtnExcluirMarcador.setEnabled(false);
     }//GEN-LAST:event_btnAdicionarMarcadorActionPerformed
 
     private void mostrarTela() {
@@ -253,25 +301,27 @@ public class TelaMarcadores extends javax.swing.JDialog {
             int id = c.getIdMarcador();
 
             dao.delete(id);
-            mostrarTela();
+            listamarcadoresDisponiveis.remove(c);
+            mostrarListaMarcadoresDoDocumento();
+            mostrarListaMarcadoresDisponiveis();
+            BtnExcluirMarcador.setEnabled(false);
         }
     }//GEN-LAST:event_BtnExcluirMarcadorActionPerformed
 
     private void btnExcluirMarcadorDocumentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirMarcadorDocumentoActionPerformed
+        if (lstMarcadoresDoDocumento.getSelectedIndex() > -1) {
+            btnExcluirMarcadorDocumento.setEnabled(true);
+        } else {
+            btnExcluirMarcadorDocumento.setEnabled(false);
 
+        }
         Marcador c = (Marcador) lstMarcadoresDoDocumento.getSelectedValue();
         listamarcadoresDisponiveis.add(c);
         listaMarcadorDocumento.remove(c);
         mostrarListaMarcadoresDisponiveis();
         mostrarListaMarcadoresDoDocumento();
-
-   //     Marcador objMarcador;
-        //     objMarcador = (Marcador) lstMarcadoreDiponiveis.getSelectedValue();
-        //     listaMarcadorDocumento.add(objMarcador);
-        //   mostrarListaMarcadoresDoDocumento();
-        //   listamarcadoresDisponiveis.remove(objMarcador);
-        //   mostrarListaMarcadoresDisponiveis();
-
+        btnExcluirMarcadorDocumento.setEnabled(false);
+        BtnExcluirMarcador.setEnabled(false);
     }//GEN-LAST:event_btnExcluirMarcadorDocumentoActionPerformed
 
     private void txtPesquisaAdiconarKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPesquisaAdiconarKeyReleased
@@ -289,6 +339,46 @@ public class TelaMarcadores extends javax.swing.JDialog {
         }
         lstMarcadoreDiponiveis.setModel(modelo);
     }//GEN-LAST:event_txtPesquisaAdiconarKeyReleased
+
+    private void lstMarcadoreDiponiveisFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_lstMarcadoreDiponiveisFocusGained
+
+    }//GEN-LAST:event_lstMarcadoreDiponiveisFocusGained
+
+    private void lstMarcadoreDiponiveisFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_lstMarcadoreDiponiveisFocusLost
+ 
+    }//GEN-LAST:event_lstMarcadoreDiponiveisFocusLost
+
+    private void lstMarcadoresDoDocumentoFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_lstMarcadoresDoDocumentoFocusGained
+
+    }//GEN-LAST:event_lstMarcadoresDoDocumentoFocusGained
+
+    private void lstMarcadoresDoDocumentoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_lstMarcadoresDoDocumentoFocusLost
+
+    }//GEN-LAST:event_lstMarcadoresDoDocumentoFocusLost
+
+    private void lstMarcadoreDiponiveisValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_lstMarcadoreDiponiveisValueChanged
+      BtnExcluirMarcador.setEnabled(true);
+    }//GEN-LAST:event_lstMarcadoreDiponiveisValueChanged
+
+    private void lstMarcadoresDoDocumentoValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_lstMarcadoresDoDocumentoValueChanged
+
+    }//GEN-LAST:event_lstMarcadoresDoDocumentoValueChanged
+
+    private void lstMarcadoreDiponiveisMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lstMarcadoreDiponiveisMouseClicked
+        btnAdicionarMarcadorDocumento.setEnabled(true);
+        btnExcluirMarcadorDocumento.setEnabled(false);
+        BtnExcluirMarcador.setEnabled(true);
+    }//GEN-LAST:event_lstMarcadoreDiponiveisMouseClicked
+
+    private void lstMarcadoresDoDocumentoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lstMarcadoresDoDocumentoMouseClicked
+        btnAdicionarMarcadorDocumento.setEnabled(false);
+        btnExcluirMarcadorDocumento.setEnabled(true);
+        BtnExcluirMarcador.setEnabled(false);
+    }//GEN-LAST:event_lstMarcadoresDoDocumentoMouseClicked
+
+    private void BtnExcluirMarcadorMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BtnExcluirMarcadorMouseClicked
+
+    }//GEN-LAST:event_BtnExcluirMarcadorMouseClicked
 
     /**
      * @param args the command line arguments

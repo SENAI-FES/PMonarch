@@ -24,9 +24,9 @@ public class TelaPrincipal extends javax.swing.JDialog {
         
         Usuario objUsuario = usuario;
         
-//        if(objUsuario.getPerfil()){
-//            
-//        }
+        if(!objUsuario.getPerfil().equals(0)){
+           btnUsuários.setEnabled(false);
+        }
     }
 
     /**

@@ -139,7 +139,7 @@ public class ArmazemDAO extends MySQL {
         Connection c = this.getConnection();
         try {
             PreparedStatement ps
-                    = c.prepareStatement("SELECT rua, estante, coluna, andar FROM armazem WHERE rua = ?");
+                    = c.prepareStatement("SELECT rua, estante, coluna, andar, status FROM armazem WHERE rua = ? and status = true");
             ps.setString(1, rua);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
@@ -149,6 +149,7 @@ public class ArmazemDAO extends MySQL {
                 armazem.setEstante(rs.getString("Estante"));
                 armazem.setColuna(rs.getString("Coluna"));
                 armazem.setAndar(rs.getString("Andar"));
+                armazem.setAtivo(rs.getBoolean("status"));
 
                 lista.add(armazem);
             }

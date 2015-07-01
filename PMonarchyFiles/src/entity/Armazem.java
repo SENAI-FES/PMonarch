@@ -10,6 +10,7 @@ public class Armazem {
     private String andar;
     private String estante;
     private boolean ativo;
+    
 
     public boolean isAtivo() {
         return ativo;

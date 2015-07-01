@@ -159,10 +159,14 @@ public class TelaPrateleiraCRUD extends javax.swing.JDialog {
     }//GEN-LAST:event_btnNovoActionPerformed
 
     private void btnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlterarActionPerformed
-        TelaPrateleiraNovo telaNovo = new TelaPrateleiraNovo(null, true, false);
+        Armazem armazem = new Armazem();
+        int linha = tbPrateleira.getSelectedRow();
+        armazem.setRua((String) tbPrateleira.getValueAt(linha, 0));
+        armazem.setEstante((String) tbPrateleira.getValueAt(linha, 1));
+        armazem.setColuna((String) tbPrateleira.getValueAt(linha, 2));
+        armazem.setAndar((String) tbPrateleira.getValueAt(linha, 3));
+        TelaPrateleiraNovo telaNovo = new TelaPrateleiraNovo(null, true, false, armazem);
         telaNovo.setVisible(true);
-        atualizarTabela();
-        combo();
     }//GEN-LAST:event_btnAlterarActionPerformed
 
     private void btnAtivarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAtivarActionPerformed

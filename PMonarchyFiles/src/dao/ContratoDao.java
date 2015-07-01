@@ -3,6 +3,7 @@ package dao;
 import entity.Contrato;
 import entity.Empresa;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -12,18 +13,19 @@ import java.util.ArrayList;
  *
  * @mauricio
  */
-public class ContratoDao extends MySQL{
-   public boolean insert(Contrato contrato) {
+public class ContratoDao extends MySQL {
+
+    public boolean insert(Contrato contrato) {
         Connection c = this.getConnection();
 
         try {
-            PreparedStatement ps = c.prepareStatement("insert into contrato (tipoContrato,"
-                    + " dataInicial, idEmpresa) values( ? , ? , ?)");
-                    
-            
+            PreparedStatement ps = c.prepareStatement("insert into contrato (tipo,"
+                    + " dataInicial, validade, idEmpresa) values( ? , ? , ?, ?)");
+
             ps.setString(1, contrato.getTipoContrato());
-            ps.setString(2, contrato.getDataInicial().toString());//é tipo Date
-            ps.setInt(3, contrato.getEmpresa().getIdEmpresa());
+            ps.setDate(2, new java.sql.Date(contrato.getDataInicial().getTime()));
+            ps.setDate(3, new java.sql.Date(contrato.getValidade().getTime()));
+            ps.setInt(4, contrato.getEmpresa().getIdEmpresa());
 
             ps.execute();
             ps.close();
@@ -35,20 +37,22 @@ public class ContratoDao extends MySQL{
             try {
                 c.close();
             } catch (SQLException ex) {
-               ex.printStackTrace();
+                ex.printStackTrace();
             }
         }
         return false;
     }
- public boolean update(Contrato contrato) {
+
+    public boolean update(Contrato contrato) {
         Connection c = this.getConnection();
         try {
             PreparedStatement ps = c.prepareStatement("UPDATE contrato "
-                    + "SET tipoContrato = ?, dataInicial = ?, idEmpresa = ? WHERE idContrato = ?");
+                    + "SET tipo = ?, dataInicial = ?, validade = ?, idEmpresa = ? WHERE idContrato = ?");
             ps.setString(1, contrato.getTipoContrato());
-            ps.setString(2, contrato.getDataInicial().toString());
-            ps.setInt(3, contrato.getEmpresa().getIdEmpresa());
-            ps.setInt(4, contrato.getIdContrato());
+            ps.setDate(2, new java.sql.Date(contrato.getDataInicial().getTime()));
+            ps.setDate(3, new java.sql.Date(contrato.getValidade().getTime()));
+            ps.setInt(4, contrato.getEmpresa().getIdEmpresa());
+            ps.setInt(5, contrato.getIdContrato());
             ps.execute();
 
             ps.close();
@@ -90,11 +94,12 @@ public class ContratoDao extends MySQL{
         }
         return false;
     }
+
     public java.util.List<Contrato> listarContrato() {
         Connection c = this.getConnection();
         java.util.List<Contrato> listaContratos = new ArrayList<Contrato>();
         try {
-            PreparedStatement ps = c.prepareStatement(" select idContrato, tipoContrato, dataInicial, "
+            PreparedStatement ps = c.prepareStatement(" select idContrato, tipo, dataInicial, validade, "
                     + "idEmpresa from contrato");
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
@@ -102,12 +107,13 @@ public class ContratoDao extends MySQL{
                 Contrato contrato = new Contrato();
 
                 contrato.setIdContrato(rs.getInt("idContrato"));
-                contrato.setTipoContrato(rs.getString("tipoContrato"));
+                contrato.setTipoContrato(rs.getString("tipo"));
                 contrato.setDataInicial(rs.getDate("dataInicial"));
+                contrato.setValidade(rs.getDate("validade"));
                 EmpresaDAO empresaDAO = new EmpresaDAO();
                 Empresa empresa = empresaDAO.getEmpresaById(rs.getInt("idEmpresa"));
                 contrato.setEmpresa(empresa);
-                
+
                 listaContratos.add(contrato);
             }
             rs.close();
@@ -124,4 +130,37 @@ public class ContratoDao extends MySQL{
             }
         }
         return null;
-}}
+    }
+    
+    public Contrato getContratoById(int id) {
+        Connection c = this.getConnection();
+        Contrato contrato = null;
+        try {
+            PreparedStatement ps = c.prepareStatement("SELECT idContrato, tipo, dataInicial, validade "
+                    + "FROM contrato WHERE idEmpresa = ? ");
+            ps.setInt(1, id);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                contrato = new Contrato();
+                contrato.setIdContrato(rs.getInt("idContrato"));
+                contrato.setTipoContrato(rs.getString("tipo"));
+                contrato.setDataInicial(rs.getDate("dataInicial"));
+                contrato.setValidade(rs.getDate("validade"));
+            }
+            
+            rs.close();
+            ps.close();
+            return contrato;
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        } finally {
+            try {
+                c.close();
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
+        }
+        return null;
+    }
+    
+}

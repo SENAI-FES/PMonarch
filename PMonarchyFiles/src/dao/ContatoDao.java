@@ -12,6 +12,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -101,9 +102,9 @@ public boolean insert(Contato contato) {
         }
         return false;
     }
-    public java.util.List<Contato> listarContato() {
+    public List<Contato> listarContato() {
         Connection c = this.getConnection();
-        java.util.List<Contato> listaContatos = new ArrayList<Contato>();
+        List<Contato> listaContatos = new ArrayList<Contato>();
         try {
             PreparedStatement ps = c.prepareStatement(" select idContato,"
                     + " nome, cargo, telefone, ramal, email, idEmpresa"
@@ -112,7 +113,7 @@ public boolean insert(Contato contato) {
             while (rs.next()) {
 
                 Contato contato = new Contato();
-                contato.setIdContato(rs.getInt("idContrato"));
+                contato.setIdContato(rs.getInt("idContato"));
                 contato.setNome(rs.getString("nome"));
                 contato.setCargo(rs.getString("cargo"));
                 contato.setTelefone(rs.getString("telefone"));
@@ -139,5 +140,40 @@ public boolean insert(Contato contato) {
         }
         return null;
 }
+    
+    public List<Contato> getContratoById(int id) {
+        Connection c = this.getConnection();
+        List<Contato> listaContatos = new ArrayList<Contato>();
+        try {
+            PreparedStatement ps = c.prepareStatement("SELECT idContato,"
+                    + " nome, cargo, telefone, ramal, email"
+                    + " FROM contato WHERE idEmpresa = ?");
+            ps.setInt(1, id);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                Contato contato = new Contato();
+                contato.setIdContato(rs.getInt("idContato"));
+                contato.setNome(rs.getString("nome"));
+                contato.setCargo(rs.getString("cargo"));
+                contato.setTelefone(rs.getString("telefone"));
+                contato.setRamal(rs.getString("ramal"));
+                contato.setEmail(rs.getString("email"));
+                listaContatos.add(contato);
+            }
+            
+            rs.close();
+            ps.close();
+            return listaContatos;
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        } finally {
+            try {
+                c.close();
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
+        }
+        return null;
+    }
 
 }

@@ -13,10 +13,19 @@ package entity;
 public class Usuario {
     private String nome;
     private String CPF;
-    private int Perfil;
+    private EnumPerfil Perfil;
     private String email;
     private int matricula;
     private String status;
+    private String senha;
+
+    public String getSenha() {
+        return senha;
+    }
+
+    public void setSenha(String senha) {
+        this.senha = senha;
+    }
 
     public String getStatus() {
         return status;
@@ -38,13 +47,15 @@ public class Usuario {
         return CPF;
     }
 
-    public int getPerfil() {
+    public EnumPerfil getPerfil() {
         return Perfil;
     }
 
-    public void setPerfil(int Perfil) {
+    public void setPerfil(EnumPerfil Perfil) {
         this.Perfil = Perfil;
     }
+
+    
 
     public void setCPF(String CPF) {
         this.CPF = CPF;

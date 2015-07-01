@@ -33,7 +33,6 @@ public class TelaPrateleiraNovo extends javax.swing.JDialog {
         txtColunaInicio.setText(armazem.getColuna());
         txtColunaFim.setText(armazem.getColuna());
         txtColunaFim.setEnabled(false);
-        
     }
 
     @SuppressWarnings("unchecked")
@@ -179,6 +178,7 @@ public class TelaPrateleiraNovo extends javax.swing.JDialog {
                     armazem.setEstante(txtEstante.getText());
                     armazem.setColuna(i + "");
                     if (novo) {
+                        armazem.setAtivo(true);
                         if (dao.insert(armazem)) {
                             sucesso = true;
                         } else {

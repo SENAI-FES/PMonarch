@@ -5,6 +5,7 @@
  */
 package dao;
 
+import entity.EnumPerfil;
 import entity.Usuario;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -24,14 +25,15 @@ public class UsuarioDAO extends MySQL {
         try {
             PreparedStatement ps
                     = c.prepareStatement("INSERT INTO usuario "
-                            + "(matricula, nome, cpf, perfil, email, status )  "
-                            + "VALUES ( ?, ?, ?, ?, ?, ? )");
+                            + "(matricula, nome, cpf, perfil, email, status, senha )  "
+                            + "VALUES ( ?, ?, ?, ?, ?, ?, ? )");
             ps.setInt(1, usuario.getMatricula());
             ps.setString(2, usuario.getNome());
             ps.setString(3, usuario.getCPF());
-            ps.setInt(4, usuario.getPerfil());
+            ps.setInt(4, usuario.getPerfil().getId());
             ps.setString(5, usuario.getEmail());
             ps.setString(6, usuario.getStatus());
+            ps.setString(7, usuario.getSenha());
 
             ps.execute();
             ps.close();
@@ -86,7 +88,7 @@ public class UsuarioDAO extends MySQL {
 
             ps.setString(1, objUsuario.getNome());
             ps.setString(2, objUsuario.getCPF());
-            ps.setInt(3, objUsuario.getPerfil());
+            ps.setInt(3, objUsuario.getPerfil().getId());
             ps.setString(4, objUsuario.getEmail());
             ps.setInt(5, objUsuario.getMatricula());
 
@@ -144,7 +146,7 @@ public class UsuarioDAO extends MySQL {
                 objUsuario.setMatricula(rs.getInt("matricula"));
                 objUsuario.setNome(rs.getString("nome"));
                 objUsuario.setCPF(rs.getString("cpf"));
-                objUsuario.setPerfil(rs.getInt("perfil"));
+                objUsuario.setPerfil(EnumPerfil.ADMINISTRADOR.getPerfil(rs.getInt("perfil")));
                 objUsuario.setEmail(rs.getString("email"));
                 objUsuario.setStatus(rs.getString("status"));
 
@@ -179,7 +181,7 @@ public class UsuarioDAO extends MySQL {
                 objUsuario.setMatricula(rs.getInt("matricula"));
                 objUsuario.setNome(rs.getString("nome"));
                 objUsuario.setCPF(rs.getString("cpf"));
-                objUsuario.setPerfil(rs.getInt("perfil"));
+                objUsuario.setPerfil(EnumPerfil.USUARIO.getPerfil(rs.getInt("perfil")));
                 objUsuario.setEmail(rs.getString("email"));
                 objUsuario.setStatus(rs.getString("status"));
 

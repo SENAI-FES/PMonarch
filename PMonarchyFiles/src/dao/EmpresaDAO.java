@@ -28,9 +28,9 @@ public class EmpresaDAO extends MySQL {
         try {
             PreparedStatement ps
                     = c.prepareStatement("INSERT INTO empresa "
-                            + "(nomeFantasia, razaoSocial, CNPJ, IE, site, logradouro, complemento "
-                            + "cidade, CEP, UF )  "
-                            + "VALUES (?,?,?,?,?,?,?,?,?,?)", Statement.RETURN_GENERATED_KEYS);
+                            + "(nomeFantasia, razaoSocial, CNPJ, IE, site, logradouro, complemento, "
+                            + "cidade, CEP, UF, tipo )  "
+                            + "VALUES (?,?,?,?,?,?,?,?,?,?,?)", Statement.RETURN_GENERATED_KEYS);
             ps.setString(1, empresa.getNomeFantasia());
             ps.setString(2, empresa.getRazaoSocial());
             ps.setString(3, empresa.getCnpj());
@@ -40,7 +40,8 @@ public class EmpresaDAO extends MySQL {
             ps.setString(7, empresa.getComplemento());
             ps.setString(8, empresa.getCidade());
             ps.setString(9, empresa.getCep());
-            ps.setString(10, empresa.getUf()+"");
+            ps.setString(10, empresa.getUf());
+            ps.setString(11, empresa.getTipo());
             ps.execute();
             
             ps.executeUpdate();  
@@ -80,7 +81,7 @@ public class EmpresaDAO extends MySQL {
         try {
             PreparedStatement ps = c.prepareStatement("UPDATE empresa "
                     + "SET nomeFantasia = ?, razaoSocial = ?, CNPJ = ?, IE = ?, site = ?,"
-                    + " logradouro = ?, complemento = ?, cidade = ?, CEP = ?, UF = ? "
+                    + " logradouro = ?, complemento = ?, cidade = ?, CEP = ?, UF = ?, tipo = ? "
                     + " WHERE idEmpresa = ?");
             ps.setString(1, empresa.getNomeFantasia());
             ps.setString(2, empresa.getRazaoSocial());
@@ -91,7 +92,8 @@ public class EmpresaDAO extends MySQL {
             ps.setString(7, empresa.getComplemento());
             ps.setString(8, empresa.getCidade());
             ps.setString(9, empresa.getCep());
-            ps.setString(10, empresa.getUf()+"");
+            ps.setString(10, empresa.getUf());
+            ps.setString(10, empresa.getTipo());
             ps.execute();
 
             ps.close();
@@ -141,7 +143,7 @@ public class EmpresaDAO extends MySQL {
             PreparedStatement ps
                     = c.prepareStatement("SELECT idEmpresa, nomeFantasia, "
                             + "razaoSocial, IE, CEP, cidade, CNPJ, complemento, "
-                            + "logradouro, site, UF "
+                            + "logradouro, site, UF, tipo "
                             + "FROM empresa");
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
@@ -157,6 +159,7 @@ public class EmpresaDAO extends MySQL {
                 empresa.setLogradouro(rs.getString("logradouro"));
                 empresa.setSite(rs.getString("site"));
                 empresa.setUf(rs.getString("UF"));
+                empresa.setTipo(rs.getString("tipo"));
                 lista.add(empresa);
             }
             rs.close();
@@ -179,7 +182,7 @@ public class EmpresaDAO extends MySQL {
         try {
             PreparedStatement ps = c.prepareStatement("SELECT idEmpresa, nomeFantasia, "
                     + "razaoSocial, IE, CEP, cidade, CNPJ, complemento, "
-                    + "logradouro, site, UF "
+                    + "logradouro, site, UF, tipo "
                     + "FROM empresa WHERE idEmpresa = ?");
             ps.setInt(1, id);
             ResultSet rs = ps.executeQuery();
@@ -196,7 +199,11 @@ public class EmpresaDAO extends MySQL {
                 empresa.setLogradouro(rs.getString("logradouro"));
                 empresa.setSite(rs.getString("site"));
                 empresa.setUf(rs.getString("UF"));
+                empresa.setTipo(rs.getString("tipo"));
             }
+            ContratoDao contratoDao = new ContratoDao();
+            empresa.setContrato(contratoDao.getContratoById(id));
+            empresa.setContatos(new ContatoDao().getContratoById(id));
             rs.close();
             ps.close();
             return empresa;

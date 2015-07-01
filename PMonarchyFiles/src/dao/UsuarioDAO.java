@@ -164,6 +164,43 @@ public class UsuarioDAO extends MySQL {
         }
         return null;
     }
+    
+    public Usuario getLogin(String email, String senha) {
+        Usuario objUsuario = null;
+        Connection c = this.getConnection();
+        try {
+            PreparedStatement ps
+                    = c.prepareStatement("SELECT matricula, nome, cpf , perfil, email, status "
+                            + " FROM usuario"
+                            + " WHERE email = ? AND senha = ?");
+            ps.setString(1, email);
+            ps.setString(2, senha);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                objUsuario = new Usuario();
+                objUsuario.setMatricula(rs.getInt("matricula"));
+                objUsuario.setNome(rs.getString("nome"));
+                objUsuario.setCPF(rs.getString("cpf"));
+                objUsuario.setPerfil(rs.getInt("perfil"));
+                objUsuario.setEmail(rs.getString("email"));
+                objUsuario.setStatus(rs.getString("status"));
+
+            }
+            rs.close();
+            ps.close();
+            return objUsuario;
+
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        } finally {
+            try {
+                c.close();
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
+        }
+        return null;
+    }
 
     public List<Usuario> listarUsuarios() {
         List<Usuario> listaUsuarios = new ArrayList<Usuario>();

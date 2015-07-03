@@ -173,6 +173,7 @@ public class ArmazemDAO extends MySQL {
         try {
             PreparedStatement ps
                     = c.prepareStatement("SELECT rua, estante, coluna, andar, status FROM armazem WHERE rua = ? and status = false");
+            ps.setString(1, rua);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
 

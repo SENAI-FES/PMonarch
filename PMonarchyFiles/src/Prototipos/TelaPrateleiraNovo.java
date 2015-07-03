@@ -195,6 +195,8 @@ public class TelaPrateleiraNovo extends javax.swing.JDialog {
                     }
                 } catch (MySQLIntegrityConstraintViolationException e) {
                     JOptionPane.showMessageDialog(null, "A coluna " + i + " já existe");
+                } catch (NumberFormatException e) { 
+                    JOptionPane.showMessageDialog(null, "Preencha todos os campos.");
                 }
             }
         } else {

@@ -5,7 +5,7 @@
  */
 package view;
 
-import Prototipos.TelaPrincipal;
+import Prototipos.TelaPrincipalP;
 import dao.UsuarioDAO;
 import entity.Usuario;
 import java.awt.Font;
@@ -173,7 +173,7 @@ public class TelaLogin extends javax.swing.JFrame {
 
         if (objUsuario != null) {
 
-            TelaPrincipal objTela = new TelaPrincipal(this, false, null);
+            TelaPrincipal objTela = new TelaPrincipal(this, false, objUsuario);
 
             objTela.setVisible(true);
 

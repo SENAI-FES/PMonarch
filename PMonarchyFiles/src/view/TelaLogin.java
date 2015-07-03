@@ -165,21 +165,29 @@ public class TelaLogin extends javax.swing.JFrame {
     private void btnEntrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEntrarActionPerformed
 
         String email = txtUsuario.getText();
-        String senha = txtSenha.getText();
-
+        String senha = txtSenha.getText();       
+        
         UsuarioDAO dao = new UsuarioDAO();
 
         Usuario objUsuario = dao.getLogin(email, senha);
 
         if (objUsuario != null) {
 
-            TelaPrincipal objTela = new TelaPrincipal(this, false, objUsuario);
+            if(objUsuario.getStatus().equals("Desativado")){
+                JOptionPane.showMessageDialog(rootPane, "Usuário desativado!");
+                
+            }  else {
+                TelaPrincipal objTela = new TelaPrincipal(this, false, objUsuario);
 
-            objTela.setVisible(true);
+                objTela.setVisible(true);
 
+                limparCampos();
+            }
+                 
         } else{
             
-            JOptionPane.showMessageDialog(rootPane, "Usuário e/ou senha incorreto(s)!");
+           JOptionPane.showMessageDialog(rootPane, "Usuário e/ou senha incorreto(s)!");
+            
         }
 
 
@@ -200,6 +208,11 @@ public class TelaLogin extends javax.swing.JFrame {
         lblEsqueceuSenha.setFont(new Font("Tahoma Simples", 1, 9));
     }//GEN-LAST:event_lblEsqueceuSenhaMouseExited
 
+    public void limparCampos(){
+        txtSenha.setText(null);
+        txtUsuario.setText(null);
+    }
+    
     /**
      * @param args the command line arguments
      */

@@ -166,6 +166,38 @@ public class ArmazemDAO extends MySQL {
         }
         return lista;
     }
+    
+    public List<Armazem> listarArmazemInativo(String rua) {
+        List<Armazem> lista = new ArrayList<>();
+        Connection c = this.getConnection();
+        try {
+            PreparedStatement ps
+                    = c.prepareStatement("SELECT rua, estante, coluna, andar, status FROM armazem WHERE rua = ? and status = false");
+            ps.setString(1, rua);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+
+                Armazem armazem = new Armazem();
+                armazem.setRua(rs.getString("Rua"));
+                armazem.setEstante(rs.getString("Estante"));
+                armazem.setColuna(rs.getString("Coluna"));
+                armazem.setAndar(rs.getString("Andar"));
+                armazem.setAtivo(rs.getBoolean("Status"));
+                lista.add(armazem);
+            }
+            rs.close();
+            ps.close();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        } finally {
+            try {
+                c.close();
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
+        }
+        return lista;
+    }
 
     public List<Armazem> listarArmazemDesativado() {
         List<Armazem> lista = new ArrayList<>();

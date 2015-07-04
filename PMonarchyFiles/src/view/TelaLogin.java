@@ -186,16 +186,31 @@ public class TelaLogin extends javax.swing.JFrame {
                  
         } else{
             
-           JOptionPane.showMessageDialog(rootPane, "Usuário e/ou senha incorreto(s)!");
-            
+           JOptionPane.showMessageDialog(rootPane, "Usuário e/ou senha incorreto(s)!");          
         }
-
-
 
     }//GEN-LAST:event_btnEntrarActionPerformed
 
     private void lblEsqueceuSenhaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblEsqueceuSenhaMouseClicked
-        JOptionPane.showMessageDialog(null, "Faça o select você mesmo");
+        String email = txtUsuario.getText();
+        String senha = txtSenha.getText(); 
+        
+        UsuarioDAO dao = new UsuarioDAO();
+        
+        Usuario objUsuario = dao.getLogin(email, senha);
+        
+         if (objUsuario == null) {
+             JOptionPane.showMessageDialog(null, "Digite o seu Usuário correramente, por favor.");
+             
+         } else{
+             String senhaAlterada;
+             senhaAlterada = objUsuario.getCPF().substring(0, 3);
+             senhaAlterada += objUsuario.getCPF().substring(4, 7);
+             objUsuario.setSenha(senhaAlterada);
+             
+             JOptionPane.showMessageDialog(null, "Senha alterada! Nova senha: 6 primeiros dígitos do seu CPF.");
+         }
+        
     }//GEN-LAST:event_lblEsqueceuSenhaMouseClicked
 
     private void lblEsqueceuSenhaMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblEsqueceuSenhaMouseEntered
@@ -212,6 +227,7 @@ public class TelaLogin extends javax.swing.JFrame {
         txtSenha.setText(null);
         txtUsuario.setText(null);
     }
+    
     
     /**
      * @param args the command line arguments

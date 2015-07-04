@@ -174,7 +174,7 @@ public class UsuarioDAO extends MySQL {
             PreparedStatement ps
                     = c.prepareStatement("SELECT matricula, nome, cpf , perfil, email, status "
                             + " FROM usuario"
-                            + " WHERE email = ? AND senha = ?");
+                            + " WHERE email = ? AND senha = ? ");
             ps.setString(1, email);
             ps.setString(2, senha);
             ResultSet rs = ps.executeQuery();

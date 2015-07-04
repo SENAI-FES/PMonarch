@@ -1,5 +1,6 @@
-package Prototipos;
+package view;
 
+import Prototipos.*;
 import dao.ArmazemDAO;
 import entity.Armazem;
 import java.util.List;

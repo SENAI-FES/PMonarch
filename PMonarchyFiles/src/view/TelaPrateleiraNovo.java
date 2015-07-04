@@ -1,5 +1,6 @@
-package Prototipos;
+package view;
 
+import Prototipos.*;
 import com.mysql.jdbc.exceptions.MySQLIntegrityConstraintViolationException;
 import dao.ArmazemDAO;
 import entity.Armazem;

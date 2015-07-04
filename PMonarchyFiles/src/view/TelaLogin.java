@@ -5,7 +5,7 @@
  */
 package view;
 
-import Prototipos.TelaPrincipal;
+import Prototipos.TelaPrincipalP;
 import dao.UsuarioDAO;
 import entity.Usuario;
 import java.awt.Font;
@@ -165,29 +165,52 @@ public class TelaLogin extends javax.swing.JFrame {
     private void btnEntrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEntrarActionPerformed
 
         String email = txtUsuario.getText();
-        String senha = txtSenha.getText();
-
+        String senha = txtSenha.getText();       
+        
         UsuarioDAO dao = new UsuarioDAO();
 
         Usuario objUsuario = dao.getLogin(email, senha);
 
         if (objUsuario != null) {
 
-            TelaPrincipal objTela = new TelaPrincipal(this, false, null);
+            if(objUsuario.getStatus().equals("Desativado")){
+                JOptionPane.showMessageDialog(rootPane, "Usuário desativado!");
+                
+            }  else {
+                TelaPrincipal objTela = new TelaPrincipal(this, false, objUsuario);
 
-            objTela.setVisible(true);
+                objTela.setVisible(true);
 
+                limparCampos();
+            }
+                 
         } else{
             
-            JOptionPane.showMessageDialog(rootPane, "Usuário e/ou senha incorreto(s)!");
+           JOptionPane.showMessageDialog(rootPane, "Usuário e/ou senha incorreto(s)!");          
         }
-
-
 
     }//GEN-LAST:event_btnEntrarActionPerformed
 
     private void lblEsqueceuSenhaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblEsqueceuSenhaMouseClicked
-        JOptionPane.showMessageDialog(null, "Faça o select você mesmo");
+        String email = txtUsuario.getText();
+        String senha = txtSenha.getText(); 
+        
+        UsuarioDAO dao = new UsuarioDAO();
+        
+        Usuario objUsuario = dao.getLogin(email, senha);
+        
+         if (objUsuario == null) {
+             JOptionPane.showMessageDialog(null, "Digite o seu Usuário correramente, por favor.");
+             
+         } else{
+             String senhaAlterada;
+             senhaAlterada = objUsuario.getCPF().substring(0, 3);
+             senhaAlterada += objUsuario.getCPF().substring(4, 7);
+             objUsuario.setSenha(senhaAlterada);
+             
+             JOptionPane.showMessageDialog(null, "Senha alterada! Nova senha: 6 primeiros dígitos do seu CPF.");
+         }
+        
     }//GEN-LAST:event_lblEsqueceuSenhaMouseClicked
 
     private void lblEsqueceuSenhaMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblEsqueceuSenhaMouseEntered
@@ -200,6 +223,12 @@ public class TelaLogin extends javax.swing.JFrame {
         lblEsqueceuSenha.setFont(new Font("Tahoma Simples", 1, 9));
     }//GEN-LAST:event_lblEsqueceuSenhaMouseExited
 
+    public void limparCampos(){
+        txtSenha.setText(null);
+        txtUsuario.setText(null);
+    }
+    
+    
     /**
      * @param args the command line arguments
      */

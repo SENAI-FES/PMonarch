@@ -6,6 +6,7 @@
 package view;
 
 import Prototipos.*;
+import entity.EnumPerfil;
 import entity.Usuario;
 
 /**
@@ -23,9 +24,16 @@ public class TelaPrincipal extends javax.swing.JDialog {
         setLocationRelativeTo(null);
         
         Usuario objUsuario = usuario;
-        
-        if(!objUsuario.getPerfil().equals(0)){
-           btnUsuários.setEnabled(false);
+               
+        if(objUsuario!=null){        
+
+            if(!objUsuario.getPerfil().equals(EnumPerfil.ADMINISTRADOR)){
+                
+                btnUsuários.setEnabled(false);
+                    
+            } else {
+                btnUsuários.setEnabled(true);
+            }
         }
     }
 

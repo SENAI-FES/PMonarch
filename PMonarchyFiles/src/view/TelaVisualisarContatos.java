@@ -6,21 +6,27 @@
 
 package view;
 
+import entity.Contato;
+import java.util.ArrayList;
+import java.util.List;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author eduardo_ciepanski
  */
-public class TelaVisualisarContatos extends javax.swing.JFrame {
+public class TelaVisualisarContatos extends javax.swing.JDialog {
 
     /**
      * Creates new form TelaVisualisarContatos
      */
-    public TelaVisualisarContatos() {
+    List<Contato> contatos = new ArrayList<Contato>();
+    public TelaVisualisarContatos(java.awt.Frame parent, boolean modal, List<Contato> contatos) {
+        super(parent, modal);
         initComponents();
-    }
-
-    TelaVisualisarContatos(Object object, boolean b) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        setLocationRelativeTo(null);
+        this.contatos = contatos;
+        atualizaTabelaEmpresas();
     }
 
     /**
@@ -33,13 +39,13 @@ public class TelaVisualisarContatos extends javax.swing.JFrame {
     private void initComponents() {
 
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tbContato = new javax.swing.JTable();
         btnVoltar = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Contatos");
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tbContato.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null},
                 {null, null, null, null, null},
@@ -48,8 +54,16 @@ public class TelaVisualisarContatos extends javax.swing.JFrame {
             new String [] {
                 "Nome", "Cargo", "Telefone", "Ramal", "E-mail"
             }
-        ));
-        jScrollPane1.setViewportView(jTable1);
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane1.setViewportView(tbContato);
 
         btnVoltar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/Back.png"))); // NOI18N
         btnVoltar.setText("Voltar");
@@ -64,12 +78,12 @@ public class TelaVisualisarContatos extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(11, Short.MAX_VALUE)
+                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 593, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 665, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(btnVoltar)
-                        .addGap(35, 35, 35)))
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(btnVoltar)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -86,9 +100,28 @@ public class TelaVisualisarContatos extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVoltarActionPerformed
-this.dispose();
+        this.dispose();
     }//GEN-LAST:event_btnVoltarActionPerformed
 
+    private void atualizaTabelaEmpresas() {
+        
+        //pega o modelo da Tabela e coloca na variavel "model"
+        DefaultTableModel model = (DefaultTableModel) this.tbContato.getModel();
+        //insere na tabela o número de linhas que a lista tem
+        model.setRowCount(contatos.size());
+
+        //laço para inserir os dados dos objetos na Tabela
+        for (int i = 0; i < contatos.size(); i++) {
+
+            model.setValueAt(contatos.get(i).getNome(), i, 0);
+            model.setValueAt(contatos.get(i).getCargo(), i, 1);
+            model.setValueAt(contatos.get(i).getTelefone(), i, 2);
+            model.setValueAt(contatos.get(i).getRamal(), i, 3);
+            model.setValueAt(contatos.get(i).getEmail(), i, 4);
+        }
+
+    }
+    
     /**
      * @param args the command line arguments
      */
@@ -119,7 +152,14 @@ this.dispose();
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new TelaVisualisarContatos().setVisible(true);
+                TelaVisualisarContatos dialog = new TelaVisualisarContatos(new javax.swing.JFrame(), true, null);
+                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
+                    @Override
+                    public void windowClosing(java.awt.event.WindowEvent e) {
+                        System.exit(0);
+                    }
+                });
+                dialog.setVisible(true);
             }
         });
     }
@@ -127,6 +167,6 @@ this.dispose();
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnVoltar;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JTable tbContato;
     // End of variables declaration//GEN-END:variables
 }

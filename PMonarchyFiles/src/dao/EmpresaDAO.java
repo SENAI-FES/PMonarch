@@ -95,8 +95,24 @@ public class EmpresaDAO extends MySQL {
             ps.setString(10, empresa.getUf());
             ps.setString(11, empresa.getTipo());
             ps.setString(12, empresa.getStatus());
+            ps.setInt(13, empresa.getIdEmpresa());
             ps.execute();
 
+            ContatoDao contatoDao = new ContatoDao();
+            //limpa os contatos
+            for (Contato contato : contatoDao.getContatoByIdEmpresa(empresa.getIdEmpresa())) {
+                contatoDao.delete(contato.getIdContato());
+            }
+            //Adiciona novos contatos
+            for (Contato contato : empresa.getContatos()) {
+                contato.setEmpresa(empresa);
+                contatoDao.insert(contato);
+            }
+            ContratoDao contratoDao = new ContratoDao();
+            Contrato contrato = empresa.getContrato();
+            contrato.setEmpresa(empresa);
+            contratoDao.update(contrato);
+            
             ps.close();
             return true;
 
@@ -206,7 +222,7 @@ public class EmpresaDAO extends MySQL {
             }
             ContratoDao contratoDao = new ContratoDao();
             empresa.setContrato(contratoDao.getContratoById(id));
-            empresa.setContatos(new ContatoDao().getContratoById(id));
+            empresa.setContatos(new ContatoDao().getContatoByIdEmpresa(id));
             rs.close();
             ps.close();
             return empresa;

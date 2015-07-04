@@ -61,6 +61,7 @@ public boolean insert(Contato contato) {
             ps.setString(4, contato.getRamal());
             ps.setString(5, contato.getEmail());
             ps.setInt(6, contato.getEmpresa().getIdEmpresa());
+            ps.setInt(7, contato.getIdContato());
             ps.execute();
 
             ps.close();
@@ -141,7 +142,7 @@ public boolean insert(Contato contato) {
         return null;
 }
     
-    public List<Contato> getContratoById(int id) {
+    public List<Contato> getContatoByIdEmpresa(int id) {
         Connection c = this.getConnection();
         List<Contato> listaContatos = new ArrayList<Contato>();
         try {
@@ -164,6 +165,40 @@ public boolean insert(Contato contato) {
             rs.close();
             ps.close();
             return listaContatos;
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        } finally {
+            try {
+                c.close();
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
+        }
+        return null;
+    }
+    
+     public Contato getContatoById(int id) {
+        Connection c = this.getConnection();
+        Contato contato = new Contato();
+        try {
+            PreparedStatement ps = c.prepareStatement("SELECT idContato,"
+                    + " nome, cargo, telefone, ramal, email"
+                    + " FROM contato WHERE idContato = ?");
+            ps.setInt(1, id);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                contato = new Contato();
+                contato.setIdContato(rs.getInt("idContato"));
+                contato.setNome(rs.getString("nome"));
+                contato.setCargo(rs.getString("cargo"));
+                contato.setTelefone(rs.getString("telefone"));
+                contato.setRamal(rs.getString("ramal"));
+                contato.setEmail(rs.getString("email"));
+            }
+            
+            rs.close();
+            ps.close();
+            return contato;
         } catch (SQLException ex) {
             ex.printStackTrace();
         } finally {

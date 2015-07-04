@@ -1,5 +1,3 @@
-
-
 package view;
 
 import dao.ContatoDao;
@@ -16,23 +14,27 @@ import java.util.logging.Logger;
 import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
 
-
 public class TelaCadastroEmpresa extends javax.swing.JDialog {
 
     List<Contato> contatos = new ArrayList<Contato>();
     boolean novo;
     Empresa objEmpresa;
+    Contrato objContrato;
+    Contato objContato;
+
     public TelaCadastroEmpresa(java.awt.Frame parent, boolean modal, boolean novo, Empresa empresa) {
         super(parent, modal);
         initComponents();
         setLocationRelativeTo(null);
-        
+
         this.novo = novo;
         objEmpresa = empresa;
         if (novo) {
             objEmpresa = new Empresa();
+            objContrato = new Contrato();
             objEmpresa.setStatus("Ativo");
         } else {
+            objContrato = empresa.getContrato();
             txtRazaoSocial.setText(objEmpresa.getRazaoSocial());
             txtNomeFantasia.setText(objEmpresa.getNomeFantasia());
             txtCnpj.setText(objEmpresa.getCnpj());
@@ -44,7 +46,7 @@ public class TelaCadastroEmpresa extends javax.swing.JDialog {
             txtCep.setText(objEmpresa.getCep());
             cbTipo.setSelectedItem(objEmpresa.getTipo());
             cbEstado.setSelectedItem(objEmpresa.getUf());
-            
+
             cbContrato.setSelectedItem(objEmpresa.getContrato().getTipoContrato());
             SimpleDateFormat formdata = new SimpleDateFormat("dd/MM/yyyy");
             txtDtInicial.setText(formdata.format(objEmpresa.getContrato().getDataInicial()));
@@ -466,21 +468,21 @@ public class TelaCadastroEmpresa extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVoltarActionPerformed
-       this.dispose();
+        this.dispose();
     }//GEN-LAST:event_btnVoltarActionPerformed
 
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
-        
-        if(txtRazaoSocial.getText().equals("") || 
-                txtCep.getText().equals("") || txtCidade.getText().equals("") ||
-                txtCnpj.getText().equals("") || txtCompl.getText().equals("") ||
-                txtDtInicial.getText().equals("") || txtDtValidade.getText().equals("") ||
-                txtInsEst.getText().equals("") || txtLogradouro.getText().equals("") ||
-                txtNomeFantasia.getText().equals("") || txtSite.getText().equals("") ){
-            
+
+        if (txtRazaoSocial.getText().equals("")
+                || txtCep.getText().equals("") || txtCidade.getText().equals("")
+                || txtCnpj.getText().equals("") || txtCompl.getText().equals("")
+                || txtDtInicial.getText().equals("") || txtDtValidade.getText().equals("")
+                || txtInsEst.getText().equals("") || txtLogradouro.getText().equals("")
+                || txtNomeFantasia.getText().equals("") || txtSite.getText().equals("")) {
+
             JOptionPane.showMessageDialog(this, "Preencha todos os Campos!");
-        }else{
-            if(!contatos.isEmpty()){
+        } else {
+            if (!contatos.isEmpty()) {
                 objEmpresa.setRazaoSocial(txtRazaoSocial.getText());
                 objEmpresa.setNomeFantasia(txtNomeFantasia.getText());
                 objEmpresa.setCnpj(txtCnpj.getText());
@@ -493,93 +495,130 @@ public class TelaCadastroEmpresa extends javax.swing.JDialog {
                 objEmpresa.setTipo((String) cbTipo.getSelectedItem());
                 objEmpresa.setUf((String) cbEstado.getSelectedItem());
 
-                Contrato contrato = new Contrato();
                 SimpleDateFormat formdata = new SimpleDateFormat("dd/MM/yyyy");
                 try {
                     formdata.setLenient(false);
-                    contrato.setValidade(formdata.parse(txtDtValidade.getText()));
-                    contrato.setDataInicial(formdata.parse(txtDtInicial.getText()));
-                    contrato.setTipoContrato((String) cbContrato.getSelectedItem());
+                    objContrato.setValidade(formdata.parse(txtDtValidade.getText()));
+                    objContrato.setDataInicial(formdata.parse(txtDtInicial.getText()));
+                    objContrato.setTipoContrato((String) cbContrato.getSelectedItem());
 
-                    objEmpresa.setContrato(contrato);
-                    objEmpresa.setContatos(contatos);
-                    EmpresaDAO empresaDAO = new EmpresaDAO();
-                    if (novo) {
-                        empresaDAO.insert(objEmpresa);
-                        atualizarTabelaContato();
+                    if (objContrato.getValidade().getTime() < objContrato.getDataInicial().getTime()) {
+                        JOptionPane.showMessageDialog(null, "A data de validade deve ser maior que a data inicial!");
                     } else {
-                        empresaDAO.update(objEmpresa);
-                        atualizarTabelaContato();
+                        objEmpresa.setContrato(objContrato);
+                        objEmpresa.setContatos(contatos);
+                        EmpresaDAO empresaDAO = new EmpresaDAO();
+                        if (novo) {
+                            empresaDAO.insert(objEmpresa);
+                            atualizarTabelaContato();
+                        } else {
+                            empresaDAO.update(objEmpresa);
+                            atualizarTabelaContato();
+                        }
+                        JOptionPane.showMessageDialog(this, "Salvo com sucesso!");
+                        limparTudo();
+
                     }
-                    JOptionPane.showMessageDialog(this, "Salvo com sucesso!");
                 } catch (ParseException ex) {
                     JOptionPane.showMessageDialog(null, "Data invalida.");
                 }
-            }else{
+            } else {
                 JOptionPane.showMessageDialog(this, "Adicione um Contato!");
             }
         }
     }//GEN-LAST:event_btnSalvarActionPerformed
 
     private void btnAdicionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdicionarActionPerformed
-        if(txtNome.getText().equals("") || 
-                txtCargo.getText().equals("") || txtEmail.getText().equals("") ||
-                txtCnpj.getText().equals("") || txtCompl.getText().equals("") ||
-                txtRamal.getText().equals("") || txtTelefone.getText().equals("")){
+        if (txtNome.getText().equals("")
+                || txtCargo.getText().equals("") || txtEmail.getText().equals("")
+                || txtRamal.getText().equals("") || txtTelefone.getText().equals("")) {
             JOptionPane.showMessageDialog(this, "Preencha todos os Campos!");
-        }else{
-            
-            Contato contato = new Contato();
-            contato.setNome(txtNome.getText());
-            contato.setCargo(txtCargo.getText());
-            contato.setEmail(txtEmail.getText());
-            contato.setRamal(txtRamal.getText());
-            contato.setTelefone(txtTelefone.getText());
+        } else {
 
-            contatos.add(contato);
+            if(objContato == null){
+                objContato = new Contato();
+            }else{
+                contatos.remove(objContato);
+            }
+
+            objContato.setNome(txtNome.getText());
+            objContato.setCargo(txtCargo.getText());
+            objContato.setEmail(txtEmail.getText());
+            objContato.setRamal(txtRamal.getText());
+            objContato.setTelefone(txtTelefone.getText());
+                
+            contatos.add(objContato);
             limparCampos();
             atualizarTabelaContato();
         }
     }//GEN-LAST:event_btnAdicionarActionPerformed
 
     private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
-        if(lstContatos.isSelectionEmpty()){
-            JOptionPane.showMessageDialog(null,"Selecione um contato!!!");
-        }else{
-            int confirmacao = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir?");
+        if (lstContatos.isSelectionEmpty()) {
+            JOptionPane.showMessageDialog(null, "Selecione um contato!!!");
+        } else {
+            int confirmacao = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir?", "Exclusão de Contato", JOptionPane.YES_NO_OPTION);
             if (confirmacao == 0) {
                 Contato contato = (Contato) lstContatos.getSelectedValue();
                 contatos.remove(contato);
                 atualizarTabelaContato();
-                JOptionPane.showMessageDialog(null,"Contato excluído com sucesso!!!");
+                JOptionPane.showMessageDialog(null, "Contato excluído com sucesso!!!");
             }
         }
     }//GEN-LAST:event_btnExcluirActionPerformed
 
     private void btnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlterarActionPerformed
-        
+        if (lstContatos.isSelectionEmpty()) {
+            JOptionPane.showMessageDialog(null, "Selecione um contato!!!");
+        } else {
+            objContato = (Contato) lstContatos.getSelectedValue();
+            txtNome.setText(objContato.getNome());
+            txtCargo.setText(objContato.getCargo());
+            txtEmail.setText(objContato.getEmail());
+            txtRamal.setText(objContato.getRamal());
+            txtTelefone.setText(objContato.getTelefone());
+        }
     }//GEN-LAST:event_btnAlterarActionPerformed
 
-    public void limparCampos(){
+    public void limparCampos() {
         txtNome.setText("");
         txtCargo.setText("");
         txtEmail.setText("");
         txtRamal.setText("");
         txtTelefone.setText("");
+        objContato = null;
     }
-    
+
+    public void limparTudo() {
+        limparCampos();
+        txtCep.setText("");
+        txtCidade.setText("");
+        txtCnpj.setText("");
+        txtCompl.setText("");
+        txtDtInicial.setText("");
+        txtDtValidade.setText("");
+        txtLogradouro.setText("");
+        txtInsEst.setText("");
+        txtNomeFantasia.setText("");
+        txtRamal.setText("");
+        txtRazaoSocial.setText("");
+        txtSite.setText("");
+        contatos.removeAll(contatos);
+        atualizarTabelaContato();
+    }
+
     public void atualizarTabelaContato() {
 
         DefaultListModel model = new DefaultListModel();
-        
-         for (Contato contato : contatos) {
+
+        for (Contato contato : contatos) {
             model.addElement(contato);
         }
 
         lstContatos.setModel(model);
 
     }
-    
+
     /**
      * @param args the command line arguments
      */

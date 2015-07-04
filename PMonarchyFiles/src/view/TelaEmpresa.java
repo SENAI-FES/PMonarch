@@ -5,6 +5,7 @@ package view;
 import Prototipos.TelaDetalheEmpresa;
 import dao.EmpresaDAO;
 import entity.Empresa;
+import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -19,7 +20,7 @@ public class TelaEmpresa extends javax.swing.JDialog {
         setLocationRelativeTo(null);
         atualizaTabelaEmpresas();
     }
-    Empresa objEmpresa;
+    Empresa empresa;
 
    
     @SuppressWarnings("unchecked")
@@ -34,10 +35,8 @@ public class TelaEmpresa extends javax.swing.JDialog {
         btnVoltar = new javax.swing.JButton();
         btnDetalhes = new javax.swing.JButton();
         btnAtivar = new javax.swing.JToggleButton();
-        jLabel1 = new javax.swing.JLabel();
         txtPesquisa = new javax.swing.JTextField();
-        cbTipoPesquisa = new javax.swing.JComboBox();
-        jButton2 = new javax.swing.JButton();
+        pesquisa = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Empresas");
@@ -164,25 +163,22 @@ public class TelaEmpresa extends javax.swing.JDialog {
                 .addGap(0, 11, Short.MAX_VALUE))
         );
 
-        jLabel1.setText("Pesquisar:");
-
-        cbTipoPesquisa.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Nome Fantasia", "CNPJ" }));
-
-        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/Find.png"))); // NOI18N
+        pesquisa.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/Find.png"))); // NOI18N
+        pesquisa.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                pesquisaActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(20, 20, 20)
-                .addComponent(jLabel1)
+                .addContainerGap()
+                .addComponent(txtPesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, 525, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(cbTipoPesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtPesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, 358, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(pesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 20, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 585, Short.MAX_VALUE)
@@ -193,15 +189,12 @@ public class TelaEmpresa extends javax.swing.JDialog {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(19, 19, 19)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel1)
-                            .addComponent(txtPesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(cbTipoPesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(10, 10, 10))
+                        .addGap(20, 20, 20)
+                        .addComponent(txtPesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(11, 11, 11))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(pesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(14, 14, 14))
@@ -221,48 +214,80 @@ public class TelaEmpresa extends javax.swing.JDialog {
     }//GEN-LAST:event_btnVoltarActionPerformed
 
     private void btnAtivarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAtivarActionPerformed
-       int linha = tbEmpresa.getSelectedRow();
-        int id = Integer.parseInt(tbEmpresa.getValueAt(linha, 0).toString());
-        EmpresaDAO empresaDAO = new EmpresaDAO();
-        objEmpresa = empresaDAO.getEmpresaById(id);
+        int linha = tbEmpresa.getSelectedRow();
+        if(linha != -1){
+            int id = Integer.parseInt(tbEmpresa.getValueAt(linha, 0).toString());
+            EmpresaDAO empresaDAO = new EmpresaDAO();
+            empresa = empresaDAO.getEmpresaById(id);
 
-        if (tbEmpresa.getValueAt(linha, 3).equals("Ativo")) {
-            objEmpresa.setStatus("Desativado");
+            if (tbEmpresa.getValueAt(linha, 3).equals("Ativo")) {
+                empresa.setStatus("Desativado");
 
-        } else {
-            objEmpresa.setStatus("Ativo");
+            } else {
+                empresa.setStatus("Ativo");
+            }
+
+            if (btnAtivar.getText().equalsIgnoreCase("Ativar")) {
+                btnAtivar.setText("Desativar");
+                btnAtivar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/Fall.png")));
+            } else {
+                btnAtivar.setText("Ativar");
+                btnAtivar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/Raise.png")));
+            }
+
+            empresaDAO.update(empresa);
+            atualizaTabelaEmpresas();
+        }else{
+            JOptionPane.showMessageDialog(rootPane, "Selecione a empresa que deseja Ativar/Desativar!");
         }
-
-        if (btnAtivar.getText().equalsIgnoreCase("Ativar")) {
-            btnAtivar.setText("Desativar");
-            btnAtivar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/Fall.png")));
-        } else {
-            btnAtivar.setText("Ativar");
-            btnAtivar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/Raise.png")));
-        }
-
-        empresaDAO.update(objEmpresa);
-        //uDAO.atualizaStatus(objUsuario); criar
-        atualizaTabelaEmpresas();
     }//GEN-LAST:event_btnAtivarActionPerformed
 
     private void btnDetalhesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDetalhesActionPerformed
-        TelaDetalheEmpresa telaDetalheEmpresa = new TelaDetalheEmpresa(null,true);
-        telaDetalheEmpresa.setVisible(true);
+        int linha = tbEmpresa.getSelectedRow();
+        if(linha != -1){
+            int id = Integer.parseInt(tbEmpresa.getValueAt(linha, 0).toString());
+            EmpresaDAO empresaDAO = new EmpresaDAO();
+            empresa = empresaDAO.getEmpresaById(id);
+            TelaDetalhesEmpresa telaDetalhesEmpresa = new TelaDetalhesEmpresa(null,true, empresa);
+            telaDetalhesEmpresa.setVisible(true);
+        }else{
+            JOptionPane.showMessageDialog(rootPane, "Selecione uma empresa!");
+        }
     }//GEN-LAST:event_btnDetalhesActionPerformed
 
     private void btnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlterarActionPerformed
         int linha = tbEmpresa.getSelectedRow();
         if(linha == -1){
             JOptionPane.showMessageDialog(rootPane, "Selecione o usuário que deseja alterar!");
+        }else{
+            int id = Integer.parseInt(tbEmpresa.getValueAt(linha, 0).toString());
+            EmpresaDAO dao = new EmpresaDAO();
+            Empresa empresa = dao.getEmpresaById(id);
+            TelaCadastroEmpresa cadastroEmpresa = new TelaCadastroEmpresa(null, true, false, empresa);
+            cadastroEmpresa.setVisible(true);
+            atualizaTabelaEmpresas();
         }
-        int id = Integer.parseInt(tbEmpresa.getValueAt(linha, 0).toString());
-        EmpresaDAO dao = new EmpresaDAO();
-        Empresa empresa = dao.getEmpresaById(id);
-        TelaCadastroEmpresa cadastroEmpresa = new TelaCadastroEmpresa(null, true, false, empresa);
-        cadastroEmpresa.setVisible(true);
     }//GEN-LAST:event_btnAlterarActionPerformed
 
+    private void pesquisaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pesquisaActionPerformed
+//        List<Empresa> e = new ArrayList<Empresa>();
+//        EmpresaDAO dao = new EmpresaDAO();
+//        dao.listarEmpresasLike(txtPesquisa.getText());
+//        mostraTela(e);
+    }//GEN-LAST:event_pesquisaActionPerformed
+
+    private void mostraTela(List<Empresa> listarEmpresas) {
+        DefaultTableModel model = (DefaultTableModel) this.tbEmpresa.getModel();
+        model.setRowCount(listarEmpresas.size());
+        for (int i = 0; i < listarEmpresas.size(); i++) {
+            model.setValueAt(listarEmpresas.get(i).getIdEmpresa(), i, 0);
+            model.setValueAt(listarEmpresas.get(i).getNomeFantasia(), i, 1);
+            model.setValueAt(listarEmpresas.get(i).getCnpj(), i, 2);
+            model.setValueAt(listarEmpresas.get(i).getStatus(), i, 3);
+        }
+
+    }
+    
     private void atualizaTabelaEmpresas() {
         EmpresaDAO dao = new EmpresaDAO();
         List<Empresa> listarEmpresas = dao.listarEmpresas();
@@ -331,11 +356,9 @@ public class TelaEmpresa extends javax.swing.JDialog {
     private javax.swing.JButton btnCadastrar;
     private javax.swing.JButton btnDetalhes;
     private javax.swing.JButton btnVoltar;
-    private javax.swing.JComboBox cbTipoPesquisa;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JButton pesquisa;
     private javax.swing.JTable tbEmpresa;
     private javax.swing.JTextField txtPesquisa;
     // End of variables declaration//GEN-END:variables

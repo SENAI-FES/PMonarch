@@ -259,7 +259,7 @@ public class TelaPrincipal extends javax.swing.JDialog {
     }//GEN-LAST:event_menuCadastroUsuarioMouseClicked
 
     private void menuCadastroUsuarioMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_menuCadastroUsuarioMouseReleased
-        TelaCadastroUsuario objTela = new TelaCadastroUsuario(this, true, false, null);
+        TelaCadastroUsuario objTela = new TelaCadastroUsuario(this, true, true, null);
 
         objTela.setVisible(true);
     }//GEN-LAST:event_menuCadastroUsuarioMouseReleased

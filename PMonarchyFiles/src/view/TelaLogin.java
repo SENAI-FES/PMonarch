@@ -208,7 +208,7 @@ public class TelaLogin extends javax.swing.JFrame {
              else if(objUsuario.getStatus().equals("Desativado")){
                  JOptionPane.showMessageDialog(rootPane, "Usuário desativado!");
                 
-            }  else {  
+            }  else {                   
                  String senhaAlterada;
                  senhaAlterada = objUsuario.getCPF().substring(0, 3);
                  senhaAlterada += objUsuario.getCPF().substring(4, 7);

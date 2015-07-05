@@ -29,10 +29,14 @@ public class TelaPrincipal extends javax.swing.JDialog {
 
             if(!objUsuario.getPerfil().equals(EnumPerfil.ADMINISTRADOR)){
                 
-                btnUsuários.setEnabled(false);
-                    
+                 btnUsuários.setEnabled(false);
+                 menuPesquisarUsuario.setEnabled(false);
+                 menuCadastroUsuario.setEnabled(false);
+                 
             } else {
-                btnUsuários.setEnabled(true);
+                 btnUsuários.setEnabled(true);
+                 menuPesquisarUsuario.setEnabled(true);
+                 menuCadastroUsuario.setEnabled(true);
             }
         }
     }

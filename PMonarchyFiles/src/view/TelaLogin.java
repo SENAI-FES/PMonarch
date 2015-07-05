@@ -5,7 +5,6 @@
  */
 package view;
 
-import Prototipos.TelaPrincipalP;
 import dao.UsuarioDAO;
 import entity.Usuario;
 import java.awt.Font;
@@ -169,7 +168,7 @@ public class TelaLogin extends javax.swing.JFrame {
         
         UsuarioDAO dao = new UsuarioDAO();
 
-        Usuario objUsuario = dao.getLogin(email, senha);
+        Usuario objUsuario = dao.getLoginSenha(email, senha);
 
         if (objUsuario != null) {
 
@@ -184,31 +183,39 @@ public class TelaLogin extends javax.swing.JFrame {
                 limparCampos();
             }
                  
-        } else{
-            
-           JOptionPane.showMessageDialog(rootPane, "Usuário e/ou senha incorreto(s)!");          
+        } else{            
+           JOptionPane.showMessageDialog(rootPane, "Usuário e/ou senha incorreto(s)!");    
+           
         }
 
     }//GEN-LAST:event_btnEntrarActionPerformed
 
     private void lblEsqueceuSenhaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblEsqueceuSenhaMouseClicked
-        String email = txtUsuario.getText();
-        String senha = txtSenha.getText(); 
+        String email = txtUsuario.getText();; 
         
         UsuarioDAO dao = new UsuarioDAO();
         
-        Usuario objUsuario = dao.getLogin(email, senha);
+        Usuario objUsuario = dao.getLogin(email);
         
          if (objUsuario == null) {
              JOptionPane.showMessageDialog(null, "Digite o seu Usuário correramente, por favor.");
              
          } else{
-             String senhaAlterada;
-             senhaAlterada = objUsuario.getCPF().substring(0, 3);
-             senhaAlterada += objUsuario.getCPF().substring(4, 7);
-             objUsuario.setSenha(senhaAlterada);
-             
-             JOptionPane.showMessageDialog(null, "Senha alterada! Nova senha: 6 primeiros dígitos do seu CPF.");
+            
+             if(objUsuario.getMatricula() == 1){
+                  JOptionPane.showMessageDialog(null, "Este usuário não pode ser alterado!");
+             }
+             else if(objUsuario.getStatus().equals("Desativado")){
+                 JOptionPane.showMessageDialog(rootPane, "Usuário desativado!");
+                
+            }  else {  
+                 String senhaAlterada;
+                 senhaAlterada = objUsuario.getCPF().substring(0, 3);
+                 senhaAlterada += objUsuario.getCPF().substring(4, 7);
+                 objUsuario.setSenha(senhaAlterada);
+                              
+                 JOptionPane.showMessageDialog(null, "Senha alterada! \nNova senha: 6 primeiros dígitos do seu CPF.");
+             }
          }
         
     }//GEN-LAST:event_lblEsqueceuSenhaMouseClicked

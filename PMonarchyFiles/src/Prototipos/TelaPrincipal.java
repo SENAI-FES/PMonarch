@@ -16,12 +16,12 @@ import view.TelaLogin;
  *
  * @author taynara_muren
  */
-public class TelaPrincipalP extends javax.swing.JDialog {
+public class TelaPrincipal extends javax.swing.JDialog {
 
     /**
      * Creates new form TelaPrincipal
      */
-    public TelaPrincipalP(java.awt.Frame parent, boolean modal, String obj) {
+    public TelaPrincipal(java.awt.Frame parent, boolean modal, String obj) {
         super(parent, modal);
         initComponents();
         setLocationRelativeTo(null);
@@ -340,20 +340,20 @@ public class TelaPrincipalP extends javax.swing.JDialog {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(TelaPrincipalP.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(TelaPrincipalP.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(TelaPrincipalP.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(TelaPrincipalP.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                TelaPrincipalP dialog = new TelaPrincipalP(new javax.swing.JFrame(), true, null);
+                TelaPrincipal dialog = new TelaPrincipal(new javax.swing.JFrame(), true, null);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {

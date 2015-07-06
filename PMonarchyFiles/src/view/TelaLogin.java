@@ -177,10 +177,9 @@ public class TelaLogin extends javax.swing.JFrame {
                 
             }  else {
                 TelaPrincipal objTela = new TelaPrincipal(this, false, objUsuario);
-
+                this.dispose();
+                
                 objTela.setVisible(true);
-
-                limparCampos();
             }
                  
         } else{            

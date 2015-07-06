@@ -5,7 +5,9 @@
  */
 package view;
 
+import dao.EmpresaDAO;
 import dao.ProtocoloDAO;
+import dao.UsuarioDAO;
 import entity.Empresa;
 import entity.Protocolo;
 import entity.TipoDocumento;
@@ -24,6 +26,25 @@ public class TelaProtocolo extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
         setLocationRelativeTo(null);
+        UsuarioDAO dao = new UsuarioDAO();
+        EmpresaDAO daoEmpresa = new EmpresaDAO();
+
+        for (int i = 0; i < 100; i++) {
+
+            Usuario objUsuario = dao.getUsuarioById(i);
+            cbResponsavelCadastro.setSelectedItem(objUsuario.getNome());
+            cbResponsavelEstocagem.setSelectedItem(objUsuario.getNome());
+            cbResponsavelSeparacao.setSelectedItem(objUsuario.getNome());
+
+        }
+
+        for (int i = 0; i < 100; i++) {
+
+            Empresa objEmpresa = daoEmpresa.getEmpresaById(i);
+            cbEmpresa.setSelectedItem(objEmpresa.getRazaoSocial() + " " + objEmpresa.getCnpj());
+
+        }
+
     }
     Protocolo objProtocolo = new Protocolo();
     ProtocoloDAO daoProtocolo = new ProtocoloDAO();
@@ -99,7 +120,7 @@ public class TelaProtocolo extends javax.swing.JDialog {
 
         jLabel16.setText("Empresa:");
 
-        cbEmpresa.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Google", "Senai", "Monarchy Files", "Yahoo" }));
+        cbEmpresa.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecione", "Google", "Senai", "Monarchy Files", "Yahoo" }));
 
         cbResponsavelEstocagem.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "João da Silva", "Ricardo Pereira", "Mario Super" }));
 
@@ -131,27 +152,25 @@ public class TelaProtocolo extends javax.swing.JDialog {
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lblNumeroProtocolo)
                     .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel4Layout.createSequentialGroup()
-                                .addComponent(jLabel15)
-                                .addGap(107, 107, 107)
-                                .addComponent(txtCpf))
-                            .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
                                 .addComponent(jLabel14)
-                                .addGap(24, 24, 24)
-                                .addComponent(txtResponsavelEntrega, javax.swing.GroupLayout.PREFERRED_SIZE, 324, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(24, 24, 24))
                             .addGroup(jPanel4Layout.createSequentialGroup()
                                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel15)
                                     .addComponent(jLabel10)
                                     .addComponent(jLabel12)
                                     .addComponent(jLabel11)
                                     .addComponent(jLabel16))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                    .addComponent(cbResponsavelEstocagem, javax.swing.GroupLayout.Alignment.LEADING, 0, 324, Short.MAX_VALUE)
-                                    .addComponent(cbResponsavelSeparacao, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(cbEmpresa, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(cbResponsavelCadastro, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)))
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtCpf)
+                            .addComponent(txtResponsavelEntrega, javax.swing.GroupLayout.PREFERRED_SIZE, 324, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(cbResponsavelCadastro, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(cbResponsavelEstocagem, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(cbResponsavelSeparacao, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(cbEmpresa, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(18, 18, 18)
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(jPanel4Layout.createSequentialGroup()
@@ -176,9 +195,9 @@ public class TelaProtocolo extends javax.swing.JDialog {
                 .addContainerGap(15, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnVoltar, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
                 .addComponent(btnSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(btnVoltar, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
         jPanel4Layout.setVerticalGroup(
@@ -218,7 +237,7 @@ public class TelaProtocolo extends javax.swing.JDialog {
                     .addComponent(jLabel14)
                     .addComponent(txtResponsavelEntrega, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(txtCpf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel15))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
@@ -261,6 +280,8 @@ public class TelaProtocolo extends javax.swing.JDialog {
 
         daoProtocolo.insert(objProtocolo);
 
+        limparCampos();
+
 
     }//GEN-LAST:event_btnSalvarActionPerformed
 
@@ -272,6 +293,14 @@ public class TelaProtocolo extends javax.swing.JDialog {
         }
 
         return 1;
+    }
+
+    public void limparCampos() {
+        txtResponsavelEntrega.setText(null);
+        txtCpf.setText(null);
+        txtHorario.setText(null);
+        txtQuantidadeDocumentos.setText(null);
+        cbEmpresa.setSelectedIndex(1);
     }
 
     /**

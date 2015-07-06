@@ -1,5 +1,3 @@
-
-
 package view;
 
 import Prototipos.TelaDetalheEmpresa;
@@ -10,10 +8,8 @@ import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
-
 public class TelaEmpresa extends javax.swing.JDialog {
 
-   
     public TelaEmpresa(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
@@ -22,7 +18,6 @@ public class TelaEmpresa extends javax.swing.JDialog {
     }
     Empresa empresa;
 
-   
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -34,7 +29,7 @@ public class TelaEmpresa extends javax.swing.JDialog {
         tbEmpresa = new javax.swing.JTable();
         btnVoltar = new javax.swing.JButton();
         btnDetalhes = new javax.swing.JButton();
-        btnAtivar = new javax.swing.JToggleButton();
+        btnAtivar = new javax.swing.JButton();
         txtPesquisa = new javax.swing.JTextField();
         pesquisa = new javax.swing.JButton();
 
@@ -98,6 +93,11 @@ public class TelaEmpresa extends javax.swing.JDialog {
                 return canEdit [columnIndex];
             }
         });
+        tbEmpresa.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                tbEmpresaMouseReleased(evt);
+            }
+        });
         jScrollPane2.setViewportView(tbEmpresa);
 
         btnVoltar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/Back.png"))); // NOI18N
@@ -116,8 +116,8 @@ public class TelaEmpresa extends javax.swing.JDialog {
             }
         });
 
-        btnAtivar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/Fall.png"))); // NOI18N
-        btnAtivar.setText("Desativar");
+        btnAtivar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/Raise.png"))); // NOI18N
+        btnAtivar.setText("Ativar");
         btnAtivar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnAtivarActionPerformed(evt);
@@ -128,13 +128,13 @@ public class TelaEmpresa extends javax.swing.JDialog {
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+            .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnCadastrar)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnAlterar)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btnAtivar)
+                .addComponent(btnAtivar, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnDetalhes)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -146,7 +146,7 @@ public class TelaEmpresa extends javax.swing.JDialog {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jPanel1Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {btnAlterar, btnAtivar, btnCadastrar, btnDetalhes, btnVoltar});
+        jPanel1Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {btnAlterar, btnCadastrar, btnDetalhes, btnVoltar});
 
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -213,53 +213,24 @@ public class TelaEmpresa extends javax.swing.JDialog {
         this.dispose();
     }//GEN-LAST:event_btnVoltarActionPerformed
 
-    private void btnAtivarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAtivarActionPerformed
-        int linha = tbEmpresa.getSelectedRow();
-        if(linha != -1){
-            int id = Integer.parseInt(tbEmpresa.getValueAt(linha, 0).toString());
-            EmpresaDAO empresaDAO = new EmpresaDAO();
-            empresa = empresaDAO.getEmpresaById(id);
-
-            if (tbEmpresa.getValueAt(linha, 3).equals("Ativo")) {
-                empresa.setStatus("Desativado");
-
-            } else {
-                empresa.setStatus("Ativo");
-            }
-
-            if (btnAtivar.getText().equalsIgnoreCase("Ativar")) {
-                btnAtivar.setText("Desativar");
-                btnAtivar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/Fall.png")));
-            } else {
-                btnAtivar.setText("Ativar");
-                btnAtivar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/Raise.png")));
-            }
-
-            empresaDAO.update(empresa);
-            atualizaTabelaEmpresas();
-        }else{
-            JOptionPane.showMessageDialog(rootPane, "Selecione a empresa que deseja Ativar/Desativar!");
-        }
-    }//GEN-LAST:event_btnAtivarActionPerformed
-
     private void btnDetalhesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDetalhesActionPerformed
         int linha = tbEmpresa.getSelectedRow();
-        if(linha != -1){
+        if (linha != -1) {
             int id = Integer.parseInt(tbEmpresa.getValueAt(linha, 0).toString());
             EmpresaDAO empresaDAO = new EmpresaDAO();
             empresa = empresaDAO.getEmpresaById(id);
-            TelaDetalhesEmpresa telaDetalhesEmpresa = new TelaDetalhesEmpresa(null,true, empresa);
+            TelaDetalhesEmpresa telaDetalhesEmpresa = new TelaDetalhesEmpresa(null, true, empresa);
             telaDetalhesEmpresa.setVisible(true);
-        }else{
+        } else {
             JOptionPane.showMessageDialog(rootPane, "Selecione uma empresa!");
         }
     }//GEN-LAST:event_btnDetalhesActionPerformed
 
     private void btnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlterarActionPerformed
         int linha = tbEmpresa.getSelectedRow();
-        if(linha == -1){
+        if (linha == -1) {
             JOptionPane.showMessageDialog(rootPane, "Selecione o usuário que deseja alterar!");
-        }else{
+        } else {
             int id = Integer.parseInt(tbEmpresa.getValueAt(linha, 0).toString());
             EmpresaDAO dao = new EmpresaDAO();
             Empresa empresa = dao.getEmpresaById(id);
@@ -276,6 +247,42 @@ public class TelaEmpresa extends javax.swing.JDialog {
 //        mostraTela(e);
     }//GEN-LAST:event_pesquisaActionPerformed
 
+    private void tbEmpresaMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbEmpresaMouseReleased
+        int linha = tbEmpresa.getSelectedRow();
+        if (tbEmpresa.getValueAt(linha, 3).equals("Ativo")) {
+            btnAtivar.setText("Desativar");
+            btnAtivar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/Fall.png")));
+
+        } else {
+            btnAtivar.setText("Ativar");
+            btnAtivar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/Raise.png")));
+        }
+    }//GEN-LAST:event_tbEmpresaMouseReleased
+
+    private void btnAtivarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAtivarActionPerformed
+ int linha = tbEmpresa.getSelectedRow();
+        if (linha != -1) {
+            int id = Integer.parseInt(tbEmpresa.getValueAt(linha, 0).toString());
+            EmpresaDAO empresaDAO = new EmpresaDAO();
+            empresa = empresaDAO.getEmpresaById(id);
+
+            if (tbEmpresa.getValueAt(linha, 3).equals("Ativo")) {
+                empresa.setStatus("Desativado");
+                btnAtivar.setText("Ativar");
+                btnAtivar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/Raise.png")));
+            } else {
+                empresa.setStatus("Ativo");
+                btnAtivar.setText("Desativar");
+                btnAtivar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/Fall.png")));
+            }
+
+            empresaDAO.update(empresa);
+            atualizaTabelaEmpresas();
+        } else {
+            JOptionPane.showMessageDialog(null, "Selecione a empresa que deseja Ativar/Desativar!");
+        }
+    }//GEN-LAST:event_btnAtivarActionPerformed
+
     private void mostraTela(List<Empresa> listarEmpresas) {
         DefaultTableModel model = (DefaultTableModel) this.tbEmpresa.getModel();
         model.setRowCount(listarEmpresas.size());
@@ -287,7 +294,7 @@ public class TelaEmpresa extends javax.swing.JDialog {
         }
 
     }
-    
+
     private void atualizaTabelaEmpresas() {
         EmpresaDAO dao = new EmpresaDAO();
         List<Empresa> listarEmpresas = dao.listarEmpresas();
@@ -307,7 +314,7 @@ public class TelaEmpresa extends javax.swing.JDialog {
         }
 
     }
-    
+
     /**
      * @param args the command line arguments
      */
@@ -352,7 +359,7 @@ public class TelaEmpresa extends javax.swing.JDialog {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAlterar;
-    private javax.swing.JToggleButton btnAtivar;
+    private javax.swing.JButton btnAtivar;
     private javax.swing.JButton btnCadastrar;
     private javax.swing.JButton btnDetalhes;
     private javax.swing.JButton btnVoltar;

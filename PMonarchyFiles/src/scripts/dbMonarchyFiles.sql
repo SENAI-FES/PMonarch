@@ -21,7 +21,7 @@ USE `dbmonarchyfiles` ;
 CREATE TABLE IF NOT EXISTS `dbmonarchyfiles`.`armazem` (
   `rua` VARCHAR(100) NOT NULL,
   `estante` VARCHAR(100) NOT NULL,
-  `coluna` VARCHAR(100) NOT NULL,
+  `coluna` INT NOT NULL,
   `andar` VARCHAR(100) NOT NULL,
   `status` Boolean NOT NULL,
   PRIMARY KEY (`rua`, `estante`, `coluna`, `andar`))

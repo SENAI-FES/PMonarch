@@ -256,7 +256,7 @@ DEFAULT CHARACTER SET = utf8;
 INSERT INTO `dbmonarchyfiles`.`usuario` (`matricula`, `status`, `nome`, `CPF`, `perfil`, `email`, `senha`) VALUES ('1', 'Ativo', 'Adm', '999999', '0', 'adm', '123');
 
 INSERT INTO `dbmonarchyfiles`.`empresa` (`idEmpresa`, `nomeFantasia`, `razaoSocial`, `CNPJ`, `IE`, `site`, `logradouro`, `complemento`, `cidade`, `CEP`, `UF`, `tipo`, `status` )  
-VALUES ('1','Projeto Criaça Feliz','Projeto Criaça Feliz','0752411300106','254413919','www.criancaesperanca.com.br','Francisco Tolentino','-','Rio de Janeiro','96820-524','RJ','Rua', 'Ativo');
+VALUES ('1','Projeto Criaça Feliz','Projeto Criaça Feliz','07.524.113/0001-06','254413919','www.criancaesperanca.com.br','Francisco Tolentino','-','Rio de Janeiro','96820-524','RJ','RUA', 'Ativo');
 insert into `dbmonarchyfiles`.`contato` (`idContato`, `nome`, `cargo`, `telefone`, `ramal`, `email`, `idEmpresa`) 
 values( '1', 'Rudinei Silva', 'Gerente', '(21)3278-7878', '454', 'rudinei@cfeliz.com.br', '1');
 insert into `dbmonarchyfiles`.`contato` (`idContato`, `nome`, `cargo`, `telefone`, `ramal`, `email`, `idEmpresa`) 
@@ -265,6 +265,17 @@ insert into `dbmonarchyfiles`.`contato` (`idContato`, `nome`, `cargo`, `telefone
 values( '3', 'Fernando Moura', 'Auxiliar', '(21)3278-7878', '456', 'fernando@cfeliz.com.br', '1');
 insert into `dbmonarchyfiles`.`contrato` (`idContrato`, `tipo`, `dataInicial`, `validade`, `idEmpresa`) 
 values( '1', 'Mensal', '2015/05/12', '2019/05/12', '1');
+
+INSERT INTO `dbmonarchyfiles`.`empresa` (`idEmpresa`, `nomeFantasia`, `razaoSocial`, `CNPJ`, `IE`, `site`, `logradouro`, `complemento`, `cidade`, `CEP`, `UF`, `tipo`, `status` )  
+VALUES ('2','Krolow Atacado','Comercio de Atacado e Varejo Ltda','02.554.718/0001-22','266418219','www.krolow.com.br','Jarbas Manoeltino','-','Pelotas','92825-500','RS','AVENIDA', 'Ativo');
+insert into `dbmonarchyfiles`.`contato` (`idContato`, `nome`, `cargo`, `telefone`, `ramal`, `email`, `idEmpresa`) 
+values( '4', 'Jonas Souza', 'Gerente', '(53)3274-7474', '001', 'jonas@krolow.com.br', '2');
+insert into `dbmonarchyfiles`.`contato` (`idContato`, `nome`, `cargo`, `telefone`, `ramal`, `email`, `idEmpresa`) 
+values( '5', 'Marcelo Borges', 'Operador', '(53)3274-7474', '013', 'marcelo@krolow.com.br', '2');
+insert into `dbmonarchyfiles`.`contato` (`idContato`, `nome`, `cargo`, `telefone`, `ramal`, `email`, `idEmpresa`) 
+values( '6', 'Alicia Men', 'Assistente', '(53)3274-7474', '011', 'alicia@krolow.com.br', '2');
+insert into `dbmonarchyfiles`.`contrato` (`idContrato`, `tipo`, `dataInicial`, `validade`, `idEmpresa`) 
+values( '2', 'Mensal', '2015/05/12', '2019/05/12', '2');
 
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;

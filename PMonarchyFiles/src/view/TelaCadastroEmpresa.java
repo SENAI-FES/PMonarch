@@ -38,6 +38,7 @@ public class TelaCadastroEmpresa extends javax.swing.JDialog {
             txtRazaoSocial.setText(objEmpresa.getRazaoSocial());
             txtNomeFantasia.setText(objEmpresa.getNomeFantasia());
             txtCnpj.setText(objEmpresa.getCnpj());
+            System.out.println(objEmpresa.getCnpj());
             txtInsEst.setText(objEmpresa.getInscricaoEstadual());
             txtSite.setText(objEmpresa.getSite());
             txtLogradouro.setText(objEmpresa.getLogradouro());
@@ -475,7 +476,7 @@ public class TelaCadastroEmpresa extends javax.swing.JDialog {
 
         if (txtRazaoSocial.getText().equals("")
                 || txtCep.getText().equals("") || txtCidade.getText().equals("")
-                || txtCnpj.getText().equals("") || txtCompl.getText().equals("")
+                || txtCnpj.getText().equals("") 
                 || txtDtInicial.getText().equals("") || txtDtValidade.getText().equals("")
                 || txtInsEst.getText().equals("") || txtLogradouro.getText().equals("")
                 || txtNomeFantasia.getText().equals("") || txtSite.getText().equals("")) {

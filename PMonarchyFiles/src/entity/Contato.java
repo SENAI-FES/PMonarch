@@ -16,7 +16,7 @@ public class Contato {
 
     @Override
     public String toString() {
-        return "telefone: " + telefone + ", ramal: " + ramal + ", email: " + email;
+        return cargo + "  " + nome + "  " + telefone;
     }
 
     

@@ -6,6 +6,7 @@
 package view;
 
 import entity.Documento;
+import entity.TipoDocumento;
 import javax.swing.JOptionPane;
 
 
@@ -53,7 +54,7 @@ public class TelaCadastroDocumentos extends javax.swing.JDialog {
         btnAdiconarMarcador = new javax.swing.JButton();
         btnAdicionarTipo = new javax.swing.JButton();
         txtDataDocumento = new javax.swing.JFormattedTextField();
-        btnProtocolo = new javax.swing.JFormattedTextField();
+        txtProtocolo = new javax.swing.JFormattedTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Cadastro de Documento");
@@ -152,7 +153,7 @@ public class TelaCadastroDocumentos extends javax.swing.JDialog {
             ex.printStackTrace();
         }
 
-        btnProtocolo.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("##########"))));
+        txtProtocolo.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("##########"))));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -187,7 +188,7 @@ public class TelaCadastroDocumentos extends javax.swing.JDialog {
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addComponent(btnCancelar)))
                                 .addGap(0, 0, Short.MAX_VALUE))
-                            .addComponent(btnProtocolo)))
+                            .addComponent(txtProtocolo)))
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
@@ -199,7 +200,7 @@ public class TelaCadastroDocumentos extends javax.swing.JDialog {
                 .addGap(14, 14, 14)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(btnProtocolo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtProtocolo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -239,13 +240,17 @@ public class TelaCadastroDocumentos extends javax.swing.JDialog {
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
 
         Documento objDocumento = new Documento();
+        objDocumento.setProtocolo(Integer.parseInt(txtProtocolo.getText()));
+        objDocumento.setTipo ((TipoDocumento) cbTipo.getSelectedItem());
+//        objDocumento.setDataCadatroDoc((txtDataDocumento.getText()));
+        objDocumento.setQuantidadeDeFolhas(Integer.parseInt( txtQuantFolhas.getText()));
+        objDocumento.setFormatoDoPapel(cbFormatoFolha.getSelectedIndex());
+        objDocumento.setSigilo(ckbSigiloso.isSelected());
+        objDocumento.setDescricao(txtDescricao.getText());
         
         
         
-        
-        JOptionPane.showMessageDialog(null, "Documento Salvo com Sucesso!\nNome: Prateleira 1\nLinha: 2\nColuna: 2 ");
-
-
+ 
     }//GEN-LAST:event_btnSalvarActionPerformed
 
     private void cbFormatoFolhaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbFormatoFolhaActionPerformed
@@ -312,7 +317,6 @@ public class TelaCadastroDocumentos extends javax.swing.JDialog {
     private javax.swing.JButton btnAdicionarTipo;
     private javax.swing.JButton btnAdiconarMarcador;
     private javax.swing.JButton btnCancelar;
-    private javax.swing.JFormattedTextField btnProtocolo;
     private javax.swing.JButton btnSalvar;
     private javax.swing.JComboBox cbFormatoFolha;
     private javax.swing.JComboBox cbTipo;
@@ -329,6 +333,7 @@ public class TelaCadastroDocumentos extends javax.swing.JDialog {
     private javax.swing.JList lstMarcadoresDocumentos;
     private javax.swing.JFormattedTextField txtDataDocumento;
     private javax.swing.JTextArea txtDescricao;
+    private javax.swing.JFormattedTextField txtProtocolo;
     private javax.swing.JTextField txtQuantFolhas;
     // End of variables declaration//GEN-END:variables
 }

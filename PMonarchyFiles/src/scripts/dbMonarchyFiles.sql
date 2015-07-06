@@ -21,7 +21,7 @@ USE `dbmonarchyfiles` ;
 CREATE TABLE IF NOT EXISTS `dbmonarchyfiles`.`armazem` (
   `rua` VARCHAR(100) NOT NULL,
   `estante` VARCHAR(100) NOT NULL,
-  `coluna` VARCHAR(100) NOT NULL,
+  `coluna` INT NOT NULL,
   `andar` VARCHAR(100) NOT NULL,
   `status` Boolean NOT NULL,
   PRIMARY KEY (`rua`, `estante`, `coluna`, `andar`))
@@ -254,6 +254,17 @@ ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8;
 
 INSERT INTO `dbmonarchyfiles`.`usuario` (`matricula`, `status`, `nome`, `CPF`, `perfil`, `email`, `senha`) VALUES ('1', 'Ativo', 'Adm', '999999', '0', 'adm', '123');
+
+INSERT INTO `dbmonarchyfiles`.`empresa` (`idEmpresa`, `nomeFantasia`, `razaoSocial`, `CNPJ`, `IE`, `site`, `logradouro`, `complemento`, `cidade`, `CEP`, `UF`, `tipo`, `status` )  
+VALUES ('1','Projeto Criaça Feliz','Projeto Criaça Feliz','0752411300106','254413919','www.criancaesperanca.com.br','Francisco Tolentino','-','Rio de Janeiro','96820-524','RJ','Rua', 'Ativo');
+insert into `dbmonarchyfiles`.`contato` (`idContato`, `nome`, `cargo`, `telefone`, `ramal`, `email`, `idEmpresa`) 
+values( '1', 'Rudinei Silva', 'Gerente', '(21)3278-7878', '454', 'rudinei@cfeliz.com.br', '1');
+insert into `dbmonarchyfiles`.`contato` (`idContato`, `nome`, `cargo`, `telefone`, `ramal`, `email`, `idEmpresa`) 
+values( '2', 'Aderbal Rocha', 'Coordenador', '(21)3278-7878', '455', 'aderbal@cfeliz.com.br', '1');
+insert into `dbmonarchyfiles`.`contato` (`idContato`, `nome`, `cargo`, `telefone`, `ramal`, `email`, `idEmpresa`) 
+values( '3', 'Fernando Moura', 'Auxiliar', '(21)3278-7878', '456', 'fernando@cfeliz.com.br', '1');
+insert into `dbmonarchyfiles`.`contrato` (`idContrato`, `tipo`, `dataInicial`, `validade`, `idEmpresa`) 
+values( '1', 'Mensal', '2015/05/12', '2019/05/12', '1');
 
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;

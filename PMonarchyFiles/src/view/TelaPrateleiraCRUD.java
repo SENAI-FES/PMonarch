@@ -1,10 +1,10 @@
 package view;
 
-import Prototipos.*;
 import dao.ArmazemDAO;
 import entity.Armazem;
 import java.util.List;
-import java.util.Vector;
+import javax.swing.SwingConstants;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
 /*
@@ -26,6 +26,9 @@ public class TelaPrateleiraCRUD extends javax.swing.JDialog {
         initComponents();
         this.setLocationRelativeTo(null);
         combo();
+        tblPrateleira.setAutoCreateRowSorter(true);
+        alinhamentoEsquerda = new DefaultTableCellRenderer();
+        alinhamentoEsquerda.setHorizontalAlignment(SwingConstants.LEFT); 
     }
 
     /**
@@ -92,9 +95,16 @@ public class TelaPrateleiraCRUD extends javax.swing.JDialog {
                 "Rua", "Estante", "Coluna", "Andar", "Status"
             }
         ) {
+            Class[] types = new Class [] {
+                java.lang.Object.class, java.lang.Object.class, java.lang.Integer.class, java.lang.Object.class, java.lang.Object.class
+            };
             boolean[] canEdit = new boolean [] {
                 false, false, false, false, false
             };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
@@ -183,6 +193,7 @@ public class TelaPrateleiraCRUD extends javax.swing.JDialog {
         String cbSelecionado = (String) cbRua.getSelectedItem();
         combo();
         cbRua.setSelectedItem(cbSelecionado);
+        
     }//GEN-LAST:event_btnNovoActionPerformed
 
     private void btnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlterarActionPerformed
@@ -256,8 +267,16 @@ public class TelaPrateleiraCRUD extends javax.swing.JDialog {
     private void ckbMostrarInativosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ckbMostrarInativosActionPerformed
         if (ckbMostrarInativos.isSelected() && cbRua.getSelectedIndex() == 0) {
             atualizarTabelaTodosInativos();
+            btnAtivar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/Fall.png")));
+            btnAtivar.setText("Inativar");
+        } else if (ckbMostrarInativos.isSelected()) {
+            atualizarTabela();
+            btnAtivar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/Fall.png")));
+            btnAtivar.setText("Inativar");
         } else {
             atualizarTabela();
+            btnAtivar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/Raise.png")));
+            btnAtivar.setText("Ativar");
         }
 
     }//GEN-LAST:event_ckbMostrarInativosActionPerformed
@@ -277,6 +296,10 @@ public class TelaPrateleiraCRUD extends javax.swing.JDialog {
             for (int i = 0; i < lista.size(); i++) {
                 if (tblPrateleira.getRowCount() < lista.size()) {
                     model.addRow(new Object[]{});
+                    if (!lista.get(i).isAtivo()) {
+
+                    }
+
                 }
                 model.setValueAt(lista.get(i).getRua(), i, 0);
                 model.setValueAt(lista.get(i).getEstante(), i, 1);
@@ -287,7 +310,9 @@ public class TelaPrateleiraCRUD extends javax.swing.JDialog {
                 } else {
                     model.setValueAt("Inativo", i, 4);
                 }
-
+            }
+            for (int i = 0; i < tblPrateleira.getColumnCount(); i++) {
+                tblPrateleira.getColumnModel().getColumn(i).setCellRenderer(alinhamentoEsquerda);  
             }
         }
     }
@@ -392,4 +417,5 @@ public class TelaPrateleiraCRUD extends javax.swing.JDialog {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tblPrateleira;
     // End of variables declaration//GEN-END:variables
+DefaultTableCellRenderer alinhamentoEsquerda;  
 }

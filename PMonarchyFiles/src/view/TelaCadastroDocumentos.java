@@ -5,6 +5,7 @@
  */
 package view;
 
+import entity.Documento;
 import javax.swing.JOptionPane;
 
 
@@ -236,6 +237,12 @@ public class TelaCadastroDocumentos extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
+
+        Documento objDocumento = new Documento();
+        
+        
+        
+        
         JOptionPane.showMessageDialog(null, "Documento Salvo com Sucesso!\nNome: Prateleira 1\nLinha: 2\nColuna: 2 ");
 
 

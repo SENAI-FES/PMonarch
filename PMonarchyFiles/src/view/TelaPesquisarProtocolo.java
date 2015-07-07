@@ -5,9 +5,16 @@
  */
 package view;
 
+import com.sun.corba.se.impl.orbutil.CorbaResourceUtil;
 import dao.ProtocoloDAO;
+import entity.Empresa;
 import entity.Protocolo;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -40,8 +47,6 @@ public class TelaPesquisarProtocolo extends javax.swing.JDialog {
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
-        txtCnpj = new javax.swing.JTextField();
         cbNomeEmpresa = new javax.swing.JComboBox();
         btnPesquisar = new javax.swing.JButton();
         txtDataEntrada = new javax.swing.JFormattedTextField();
@@ -66,9 +71,7 @@ public class TelaPesquisarProtocolo extends javax.swing.JDialog {
 
         jLabel4.setText("Empresa:");
 
-        jLabel5.setText("CNPJ:");
-
-        cbNomeEmpresa.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Google", "Yahoo", "MonarchyFile", "Almeida Jr" }));
+        cbNomeEmpresa.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecione a Empresa" }));
 
         btnPesquisar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/Find.png"))); // NOI18N
         btnPesquisar.setText("Pesquisar");
@@ -95,7 +98,7 @@ public class TelaPesquisarProtocolo extends javax.swing.JDialog {
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(18, 18, 18)
+                .addGap(24, 24, 24)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING))
@@ -104,22 +107,15 @@ public class TelaPesquisarProtocolo extends javax.swing.JDialog {
                     .addComponent(cbNomeEmpresa, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtNumeroProtocolo, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel2)
-                    .addComponent(jLabel5))
+                    .addComponent(jLabel3))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(txtCnpj, javax.swing.GroupLayout.DEFAULT_SIZE, 119, Short.MAX_VALUE)
-                    .addComponent(txtDataEntrada))
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(46, 46, 46)
-                        .addComponent(jLabel3)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtDataSaida))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(148, 148, 148)
-                        .addComponent(btnPesquisar)))
+                    .addComponent(txtDataEntrada, javax.swing.GroupLayout.DEFAULT_SIZE, 119, Short.MAX_VALUE)
+                    .addComponent(txtDataSaida))
+                .addGap(18, 18, 18)
+                .addComponent(btnPesquisar)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
@@ -130,16 +126,14 @@ public class TelaPesquisarProtocolo extends javax.swing.JDialog {
                     .addComponent(jLabel1)
                     .addComponent(txtNumeroProtocolo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2)
-                    .addComponent(jLabel3)
-                    .addComponent(txtDataEntrada, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtDataSaida, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtDataEntrada, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
-                    .addComponent(jLabel5)
-                    .addComponent(txtCnpj, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(cbNomeEmpresa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnPesquisar))
+                    .addComponent(btnPesquisar)
+                    .addComponent(jLabel3)
+                    .addComponent(txtDataSaida, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -147,17 +141,17 @@ public class TelaPesquisarProtocolo extends javax.swing.JDialog {
 
         tblDadosFiltro.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null}
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null}
             },
             new String [] {
-                "Id", "Nº Protocolo Documento", "Data Entrada", "Data Saída", "Empresa", "CNPJ"
+                "Nº Protocolo Documento", "Data Entrada", "Empresa"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class
+                java.lang.Integer.class, java.lang.String.class, java.lang.String.class
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -172,8 +166,8 @@ public class TelaPesquisarProtocolo extends javax.swing.JDialog {
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGap(19, 19, 19)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 775, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jScrollPane1)
+                .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -244,25 +238,37 @@ public class TelaPesquisarProtocolo extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPesquisarActionPerformed
-        if (txtNumeroProtocolo.equals("")) {
-//            Protocolo objPesquisarProtocolo = new Protocolo();
-//            objPesquisarProtocolo.setCnpj(txtCnpj.getText());
-//            objPesquisarProtocolo.setDataEntrada(txtDataEntrada.getText());
-//            objPesquisarProtocolo.setDataSaida(txtDataSaida.getText());
-
-            AtualizarTabela();
-            
-            ProtocoloDAO dao = new ProtocoloDAO();
-            //dao.select(objPesquisarProtocolo);
-
-        } else {
-            //se campo Numero protocolo estiver vazio irá executar essa função
-//            PesquisarProtocolo objPesquisarProtocolo = new PesquisarProtocolo();
-//            objPesquisarProtocolo.setNumeroProtocolo(txtNumeroProtocolo.getText());
-//            ProtocoloDAO dao = new ProtocoloDAO();
-            //dao.select(objPesquisarProtocolo.getNumeroProtocolo());
-
+        int protocolo = 0;
+        Empresa empresa = null;
+        Date inicio = null;
+        Date fim = null;
+        if (!txtNumeroProtocolo.getText().equals("")) {
+            protocolo = Integer.parseInt(txtNumeroProtocolo.getText());
         }
+        if (cbNomeEmpresa.getSelectedIndex() != 0) {
+            empresa = (Empresa) cbNomeEmpresa.getSelectedItem();
+        }
+        if (!txtDataEntrada.equals("")) {
+            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+            try {
+                inicio = sdf.parse(txtDataEntrada.getText());
+            } catch (ParseException ex) {
+                Logger.getLogger("Erro ao converter a data inicio");
+            }
+        }
+        if (!txtDataSaida.equals("")) {
+            SimpleDateFormat sdt = new SimpleDateFormat("dd/MM/yyyy");
+            try {
+                fim = sdt.parse(txtDataSaida.getText());
+            } catch (ParseException ex) {
+                Logger.getLogger("Erro ao converter a data fim");
+            }
+        }
+
+        ProtocoloDAO dao = new ProtocoloDAO();
+        List<Protocolo> listaProtocolos = dao.listarProtocolos(protocolo, inicio, fim, empresa);
+        AtualizarTabela(listaProtocolos);
+
     }//GEN-LAST:event_btnPesquisarActionPerformed
 
     private void btnDetalheActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDetalheActionPerformed
@@ -327,34 +333,27 @@ public class TelaPesquisarProtocolo extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tblDadosFiltro;
-    private javax.swing.JTextField txtCnpj;
     private javax.swing.JFormattedTextField txtDataEntrada;
     private javax.swing.JFormattedTextField txtDataSaida;
     private javax.swing.JTextField txtNumeroProtocolo;
     // End of variables declaration//GEN-END:variables
 
-    private void AtualizarTabela() {
+    private void AtualizarTabela(List<Protocolo> listaProtocolo) {
 
-//        ProtocoloDAO dao = new ProtocoloDAO();
-//        List<Protocolo> listaProtocolo = dao.listarProtocolo();
-//
-//        DefaultTableModel model = (DefaultTableModel) this.tblDadosFiltro.getModel();
-//
-//        model.setRowCount(listaProtocolo.size());
-//
-//        for (int i = 0; i < listaProtocolo.size(); i++) {
-//            model.setValueAt(listaProtocolo.get(i).getId(), i, 0);
-//            model.setValueAt(listaProtocolo.get(i).getNumero(), i, 1);
-//            model.setValueAt(listaProtocolo.get(i).getDataEntrada(), i, 2);
-//            model.setValueAt(listaProtocolo.get(i).getDataSaida(), i, 3);
-//            model.setValueAt(listaProtocolo.get(i).getEmpresa(), i, 3);
-//            model.setValueAt(listaProtocolo.get(i).getCnpj(), i, 3);
-//        }
+        DefaultTableModel model = (DefaultTableModel) this.tblDadosFiltro.getModel();
+
+        model.setRowCount(listaProtocolo.size());
+
+        for (int i = 0; i < listaProtocolo.size(); i++) {
+            model.setValueAt(listaProtocolo.get(i).getNumeroProtocolo(), i, 0);
+            model.setValueAt(listaProtocolo.get(i).getDataHora(), i, 1);
+            model.setValueAt(listaProtocolo.get(i).getEmpresa(), i, 2);
+
+        }
     }
 }

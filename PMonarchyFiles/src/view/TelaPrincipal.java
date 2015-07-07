@@ -74,6 +74,11 @@ public class TelaPrincipal extends javax.swing.JDialog {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Monarchy Files");
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowDeactivated(java.awt.event.WindowEvent evt) {
+                formWindowDeactivated(evt);
+            }
+        });
 
         btnEmpresas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/icoEmpresa.png"))); // NOI18N
         btnEmpresas.setText("Empresas");
@@ -336,6 +341,10 @@ public class TelaPrincipal extends javax.swing.JDialog {
     private void btnPesquisarProtocoloActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPesquisarProtocoloActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnPesquisarProtocoloActionPerformed
+
+    private void formWindowDeactivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowDeactivated
+        
+    }//GEN-LAST:event_formWindowDeactivated
 
     /**
      * @param args the command line arguments

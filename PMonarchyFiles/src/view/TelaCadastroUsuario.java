@@ -9,6 +9,8 @@ import dao.UsuarioDAO;
 import entity.EnumPerfil;
 import entity.Usuario;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /**
@@ -29,9 +31,9 @@ public class TelaCadastroUsuario extends javax.swing.JDialog {
         if (novo) {
 
             objUsuario = new Usuario();
- 
-            lblMatricula.setText(pegarMatricula()+"");
-            
+
+            lblMatricula.setText(pegarMatricula() + "");
+
         } else {
 
             lblMatricula.setText(objUsuario.getMatricula() + "");
@@ -222,6 +224,15 @@ public class TelaCadastroUsuario extends javax.swing.JDialog {
                 limparTela();
             }
             JOptionPane.showMessageDialog(this, "Salvo com sucesso!");
+            
+             if(!novo){
+                try {
+                    Thread.sleep(200);
+                } catch (InterruptedException ex) {
+                    Logger.getLogger(TelaCadastroUsuario.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                this.dispose();
+            }
         }
 
     }//GEN-LAST:event_btnSalvarActionPerformed
@@ -239,7 +250,7 @@ public class TelaCadastroUsuario extends javax.swing.JDialog {
         for (Usuario usuario : listaUsuarios) {
             matricula = usuario.getMatricula();
         }
-        return matricula+1;
+        return matricula + 1;
     }
 
     /**

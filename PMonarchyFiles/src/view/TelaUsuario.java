@@ -244,8 +244,13 @@ public class TelaUsuario extends javax.swing.JDialog {
             int id = Integer.parseInt(tblUsuario.getValueAt(linha, 0).toString());
             UsuarioDAO dao = new UsuarioDAO();
             Usuario usuario = dao.getUsuarioById(id);
-            TelaCadastroUsuario cUsuario = new TelaCadastroUsuario(null, true, novo, usuario);
-            cUsuario.setVisible(true);
+
+            if (usuario.getMatricula() == 1) {
+                JOptionPane.showMessageDialog(rootPane, "Não é possível alterar esse usuário!");
+            } else {
+                TelaCadastroUsuario cUsuario = new TelaCadastroUsuario(null, true, novo, usuario);
+                cUsuario.setVisible(true);
+            }
         } else {
             JOptionPane.showMessageDialog(rootPane, "Não é possível alterar um usuário desativado!");
         }
@@ -268,22 +273,27 @@ public class TelaUsuario extends javax.swing.JDialog {
             UsuarioDAO uDAO = new UsuarioDAO();
             objUsuario = uDAO.getUsuarioById(id);
 
-            if (tblUsuario.getValueAt(linha, 4).equals("Ativo")) {
-                objUsuario.setStatus("Desativado");
+            if (objUsuario.getMatricula() == 1) {
+                JOptionPane.showMessageDialog(rootPane, "Não é possível desativar esse usuário!");
 
             } else {
-                objUsuario.setStatus("Ativo");
-            }
+                if (tblUsuario.getValueAt(linha, 4).equals("Ativo")) {
+                    objUsuario.setStatus("Desativado");
 
-            if (btnAtivarUsuario.getText().equalsIgnoreCase("Ativar")) {
-                btnAtivarUsuario.setText("Desativar");
-                btnAtivarUsuario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/Fall.png")));
-            } else {
-                btnAtivarUsuario.setText("Ativar");
-                btnAtivarUsuario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/Raise.png")));
-            }
+                } else {
+                    objUsuario.setStatus("Ativo");
+                }
 
-            uDAO.atualizaStatus(objUsuario);
+                if (btnAtivarUsuario.getText().equalsIgnoreCase("Ativar")) {
+                    btnAtivarUsuario.setText("Desativar");
+                    btnAtivarUsuario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/Fall.png")));
+                } else {
+                    btnAtivarUsuario.setText("Ativar");
+                    btnAtivarUsuario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/Raise.png")));
+                }
+
+                uDAO.atualizaStatus(objUsuario);
+            }
         }
         atualizaTabelaUsuarios();
     }//GEN-LAST:event_btnAtivarUsuarioActionPerformed

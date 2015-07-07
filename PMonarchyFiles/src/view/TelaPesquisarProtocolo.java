@@ -6,6 +6,7 @@
 package view;
 
 import com.sun.corba.se.impl.orbutil.CorbaResourceUtil;
+import dao.EmpresaDAO;
 import dao.ProtocoloDAO;
 import entity.Empresa;
 import entity.Protocolo;
@@ -29,6 +30,11 @@ public class TelaPesquisarProtocolo extends javax.swing.JDialog {
     public TelaPesquisarProtocolo(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        EmpresaDAO daoEmpresa = new EmpresaDAO();
+        List<Empresa> listaEmpresas = daoEmpresa.listarEmpresas();
+        for (Empresa empresa : listaEmpresas) {
+            cbNomeEmpresa.addItem(empresa);
+        }
     }
 
     /**
@@ -238,15 +244,16 @@ public class TelaPesquisarProtocolo extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPesquisarActionPerformed
-        int protocolo = 0;
+        long protocolo = 0;
         Empresa empresa = null;
         Date inicio = null;
         Date fim = null;
         if (!txtNumeroProtocolo.getText().equals("")) {
-            protocolo = Integer.parseInt(txtNumeroProtocolo.getText());
+            protocolo = Long.parseLong(txtNumeroProtocolo.getText());
         }
         if (cbNomeEmpresa.getSelectedIndex() != 0) {
             empresa = (Empresa) cbNomeEmpresa.getSelectedItem();
+            
         }
         if (!txtDataEntrada.equals("")) {
             SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");

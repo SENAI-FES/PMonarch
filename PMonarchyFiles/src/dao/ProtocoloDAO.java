@@ -142,10 +142,10 @@ public class ProtocoloDAO extends MySQL {
         return listaProtocolos;
     }
 
-    public List<Protocolo> listarProtocolos(int protocolo, Date inicio, Date fim, Empresa empresa) {
+    public List<Protocolo> listarProtocolos(long protocolo, Date inicio, Date fim, Empresa empresa) {
         String sql = "";
         if (protocolo != 0) {
-            sql += " WHERE protocolo = ?";
+            sql += " WHERE numeroProtocolo = ?";
         } else if (empresa != null) {
             sql += " WHERE idEmpresa = ?";
         } else if (inicio != null) {
@@ -154,12 +154,12 @@ public class ProtocoloDAO extends MySQL {
         List<Protocolo> listaProtocolos = new ArrayList<Protocolo>();
         Connection c = this.getConnection();
         try {
-            PreparedStatement ps = c.prepareStatement("SELECT cpf, "
-                    + "responsavelEntrega, idEmpresa, responsavelCadastro, responsavelSeparacao, "
-                    + "responsavelEstocagem, tipoDocumento, tipoProtocolo, numeroProtocolo, dataHora"
+            PreparedStatement ps = c.prepareStatement("SELECT idProtocolo, idEmpresa, "
+                    + "idResponsavelCadastro, idResponsavelSeparacao, "
+                    + "idResponsavelEstocagem, idTipoDocumento, numeroProtocolo, cpf, responsavelEntrega, tipoProtocolo, dataHora"
                     + " FROM protocolo " + sql);
             if (protocolo != 0) {
-                ps.setInt(1, protocolo);
+                ps.setLong(1, protocolo);
             } else if (empresa != null) {
                 ps.setInt(1, empresa.getIdEmpresa());
             } else if (inicio != null) {

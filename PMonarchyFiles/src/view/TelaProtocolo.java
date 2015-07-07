@@ -52,6 +52,7 @@ public class TelaProtocolo extends javax.swing.JDialog {
         for (TipoDocumento tipoDocumento : listaTipoDocumentos) {
             cbTipoDocumento.addItem(tipoDocumento);
         }
+        
 
     }
     Protocolo objProtocolo = new Protocolo();
@@ -67,6 +68,7 @@ public class TelaProtocolo extends javax.swing.JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        buttonGroup1 = new javax.swing.ButtonGroup();
         jPanel4 = new javax.swing.JPanel();
         btnSalvar = new javax.swing.JButton();
         lblNumeroProtocolo = new javax.swing.JLabel();
@@ -81,7 +83,6 @@ public class TelaProtocolo extends javax.swing.JDialog {
         jLabel14 = new javax.swing.JLabel();
         txtResponsavelEntrega = new javax.swing.JTextField();
         jLabel15 = new javax.swing.JLabel();
-        txtCpf = new javax.swing.JTextField();
         jLabel16 = new javax.swing.JLabel();
         cbEmpresa = new javax.swing.JComboBox();
         cbResponsavelEstocagem = new javax.swing.JComboBox();
@@ -92,6 +93,7 @@ public class TelaProtocolo extends javax.swing.JDialog {
         jLabel8 = new javax.swing.JLabel();
         btnVoltar = new javax.swing.JButton();
         txtHorario = new javax.swing.JFormattedTextField();
+        ftxtCpf = new javax.swing.JFormattedTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -121,28 +123,41 @@ public class TelaProtocolo extends javax.swing.JDialog {
 
         jLabel13.setText("Tipo do Documento:");
 
-        cbTipoDocumento.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Atestado", "Contrato", "Projeto", "Recisão" }));
-
         jLabel14.setText("Responsável Entrega:");
 
         jLabel15.setText("CPF:");
 
         jLabel16.setText("Empresa:");
 
+        buttonGroup1.add(rbtnEntrada);
+        rbtnEntrada.setSelected(true);
         rbtnEntrada.setText("Entrada");
 
+        buttonGroup1.add(rbtnSaida);
         rbtnSaida.setText("Saída");
 
         jLabel8.setText("Protocolo:");
 
         btnVoltar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/Back.png"))); // NOI18N
         btnVoltar.setText("Voltar");
+        btnVoltar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnVoltarActionPerformed(evt);
+            }
+        });
 
         try {
             txtHorario.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##/##/#### ##:##")));
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
+
+        try {
+            ftxtCpf.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("###.###.###-##")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+        ftxtCpf.setText("   .   .   -  ");
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -166,12 +181,12 @@ public class TelaProtocolo extends javax.swing.JDialog {
                                     .addComponent(jLabel16))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)))
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtCpf)
-                            .addComponent(txtResponsavelEntrega, javax.swing.GroupLayout.PREFERRED_SIZE, 324, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtResponsavelEntrega, javax.swing.GroupLayout.DEFAULT_SIZE, 324, Short.MAX_VALUE)
                             .addComponent(cbResponsavelCadastro, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(cbResponsavelEstocagem, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(cbResponsavelSeparacao, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(cbEmpresa, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(cbEmpresa, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(ftxtCpf))
                         .addGap(18, 18, 18)
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(jPanel4Layout.createSequentialGroup()
@@ -193,7 +208,7 @@ public class TelaProtocolo extends javax.swing.JDialog {
                                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(txtQuantidadeDocumentos)
                                     .addComponent(txtHorario))))))
-                .addContainerGap(15, Short.MAX_VALUE))
+                .addGap(15, 15, 15))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -238,10 +253,10 @@ public class TelaProtocolo extends javax.swing.JDialog {
                     .addComponent(jLabel14)
                     .addComponent(txtResponsavelEntrega, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtCpf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel15))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel15)
+                    .addComponent(ftxtCpf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 24, Short.MAX_VALUE)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnSalvar)
                     .addComponent(btnVoltar))
@@ -273,7 +288,7 @@ public class TelaProtocolo extends javax.swing.JDialog {
         objProtocolo.setResponsavelSeparacao((Usuario) cbResponsavelSeparacao.getSelectedItem());
         objProtocolo.setResponsavelEstocagem((Usuario) cbResponsavelEstocagem.getSelectedItem());
         objProtocolo.setResponsavelEntrega(txtResponsavelEntrega.getText());
-        objProtocolo.setCpf(txtCpf.getText());
+        objProtocolo.setCpf(ftxtCpf.getText());
         objProtocolo.setTipoDocumento((TipoDocumento) cbTipoDocumento.getSelectedItem());
         objProtocolo.setTipoProtocolo(tipoProtocolo());
         objProtocolo.setQuantidadeDocumentos(Integer.parseInt(txtQuantidadeDocumentos.getText()));
@@ -290,6 +305,10 @@ public class TelaProtocolo extends javax.swing.JDialog {
 
     }//GEN-LAST:event_btnSalvarActionPerformed
 
+    private void btnVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVoltarActionPerformed
+        dispose();
+    }//GEN-LAST:event_btnVoltarActionPerformed
+
     public int tipoProtocolo() {
 
         if (rbtnEntrada.isSelected()) {
@@ -302,7 +321,7 @@ public class TelaProtocolo extends javax.swing.JDialog {
 
     public void limparCampos() {
         txtResponsavelEntrega.setText(null);
-        txtCpf.setText(null);
+        ftxtCpf.setText(null);
         txtHorario.setText(null);
         txtQuantidadeDocumentos.setText(null);
         cbEmpresa.setSelectedIndex(1);
@@ -353,11 +372,13 @@ public class TelaProtocolo extends javax.swing.JDialog {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnSalvar;
     private javax.swing.JButton btnVoltar;
+    private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JComboBox cbEmpresa;
     private javax.swing.JComboBox cbResponsavelCadastro;
     private javax.swing.JComboBox cbResponsavelEstocagem;
     private javax.swing.JComboBox cbResponsavelSeparacao;
     private javax.swing.JComboBox cbTipoDocumento;
+    private javax.swing.JFormattedTextField ftxtCpf;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
@@ -372,7 +393,6 @@ public class TelaProtocolo extends javax.swing.JDialog {
     private javax.swing.JLabel lblNumeroProtocolo;
     private javax.swing.JRadioButton rbtnEntrada;
     private javax.swing.JRadioButton rbtnSaida;
-    private javax.swing.JTextField txtCpf;
     private javax.swing.JFormattedTextField txtHorario;
     private javax.swing.JTextField txtQuantidadeDocumentos;
     private javax.swing.JTextField txtResponsavelEntrega;

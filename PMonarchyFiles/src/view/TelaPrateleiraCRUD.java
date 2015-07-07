@@ -3,6 +3,7 @@ package view;
 import dao.ArmazemDAO;
 import entity.Armazem;
 import java.util.List;
+import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
@@ -28,7 +29,7 @@ public class TelaPrateleiraCRUD extends javax.swing.JDialog {
         combo();
         tblPrateleira.setAutoCreateRowSorter(true);
         alinhamentoEsquerda = new DefaultTableCellRenderer();
-        alinhamentoEsquerda.setHorizontalAlignment(SwingConstants.LEFT); 
+        alinhamentoEsquerda.setHorizontalAlignment(SwingConstants.LEFT);
     }
 
     /**
@@ -193,43 +194,51 @@ public class TelaPrateleiraCRUD extends javax.swing.JDialog {
         String cbSelecionado = (String) cbRua.getSelectedItem();
         combo();
         cbRua.setSelectedItem(cbSelecionado);
-        
+
     }//GEN-LAST:event_btnNovoActionPerformed
 
     private void btnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlterarActionPerformed
-        Armazem armazem = new Armazem();
         int linha = tblPrateleira.getSelectedRow();
-        armazem.setRua((String) tblPrateleira.getValueAt(linha, 0));
-        armazem.setEstante((String) tblPrateleira.getValueAt(linha, 1));
-        armazem.setColuna((String) tblPrateleira.getValueAt(linha, 2));
-        armazem.setAndar((String) tblPrateleira.getValueAt(linha, 3));
-        TelaPrateleiraNovo telaNovo = new TelaPrateleiraNovo(null, true, false, armazem);
-        telaNovo.setVisible(true);
-        String cbSelecionado = (String) cbRua.getSelectedItem();
-        combo();
-        cbRua.setSelectedItem(cbSelecionado);
+        if (linha > -1) {
+            Armazem armazem = new Armazem();
+            armazem.setRua((String) tblPrateleira.getValueAt(linha, 0));
+            armazem.setEstante((String) tblPrateleira.getValueAt(linha, 1));
+            armazem.setColuna((String) tblPrateleira.getValueAt(linha, 2));
+            armazem.setAndar((String) tblPrateleira.getValueAt(linha, 3));
+            TelaPrateleiraNovo telaNovo = new TelaPrateleiraNovo(null, true, false, armazem);
+            telaNovo.setVisible(true);
+            String cbSelecionado = (String) cbRua.getSelectedItem();
+            combo();
+            cbRua.setSelectedItem(cbSelecionado);
+        } else {
+            JOptionPane.showMessageDialog(null, "Selecione um endereço para alterar");
+        }
     }//GEN-LAST:event_btnAlterarActionPerformed
 
     private void btnAtivarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAtivarActionPerformed
-        ArmazemDAO dao = new ArmazemDAO();
-        Armazem armazem = new Armazem();
         int linha = tblPrateleira.getSelectedRow();
-        armazem.setRua((String) tblPrateleira.getValueAt(linha, 0));
-        armazem.setEstante((String) tblPrateleira.getValueAt(linha, 1));
-        armazem.setColuna((String) tblPrateleira.getValueAt(linha, 2));
-        armazem.setAndar((String) tblPrateleira.getValueAt(linha, 3));
-        if (btnAtivar.getText().equals("Inativar")) {
-            btnAtivar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/Raise.png")));
-            btnAtivar.setText("Ativar");
-            armazem.setAtivo(false);
-            dao.ativarDesativar(armazem);
-            atualizarTabela();
+        if (linha > -1) {
+            ArmazemDAO dao = new ArmazemDAO();
+            Armazem armazem = new Armazem();
+            armazem.setRua((String) tblPrateleira.getValueAt(linha, 0));
+            armazem.setEstante((String) tblPrateleira.getValueAt(linha, 1));
+            armazem.setColuna((String) tblPrateleira.getValueAt(linha, 2));
+            armazem.setAndar((String) tblPrateleira.getValueAt(linha, 3));
+            if (btnAtivar.getText().equals("Inativar")) {
+                btnAtivar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/Raise.png")));
+                btnAtivar.setText("Ativar");
+                armazem.setAtivo(false);
+                dao.ativarDesativar(armazem);
+                atualizarTabela();
+            } else {
+                btnAtivar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/Fall.png")));
+                btnAtivar.setText("Inativar");
+                armazem.setAtivo(true);
+                dao.ativarDesativar(armazem);
+                atualizarTabelaTodosInativos();
+            }
         } else {
-            btnAtivar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/Fall.png")));
-            btnAtivar.setText("Inativar");
-            armazem.setAtivo(true);
-            dao.ativarDesativar(armazem);
-            atualizarTabelaTodosInativos();
+            JOptionPane.showMessageDialog(null, "Selecione um endereço para ativar/inativar");
         }
     }//GEN-LAST:event_btnAtivarActionPerformed
 
@@ -312,7 +321,7 @@ public class TelaPrateleiraCRUD extends javax.swing.JDialog {
                 }
             }
             for (int i = 0; i < tblPrateleira.getColumnCount(); i++) {
-                tblPrateleira.getColumnModel().getColumn(i).setCellRenderer(alinhamentoEsquerda);  
+                tblPrateleira.getColumnModel().getColumn(i).setCellRenderer(alinhamentoEsquerda);
             }
         }
     }
@@ -417,5 +426,5 @@ public class TelaPrateleiraCRUD extends javax.swing.JDialog {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tblPrateleira;
     // End of variables declaration//GEN-END:variables
-DefaultTableCellRenderer alinhamentoEsquerda;  
+DefaultTableCellRenderer alinhamentoEsquerda;
 }

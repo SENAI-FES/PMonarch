@@ -33,6 +33,11 @@ public class Empresa {
     public Empresa() {
     }
 
+    @Override
+    public String toString() {
+        return  razaoSocial +  " - " + cnpj;
+    }
+
     public Empresa(List<Contato> contatos) {
         this.contatos = contatos;
     }

@@ -11,6 +11,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -22,6 +23,8 @@ import java.util.List;
 public class ProtocoloDAO extends MySQL {
 
     public boolean insert(Protocolo protocolo) {
+
+        java.sql.Date dt = new java.sql.Date(protocolo.getDataHora().getTime());
         Connection c = this.getConnection();
         try {
             PreparedStatement ps
@@ -40,7 +43,7 @@ public class ProtocoloDAO extends MySQL {
             ps.setInt(8, protocolo.getTipoDocumento().getIdTipodeDocumento());
             ps.setInt(9, protocolo.getTipoProtocolo());
             ps.setInt(10, protocolo.getNumeroProtocolo());
-            //ps.setDate(11, protocolo.getDataHora());
+            ps.setDate(11, dt);
 
             ps.execute();
             ps.close();
@@ -60,6 +63,7 @@ public class ProtocoloDAO extends MySQL {
 
     public Protocolo getProtocoloById(int numeroProtocolo) {
         Protocolo objProtocolo = new Protocolo();
+        java.sql.Date dt = new java.sql.Date(objProtocolo.getDataHora().getTime());
         Connection c = this.getConnection();
         try {
             PreparedStatement ps
@@ -80,7 +84,7 @@ public class ProtocoloDAO extends MySQL {
                 //objProtocolo.setResponsavelSeparacao(rs.getUsuario("responsavelSeparacao"));
                 //objProtocolo.setResponsavelEstocagem(rs.getString("responsavelEstocagem"));
                 //objProtocolo.setTipoDocumento(rs.getInt("tipoDocumento"));
-                //objProtocolo.setDataHora(rs.get);
+                ps.setDate(11, dt);
 
             }
             rs.close();

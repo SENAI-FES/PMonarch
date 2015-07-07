@@ -204,7 +204,7 @@ public class EmpresaDAO extends MySQL {
                     + "FROM empresa WHERE idEmpresa = ?");
             ps.setInt(1, id);
             ResultSet rs = ps.executeQuery();
-            while (rs.next()) {
+            while (rs.next()) { 
                 empresa = new Empresa();
                 empresa.setIdEmpresa(rs.getInt("idEmpresa"));
                 empresa.setNomeFantasia(rs.getString("nomeFantasia"));

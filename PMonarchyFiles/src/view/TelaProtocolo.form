@@ -270,46 +270,28 @@
         <Component class="javax.swing.JComboBox" name="cbEmpresa">
           <Properties>
             <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-              <StringArray count="5">
-                <StringItem index="0" value="Selecione"/>
-                <StringItem index="1" value="Google"/>
-                <StringItem index="2" value="Senai"/>
-                <StringItem index="3" value="Monarchy Files"/>
-                <StringItem index="4" value="Yahoo"/>
-              </StringArray>
+              <StringArray count="0"/>
             </Property>
           </Properties>
         </Component>
         <Component class="javax.swing.JComboBox" name="cbResponsavelEstocagem">
           <Properties>
             <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-              <StringArray count="3">
-                <StringItem index="0" value="Jo&#xe3;o da Silva"/>
-                <StringItem index="1" value="Ricardo Pereira"/>
-                <StringItem index="2" value="Mario Super"/>
-              </StringArray>
+              <StringArray count="0"/>
             </Property>
           </Properties>
         </Component>
         <Component class="javax.swing.JComboBox" name="cbResponsavelSeparacao">
           <Properties>
             <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-              <StringArray count="3">
-                <StringItem index="0" value="Jo&#xe3;o da Silva"/>
-                <StringItem index="1" value="Ricardo Pereira"/>
-                <StringItem index="2" value="Mario Super"/>
-              </StringArray>
+              <StringArray count="0"/>
             </Property>
           </Properties>
         </Component>
         <Component class="javax.swing.JComboBox" name="cbResponsavelCadastro">
           <Properties>
             <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-              <StringArray count="3">
-                <StringItem index="0" value="Jo&#xe3;o da Silva"/>
-                <StringItem index="1" value="Ricardo Pereira"/>
-                <StringItem index="2" value="Mario Super"/>
-              </StringArray>
+              <StringArray count="0"/>
             </Property>
           </Properties>
         </Component>

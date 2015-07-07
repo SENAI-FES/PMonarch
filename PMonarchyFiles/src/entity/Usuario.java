@@ -19,6 +19,11 @@ public class Usuario {
     private String status;
     private String senha;
 
+    @Override
+    public String toString() {
+        return nome;
+    }
+
     public String getSenha() {
         return senha;
     }

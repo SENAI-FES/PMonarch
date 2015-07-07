@@ -7,11 +7,13 @@ package view;
 
 import dao.EmpresaDAO;
 import dao.ProtocoloDAO;
+import dao.TipoDocumentoDAO;
 import dao.UsuarioDAO;
 import entity.Empresa;
 import entity.Protocolo;
 import entity.TipoDocumento;
 import entity.Usuario;
+import java.util.List;
 
 /**
  *
@@ -26,23 +28,25 @@ public class TelaProtocolo extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
         setLocationRelativeTo(null);
-        UsuarioDAO dao = new UsuarioDAO();
+        UsuarioDAO daoUsuario = new UsuarioDAO();
         EmpresaDAO daoEmpresa = new EmpresaDAO();
+        TipoDocumentoDAO daoTipoDocumento = new TipoDocumentoDAO();
 
-        for (int i = 0; i < 100; i++) {
-
-            Usuario objUsuario = dao.getUsuarioById(i);
-            cbResponsavelCadastro.setSelectedItem(objUsuario.getNome());
-            cbResponsavelEstocagem.setSelectedItem(objUsuario.getNome());
-            cbResponsavelSeparacao.setSelectedItem(objUsuario.getNome());
-
+        List<Usuario> listaUsuarios = daoUsuario.listarUsuarios();
+        for (Usuario usuario : listaUsuarios) {
+            cbResponsavelCadastro.addItem(usuario);
+            cbResponsavelEstocagem.addItem(usuario);
+            cbResponsavelSeparacao.addItem(usuario);
         }
 
-        for (int i = 0; i < 100; i++) {
+        List<Empresa> listaEmpresas = daoEmpresa.listarEmpresas();
+        for (Empresa empresa : listaEmpresas) {
+            cbEmpresa.addItem(empresa);
+        }
 
-            Empresa objEmpresa = daoEmpresa.getEmpresaById(i);
-            cbEmpresa.setSelectedItem(objEmpresa.getRazaoSocial() + " " + objEmpresa.getCnpj());
-
+        List<TipoDocumento> listaTipoDocumentos = daoTipoDocumento.listarTipoDocumento();
+        for (TipoDocumento tipoDocumento : listaTipoDocumentos) {
+            cbTipoDocumento.addItem(tipoDocumento);
         }
 
     }
@@ -119,14 +123,6 @@ public class TelaProtocolo extends javax.swing.JDialog {
         jLabel15.setText("CPF:");
 
         jLabel16.setText("Empresa:");
-
-        cbEmpresa.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecione", "Google", "Senai", "Monarchy Files", "Yahoo" }));
-
-        cbResponsavelEstocagem.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "João da Silva", "Ricardo Pereira", "Mario Super" }));
-
-        cbResponsavelSeparacao.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "João da Silva", "Ricardo Pereira", "Mario Super" }));
-
-        cbResponsavelCadastro.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "João da Silva", "Ricardo Pereira", "Mario Super" }));
 
         rbtnEntrada.setText("Entrada");
 

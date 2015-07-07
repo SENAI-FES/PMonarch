@@ -13,7 +13,11 @@ import entity.Empresa;
 import entity.Protocolo;
 import entity.TipoDocumento;
 import entity.Usuario;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -52,6 +56,7 @@ public class TelaProtocolo extends javax.swing.JDialog {
     }
     Protocolo objProtocolo = new Protocolo();
     ProtocoloDAO daoProtocolo = new ProtocoloDAO();
+    SimpleDateFormat formatador = new SimpleDateFormat("dd/MM/yyyy hh:mm");
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -272,7 +277,11 @@ public class TelaProtocolo extends javax.swing.JDialog {
         objProtocolo.setTipoDocumento((TipoDocumento) cbTipoDocumento.getSelectedItem());
         objProtocolo.setTipoProtocolo(tipoProtocolo());
         objProtocolo.setQuantidadeDocumentos(Integer.parseInt(txtQuantidadeDocumentos.getText()));
-        //objProtocolo.setDataHora();
+        try {
+            objProtocolo.setDataHora(formatador.parse(txtHorario.getText()));
+        } catch (ParseException ex) {
+            Logger.getLogger(TelaProtocolo.class.getName()).log(Level.SEVERE, null, ex);
+        }
 
         daoProtocolo.insert(objProtocolo);
 

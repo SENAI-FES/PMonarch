@@ -26,6 +26,8 @@ public class TelaLogin extends javax.swing.JFrame {
         initComponents();
         setLocationRelativeTo(null);
         this.setResizable(false);
+        
+         getRootPane().setDefaultButton(btnEntrar); 
     }
 
     /**
@@ -182,7 +184,11 @@ public class TelaLogin extends javax.swing.JFrame {
                 objTela.setVisible(true);
             }
                  
-        } else{            
+        } else if (email.equals("") || senha.equals("")){
+           JOptionPane.showMessageDialog(rootPane, "Preencha os campos, por favor.");    
+            
+        }
+        else{            
            JOptionPane.showMessageDialog(rootPane, "Usuário e/ou senha incorreto(s)!");    
            
         }
@@ -197,7 +203,7 @@ public class TelaLogin extends javax.swing.JFrame {
         Usuario objUsuario = dao.getLogin(email);
         
          if (objUsuario == null) {
-             JOptionPane.showMessageDialog(null, "Digite o seu Usuário correramente, por favor.");
+             JOptionPane.showMessageDialog(null, "Usuário incorreto!");
              
          } else{
             

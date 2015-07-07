@@ -228,18 +228,18 @@ public class TelaUsuario extends javax.swing.JDialog {
     }//GEN-LAST:event_btnPesquisarUsuarioActionPerformed
 
     private void btnNovoUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNovoUsuarioActionPerformed
-
+        novo = true;
         TelaCadastroUsuario cUsuario = new TelaCadastroUsuario(null, true, novo, null);
+
         cUsuario.setVisible(true);
         atualizaTabelaUsuarios();
     }//GEN-LAST:event_btnNovoUsuarioActionPerformed
 
     private void btnAlterarUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlterarUsuarioActionPerformed
         int linha = tblUsuario.getSelectedRow();
-        if(linha == -1){
+        if (linha == -1) {
             JOptionPane.showMessageDialog(rootPane, "Selecione o usuário que deseja alterar!");
-        }
-        if (tblUsuario.getValueAt(linha, 4).equals("Ativo")) {
+        } else if (tblUsuario.getValueAt(linha, 4).equals("Ativo")) {
             novo = false;
             int id = Integer.parseInt(tblUsuario.getValueAt(linha, 0).toString());
             UsuarioDAO dao = new UsuarioDAO();
@@ -258,26 +258,33 @@ public class TelaUsuario extends javax.swing.JDialog {
 
     private void btnAtivarUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAtivarUsuarioActionPerformed
         int linha = tblUsuario.getSelectedRow();
-        int id = Integer.parseInt(tblUsuario.getValueAt(linha, 0).toString());
-        UsuarioDAO uDAO = new UsuarioDAO();
-        objUsuario = uDAO.getUsuarioById(id);
 
-        if (tblUsuario.getValueAt(linha, 4).equals("Ativo")) {
-            objUsuario.setStatus("Desativado");
+        if (linha == -1) {
+            JOptionPane.showMessageDialog(rootPane, "Selecione o usuário que deseja alterar!");
 
         } else {
-            objUsuario.setStatus("Ativo");
-        }
+            int id = Integer.parseInt(tblUsuario.getValueAt(linha, 0).toString());
 
-        if (btnAtivarUsuario.getText().equalsIgnoreCase("Ativar")) {
-            btnAtivarUsuario.setText("Desativar");
-            btnAtivarUsuario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/Fall.png")));
-        } else {
-            btnAtivarUsuario.setText("Ativar");
-            btnAtivarUsuario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/Raise.png")));
-        }
+            UsuarioDAO uDAO = new UsuarioDAO();
+            objUsuario = uDAO.getUsuarioById(id);
 
-        uDAO.atualizaStatus(objUsuario);
+            if (tblUsuario.getValueAt(linha, 4).equals("Ativo")) {
+                objUsuario.setStatus("Desativado");
+
+            } else {
+                objUsuario.setStatus("Ativo");
+            }
+
+            if (btnAtivarUsuario.getText().equalsIgnoreCase("Ativar")) {
+                btnAtivarUsuario.setText("Desativar");
+                btnAtivarUsuario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/Fall.png")));
+            } else {
+                btnAtivarUsuario.setText("Ativar");
+                btnAtivarUsuario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/Raise.png")));
+            }
+
+            uDAO.atualizaStatus(objUsuario);
+        }
         atualizaTabelaUsuarios();
     }//GEN-LAST:event_btnAtivarUsuarioActionPerformed
 
@@ -322,7 +329,7 @@ public class TelaUsuario extends javax.swing.JDialog {
 
         //laço para inserir os dados dos objetos na Tabela
         for (int i = 0; i < listarUsuarios.size(); i++) {
-            
+
             model.setValueAt(listarUsuarios.get(i).getMatricula(), i, 0);
             model.setValueAt(listarUsuarios.get(i).getNome(), i, 1);
             model.setValueAt(listarUsuarios.get(i).getCPF(), i, 2);
@@ -332,8 +339,7 @@ public class TelaUsuario extends javax.swing.JDialog {
         }
 
     }
-    
-    
+
     /**
      * @param args the command line arguments
      */

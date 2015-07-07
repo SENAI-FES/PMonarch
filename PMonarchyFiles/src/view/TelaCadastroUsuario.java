@@ -8,6 +8,7 @@ package view;
 import dao.UsuarioDAO;
 import entity.EnumPerfil;
 import entity.Usuario;
+import java.util.List;
 import javax.swing.JOptionPane;
 
 /**
@@ -28,6 +29,9 @@ public class TelaCadastroUsuario extends javax.swing.JDialog {
         if (novo) {
 
             objUsuario = new Usuario();
+ 
+            lblMatricula.setText(pegarMatricula()+"");
+            
         } else {
 
             lblMatricula.setText(objUsuario.getMatricula() + "");
@@ -226,6 +230,16 @@ public class TelaCadastroUsuario extends javax.swing.JDialog {
         ftxtCPF.setText("");
         txtEmail.setText("");
         txtNome.setText("");
+    }
+
+    public int pegarMatricula() {
+        UsuarioDAO daoUsuario = new UsuarioDAO();
+        List<Usuario> listaUsuarios = daoUsuario.listarUsuarios();
+        int matricula = 0;
+        for (Usuario usuario : listaUsuarios) {
+            matricula = usuario.getMatricula();
+        }
+        return matricula+1;
     }
 
     /**

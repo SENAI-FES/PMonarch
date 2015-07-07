@@ -11,7 +11,7 @@ SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL,ALLOW_INVALID_DATES';
 -- -----------------------------------------------------
 -- Schema dbmonarchyfiles
 -- -----------------------------------------------------
-DROP DATABASE IF EXISTS `dbmonarchyfiles`
+DROP DATABASE IF EXISTS `dbmonarchyfiles`;
 -- NÃO TIREM A LINHA ACIMA, É MELHOR ASSIM PARA LIMPAR O BANCO E RECRIAR AS TABELAS COM VALORES ZERADOS.
 CREATE SCHEMA IF NOT EXISTS `dbmonarchyfiles` DEFAULT CHARACTER SET utf8 ;
 USE `dbmonarchyfiles` ;

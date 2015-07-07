@@ -30,6 +30,8 @@ public class TelaPrateleiraCRUD extends javax.swing.JDialog {
         tblPrateleira.setAutoCreateRowSorter(true);
         alinhamentoEsquerda = new DefaultTableCellRenderer();
         alinhamentoEsquerda.setHorizontalAlignment(SwingConstants.LEFT);
+        btnAtivar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/Fall.png")));
+        btnAtivar.setText("Inativar");
     }
 
     /**
@@ -225,14 +227,10 @@ public class TelaPrateleiraCRUD extends javax.swing.JDialog {
             armazem.setColuna((String) tblPrateleira.getValueAt(linha, 2));
             armazem.setAndar((String) tblPrateleira.getValueAt(linha, 3));
             if (btnAtivar.getText().equals("Inativar")) {
-                btnAtivar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/Raise.png")));
-                btnAtivar.setText("Ativar");
                 armazem.setAtivo(false);
                 dao.ativarDesativar(armazem);
                 atualizarTabela();
             } else {
-                btnAtivar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/Fall.png")));
-                btnAtivar.setText("Inativar");
                 armazem.setAtivo(true);
                 dao.ativarDesativar(armazem);
                 atualizarTabelaTodosInativos();
@@ -280,8 +278,8 @@ public class TelaPrateleiraCRUD extends javax.swing.JDialog {
             btnAtivar.setText("Inativar");
         } else if (ckbMostrarInativos.isSelected()) {
             atualizarTabela();
-            btnAtivar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/Fall.png")));
-            btnAtivar.setText("Inativar");
+            btnAtivar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/Raise.png")));
+            btnAtivar.setText("Ativar");
         } else {
             atualizarTabela();
             btnAtivar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/Raise.png")));

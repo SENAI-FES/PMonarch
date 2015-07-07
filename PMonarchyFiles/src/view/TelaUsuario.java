@@ -260,7 +260,7 @@ public class TelaUsuario extends javax.swing.JDialog {
         int linha = tblUsuario.getSelectedRow();
 
         if (linha == -1) {
-            JOptionPane.showMessageDialog(rootPane, "Selecione o usuário que deseja alterar!");
+            JOptionPane.showMessageDialog(rootPane, "Selecione o usuário que deseja ativar/desativar!");
 
         } else {
             int id = Integer.parseInt(tblUsuario.getValueAt(linha, 0).toString());

@@ -275,15 +275,15 @@ public class TelaPrateleiraCRUD extends javax.swing.JDialog {
         if (ckbMostrarInativos.isSelected() && cbRua.getSelectedIndex() == 0) {
             atualizarTabelaTodosInativos();
             btnAtivar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/Fall.png")));
-            btnAtivar.setText("Inativar");
+            btnAtivar.setText("Ativar");
         } else if (ckbMostrarInativos.isSelected()) {
             atualizarTabela();
             btnAtivar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/Raise.png")));
             btnAtivar.setText("Ativar");
         } else {
             atualizarTabela();
-            btnAtivar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/Raise.png")));
-            btnAtivar.setText("Ativar");
+            btnAtivar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/Fall.png")));
+            btnAtivar.setText("Inativar");
         }
 
     }//GEN-LAST:event_ckbMostrarInativosActionPerformed

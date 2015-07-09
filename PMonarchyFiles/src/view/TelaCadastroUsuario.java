@@ -217,11 +217,13 @@ public class TelaCadastroUsuario extends javax.swing.JDialog {
 
                 dao.insert(objUsuario);
                 limparTela();
+                lblMatricula.setText(pegarMatricula()+"");
 
             } else {
 
                 dao.update(objUsuario);
                 limparTela();
+                
             }
             JOptionPane.showMessageDialog(this, "Salvo com sucesso!");
             

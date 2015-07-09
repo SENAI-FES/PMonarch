@@ -43,7 +43,7 @@ public class ProtocoloDAO extends MySQL {
             ps.setInt(8, protocolo.getTipoDocumento().getIdTipodeDocumento());
             ps.setInt(9, protocolo.getTipoProtocolo());
             ps.setInt(10, protocolo.getNumeroProtocolo());
-            ps.setDate(11, dt);
+            ps.setDate(11, (java.sql.Date) protocolo.getDataHora());
 
             ps.execute();
             ps.close();

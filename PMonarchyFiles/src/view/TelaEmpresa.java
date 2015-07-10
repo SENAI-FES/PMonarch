@@ -31,7 +31,7 @@ public class TelaEmpresa extends javax.swing.JDialog {
         btnDetalhes = new javax.swing.JButton();
         btnAtivar = new javax.swing.JButton();
         txtPesquisa = new javax.swing.JTextField();
-        pesquisa = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Empresas");
@@ -163,39 +163,36 @@ public class TelaEmpresa extends javax.swing.JDialog {
                 .addGap(0, 11, Short.MAX_VALUE))
         );
 
-        pesquisa.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/Find.png"))); // NOI18N
-        pesquisa.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                pesquisaActionPerformed(evt);
+        txtPesquisa.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtPesquisaKeyReleased(evt);
             }
         });
+
+        jLabel1.setText("Pesquisa por Nome Fantasia:");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(txtPesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, 525, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(pesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 20, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 585, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 585, Short.MAX_VALUE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jLabel1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtPesquisa)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(20, 20, 20)
-                        .addComponent(txtPesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(11, 11, 11))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(pesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
+                .addGap(20, 20, 20)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtPesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel1))
+                .addGap(11, 11, 11)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(14, 14, 14))
         );
@@ -240,13 +237,6 @@ public class TelaEmpresa extends javax.swing.JDialog {
         }
     }//GEN-LAST:event_btnAlterarActionPerformed
 
-    private void pesquisaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pesquisaActionPerformed
-//        List<Empresa> e = new ArrayList<Empresa>();
-//        EmpresaDAO dao = new EmpresaDAO();
-//        dao.listarEmpresasLike(txtPesquisa.getText());
-//        mostraTela(e);
-    }//GEN-LAST:event_pesquisaActionPerformed
-
     private void tbEmpresaMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbEmpresaMouseReleased
         int linha = tbEmpresa.getSelectedRow();
         if (tbEmpresa.getValueAt(linha, 3).equals("Ativo")) {
@@ -282,6 +272,17 @@ public class TelaEmpresa extends javax.swing.JDialog {
             JOptionPane.showMessageDialog(null, "Selecione a empresa que deseja Ativar/Desativar!");
         }
     }//GEN-LAST:event_btnAtivarActionPerformed
+
+    private void txtPesquisaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPesquisaKeyReleased
+        List<Empresa> e = new ArrayList<>();
+        EmpresaDAO dao = new EmpresaDAO();
+        for (Empresa empresa : dao.listarEmpresas()) {
+            if (empresa.getNomeFantasia().startsWith(txtPesquisa.getText())) {
+                e.add(empresa);
+            }
+        }
+        mostraTela(e);
+    }//GEN-LAST:event_txtPesquisaKeyReleased
 
     private void mostraTela(List<Empresa> listarEmpresas) {
         DefaultTableModel model = (DefaultTableModel) this.tbEmpresa.getModel();
@@ -363,9 +364,9 @@ public class TelaEmpresa extends javax.swing.JDialog {
     private javax.swing.JButton btnCadastrar;
     private javax.swing.JButton btnDetalhes;
     private javax.swing.JButton btnVoltar;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JButton pesquisa;
     private javax.swing.JTable tbEmpresa;
     private javax.swing.JTextField txtPesquisa;
     // End of variables declaration//GEN-END:variables

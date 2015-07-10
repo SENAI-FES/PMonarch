@@ -93,7 +93,6 @@ public class TelaCadastroEmpresa extends javax.swing.JDialog {
         jLabel12 = new javax.swing.JLabel();
         jLabel13 = new javax.swing.JLabel();
         txtDtValidade = new javax.swing.JFormattedTextField();
-        ckbDescarte = new javax.swing.JCheckBox();
         cbContrato = new javax.swing.JComboBox();
         txtDtInicial = new javax.swing.JFormattedTextField();
         jLabel14 = new javax.swing.JLabel();
@@ -261,8 +260,6 @@ public class TelaCadastroEmpresa extends javax.swing.JDialog {
             ex.printStackTrace();
         }
 
-        ckbDescarte.setText("Descarte Próprio");
-
         cbContrato.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Mensal", "Caixa" }));
 
         try {
@@ -285,8 +282,7 @@ public class TelaCadastroEmpresa extends javax.swing.JDialog {
                         .addComponent(jLabel14)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(cbContrato, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(39, 39, 39)
-                        .addComponent(ckbDescarte))
+                        .addGap(144, 144, 144))
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addComponent(jLabel12)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -302,7 +298,6 @@ public class TelaCadastroEmpresa extends javax.swing.JDialog {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cbContrato, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(ckbDescarte)
                     .addComponent(jLabel14))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -671,7 +666,6 @@ public class TelaCadastroEmpresa extends javax.swing.JDialog {
     private javax.swing.JComboBox cbContrato;
     private javax.swing.JComboBox cbEstado;
     private javax.swing.JComboBox cbTipo;
-    private javax.swing.JCheckBox ckbDescarte;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;

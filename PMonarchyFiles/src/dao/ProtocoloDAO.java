@@ -24,16 +24,16 @@ public class ProtocoloDAO extends MySQL {
 
     public boolean insert(Protocolo protocolo) {
 
-        java.sql.Date dt = new java.sql.Date(protocolo.getDataHora().getTime());
+        java.sql.Timestamp dt = new java.sql.Timestamp(protocolo.getDataHora().getTime());
         Connection c = this.getConnection();
         try {
             PreparedStatement ps
                     = c.prepareStatement("INSERT INTO protocolo "
-                            + "(quantidadeDocumentos, cpf, responsavelEntrega, empresa, "
-                            + "responsavelCadastro, responsavelSeparacao, responsavelEstocagem, "
-                            + "tipoDocumento, tipoProtocolo, numeroProtocolo, dataHora)  "
+                            + "(quantidadeDocumento, cpf, responsavelEntrega, idEmpresa, "
+                            + "idResponsavelCadastro, idResponsavelSeparacao, idResponsavelEstocagem, "
+                            + "idTipoDocumento, tipoProtocolo, numeroProtocolo, dataHora)  "
                             + "VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? )");
-            ps.setInt(1, protocolo.getQuantidadeDocumentos());
+            ps.setInt(1, protocolo.getQuantidadeDocumento());
             ps.setString(2, protocolo.getCpf());
             ps.setString(3, protocolo.getResponsavelEntrega());
             ps.setInt(4, protocolo.getEmpresa().getIdEmpresa());
@@ -43,7 +43,7 @@ public class ProtocoloDAO extends MySQL {
             ps.setInt(8, protocolo.getTipoDocumento().getIdTipodeDocumento());
             ps.setInt(9, protocolo.getTipoProtocolo());
             ps.setInt(10, protocolo.getNumeroProtocolo());
-            ps.setDate(11, (java.sql.Date) protocolo.getDataHora());
+            ps.setTimestamp(11, dt);
 
             ps.execute();
             ps.close();
@@ -76,7 +76,7 @@ public class ProtocoloDAO extends MySQL {
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
 
-                objProtocolo.setQuantidadeDocumentos(rs.getInt("quantidadeDocumentos"));
+                objProtocolo.setQuantidadeDocumento(rs.getInt("quantidadeDocumentos"));
                 objProtocolo.setCpf(rs.getString("cpf"));
                 objProtocolo.setResponsavelEntrega(rs.getString("responsavelEntrega"));
                 //objProtocolo.setEmpresa(rs.getInt("empresa"));
@@ -117,7 +117,7 @@ public class ProtocoloDAO extends MySQL {
                 EmpresaDAO daoEmpresa = new EmpresaDAO();
                 Protocolo objProtocolo = new Protocolo();
 
-                objProtocolo.setQuantidadeDocumentos(rs.getInt("quantidadeDocumentos"));
+                objProtocolo.setQuantidadeDocumento(rs.getInt("quantidadeDocumentos"));
                 objProtocolo.setCpf(rs.getString("cpf"));
                 objProtocolo.setResponsavelEntrega(rs.getString("responsavelEntrega"));
                 objProtocolo.setEmpresa(daoEmpresa.getEmpresaById(rs.getInt("idEmpresa")));

@@ -6,6 +6,7 @@
 
 package entity;
 
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 
 /**
@@ -13,7 +14,7 @@ import java.util.Date;
  * @author VDISOO0219
  */
 public class Protocolo {
-    private int quantidadeDocumentos;
+    private int quantidadeDocumento;
     private String cpf;
     private String responsavelEntrega;
     private Empresa empresa;
@@ -25,12 +26,12 @@ public class Protocolo {
     private Date dataHora;
     private int numeroProtocolo;
 
-    public int getQuantidadeDocumentos() {
-        return quantidadeDocumentos;
+    public int getQuantidadeDocumento() {
+        return quantidadeDocumento;
     }
 
-    public void setQuantidadeDocumentos(int quantidadeDocumentos) {
-        this.quantidadeDocumentos = quantidadeDocumentos;
+    public void setQuantidadeDocumento(int quantidadeDocumentos) {
+        this.quantidadeDocumento = quantidadeDocumentos;
     }
 
     public String getCpf() {

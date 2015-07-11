@@ -15,9 +15,12 @@ import entity.TipoDocumento;
 import entity.Usuario;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -57,8 +60,8 @@ public class TelaProtocolo extends javax.swing.JDialog {
     }
     Protocolo objProtocolo = new Protocolo();
     ProtocoloDAO daoProtocolo = new ProtocoloDAO();
-    SimpleDateFormat formatador = new SimpleDateFormat("dd/MM/yyyy hh:mm");
-
+    SimpleDateFormat formatador = new SimpleDateFormat("dd/MM/yyyy hh:mm:ss");
+    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy hh:mm");
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -234,7 +237,7 @@ public class TelaProtocolo extends javax.swing.JDialog {
                     .addComponent(jLabel8)
                     .addComponent(jLabel10)
                     .addComponent(cbResponsavelSeparacao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(19, 19, 19)
+                .addGap(18, 18, 18)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel12)
                     .addComponent(cbResponsavelEstocagem, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -248,11 +251,11 @@ public class TelaProtocolo extends javax.swing.JDialog {
                     .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(cbResponsavelCadastro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jLabel11)))
-                .addGap(21, 21, 21)
+                .addGap(18, 18, 18)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel14)
                     .addComponent(txtResponsavelEntrega, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(18, 18, 18)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel15)
                     .addComponent(ftxtCpf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -283,6 +286,13 @@ public class TelaProtocolo extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
+        if (txtQuantidadeDocumentos.getText().equals("") || ftxtCpf.getText().equals("") || 
+                txtResponsavelEntrega.getText().equals("") || txtHorario.getText().equals("")) {
+
+            JOptionPane.showMessageDialog(rootPane, "Por favor preencha todos os campos!");
+
+        } else {
+        
         objProtocolo.setEmpresa((Empresa) cbEmpresa.getSelectedItem());
         objProtocolo.setResponsavelCadastro((Usuario) cbResponsavelCadastro.getSelectedItem());
         objProtocolo.setResponsavelSeparacao((Usuario) cbResponsavelSeparacao.getSelectedItem());
@@ -291,18 +301,22 @@ public class TelaProtocolo extends javax.swing.JDialog {
         objProtocolo.setCpf(ftxtCpf.getText());
         objProtocolo.setTipoDocumento((TipoDocumento) cbTipoDocumento.getSelectedItem());
         objProtocolo.setTipoProtocolo(tipoProtocolo());
-        objProtocolo.setQuantidadeDocumentos(Integer.parseInt(txtQuantidadeDocumentos.getText()));
+        objProtocolo.setQuantidadeDocumento(Integer.parseInt(txtQuantidadeDocumentos.getText()));
         try {
-            objProtocolo.setDataHora(formatador.parse(txtHorario.getText()));
+            
+           objProtocolo.setDataHora(formatador.parse(txtHorario.getText()+":00"));
+            
         } catch (ParseException ex) {
             Logger.getLogger(TelaProtocolo.class.getName()).log(Level.SEVERE, null, ex);
         }
 
         daoProtocolo.insert(objProtocolo);
 
+        JOptionPane.showMessageDialog(rootPane, "Salvo com Sucesso!!");
         limparCampos();
 
-
+        }
+        
     }//GEN-LAST:event_btnSalvarActionPerformed
 
     private void btnVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVoltarActionPerformed

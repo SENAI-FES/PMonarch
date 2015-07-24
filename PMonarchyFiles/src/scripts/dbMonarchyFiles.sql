@@ -291,3 +291,5 @@ insert into `dbmonarchyfiles`.`contato` (`idContato`, `nome`, `cargo`, `telefone
 values( '6', 'Alicia Men', 'Assistente', '(53)3274-7474', '011', 'alicia@krolow.com.br', '2');
 insert into `dbmonarchyfiles`.`contrato` (`idContrato`, `tipo`, `dataInicial`, `validade`, `idEmpresa`) 
 values( '2', 'Mensal', '2015/05/12', '2019/05/12', '2');
+
+ 

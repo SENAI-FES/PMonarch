@@ -103,6 +103,64 @@ public class ProtocoloDAO extends MySQL {
         return null;
     }
 
+    public int pegaNumeroProtocolo() {
+        Protocolo objProtocolo = new Protocolo();
+        Connection c = this.getConnection();
+        try {
+            PreparedStatement ps
+                    = c.prepareStatement("SELECT numeroProtocolo "
+                            + " FROM protocolo");
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+
+                objProtocolo.setNumeroProtocolo(rs.getInt("numeroProtocolo"));
+            }
+            rs.close();
+            ps.close();
+            return objProtocolo.getNumeroProtocolo();
+
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        } finally {
+            try {
+                c.close();
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
+        }
+        return 0;
+    }
+    public List<Protocolo> listarNumeroProtocolos() {
+        List<Protocolo> listaProtocolos = new ArrayList<Protocolo>();
+        Connection c = this.getConnection();
+        try {
+            PreparedStatement ps = c.prepareStatement("SELECT  numeroProtocolo"
+                    + " FROM protocolo");
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                Protocolo objProtocolo = new Protocolo();
+
+                objProtocolo.setNumeroProtocolo(rs.getInt("numeroProtocolo"));
+
+                listaProtocolos.add(objProtocolo);
+
+            }
+            rs.close();
+            ps.close();
+
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        } finally {
+            try {
+                c.close();
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
+        }
+        return listaProtocolos;
+    }
+
     public List<Protocolo> listarProtocolos() {
         List<Protocolo> listaProtocolos = new ArrayList<Protocolo>();
         Connection c = this.getConnection();

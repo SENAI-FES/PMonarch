@@ -102,7 +102,38 @@ public class ProtocoloDAO extends MySQL {
         }
         return null;
     }
+    
+    public List<Protocolo> listarProtocolo() {
+        Connection c = this.getConnection();
+        List<Protocolo> listaProtocolos = new ArrayList<Protocolo>();
+        try {
+            PreparedStatement ps = c.prepareStatement(" select numeroProtocolo"
+                    + " from protocolo");
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
 
+                Protocolo protocolo = new Protocolo();
+                
+                protocolo.setNumeroProtocolo(rs.getInt("numeroProtocolo"));
+                
+                listaProtocolos.add(protocolo);
+            }
+            rs.close();
+            ps.close();
+            return listaProtocolos;
+
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        } finally {
+            try {
+                c.close();
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
+        }
+        return null;
+}
+    
     public int pegaNumeroProtocolo() {
         Protocolo objProtocolo = new Protocolo();
         Connection c = this.getConnection();

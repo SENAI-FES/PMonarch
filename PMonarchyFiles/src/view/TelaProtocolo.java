@@ -348,26 +348,41 @@ public class TelaProtocolo extends javax.swing.JDialog {
     public void geraProtocolo() {
         int labelProtocolo = 0;
         ProtocoloDAO pDAO = new ProtocoloDAO();
+        List<Protocolo> listaVerifica = pDAO.listarNumeroProtocolos();
         int protocolo = pDAO.pegaNumeroProtocolo();
-        
+
         if (protocolo == 0) {
             labelProtocolo = 20150001;
-            System.out.println("lblnumero = " + lblNumeroProtocolo.getText() );
-//        } else if (lblNumeroProtocolo.equals(null)){
-//            for (int i = 0; i < pDAO.listarNumeroProtocolos().size(); i++) {
-//                List<Protocolo> listaProtocolos = new ArrayList<Protocolo>();
-//                Protocolo prot = new Protocolo();
-//                listaProtocolos = pDAO.listarNumeroProtocolos();
-//                lblNumeroProtocolo.setText(pDAO.listarNumeroProtocolos());
-//            }
-        }   else {
-            System.out.println("lblnumero = " + lblNumeroProtocolo.getText() );
+            System.out.println("lblnumero1 = " + lblNumeroProtocolo.getText());
+            lblNumeroProtocolo.setText(labelProtocolo + "");
+        } else {
             System.out.println("label " + labelProtocolo);
-            labelProtocolo =  Integer.parseInt(lblNumeroProtocolo.getText());
-            labelProtocolo ++;
 
+            if (lblNumeroProtocolo.getText().equals("")) {
+                lblNumeroProtocolo.setText(verificaLabelProtocolo(listaVerifica));
+
+            } else {
+
+                labelProtocolo = Integer.parseInt(lblNumeroProtocolo.getText());
+                labelProtocolo++;
+                lblNumeroProtocolo.setText(labelProtocolo + "");
+            }
+
+            System.out.println("lblnumero = " + lblNumeroProtocolo.getText());
         }
-        lblNumeroProtocolo.setText(labelProtocolo + "");
+
+    }
+
+    public String verificaLabelProtocolo(List<Protocolo> listaProtocolo) {
+        String pegaNumero = "";
+
+        for (Protocolo protocolo : listaProtocolo) {
+
+            pegaNumero = 1 + protocolo.getNumeroProtocolo() + "";
+        }
+
+        return pegaNumero;
+
     }
 
     /**

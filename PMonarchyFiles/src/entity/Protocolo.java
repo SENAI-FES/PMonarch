@@ -115,6 +115,10 @@ public class Protocolo {
         this.numeroProtocolo = numeroProtocolo;
     }
 
+    public String Empresa() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
  
     
 }

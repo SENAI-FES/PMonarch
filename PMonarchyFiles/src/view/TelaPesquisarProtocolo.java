@@ -282,7 +282,7 @@ public class TelaPesquisarProtocolo extends javax.swing.JDialog {
         ProtocoloDAO dao = new ProtocoloDAO();
         Protocolo objProtocolo = dao.getProtocoloById(id);
 
-        TelaDetalhePesquisarProtocolo tela = new TelaDetalhePesquisarProtocolo(null, rootPaneCheckingEnabled);
+        TelaDetalhePesquisarProtocolo tela = new TelaDetalhePesquisarProtocolo(null, true, objProtocolo);
         tela.setVisible(true);
         tela.setLocationRelativeTo(null);
     }//GEN-LAST:event_btnDetalheActionPerformed

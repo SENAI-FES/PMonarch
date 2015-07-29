@@ -102,6 +102,47 @@ public class ProtocoloDAO extends MySQL {
         }
         return null;
     }
+    public Protocolo getProtocoloByNumero(int numeroProtocolo) {
+        Protocolo objProtocolo = new Protocolo();
+        java.sql.Date dt = new java.sql.Date(objProtocolo.getDataHora().getTime());
+        Connection c = this.getConnection();
+        try {
+            PreparedStatement ps
+                    = c.prepareStatement("SELECT quantidadeDocumentos, cpf, responsavelEntrega, "
+                            + "empresa, responsavelCadastro, responsavelSeparacao, responsavelEstocagem, "
+                            + "tipoDocumento, tipoProtocolo, dataHora "
+                            + " FROM protocolo"
+                            + " WHERE numeroProtocolo = ?");
+            ps.setInt(1, numeroProtocolo);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+
+                objProtocolo.setQuantidadeDocumento(rs.getInt("quantidadeDocumentos"));
+                objProtocolo.setCpf(rs.getString("cpf"));
+                objProtocolo.setResponsavelEntrega(rs.getString("responsavelEntrega"));
+                //objProtocolo.setEmpresa(rs.getInt("empresa"));
+                //objProtocolo.setResponsavelCadastro(rs.getUsuario("responsavelCadastro"));
+                //objProtocolo.setResponsavelSeparacao(rs.getUsuario("responsavelSeparacao"));
+                //objProtocolo.setResponsavelEstocagem(rs.getString("responsavelEstocagem"));
+                //objProtocolo.setTipoDocumento(rs.getInt("tipoDocumento"));
+                ps.setDate(11, dt);
+
+            }
+            rs.close();
+            ps.close();
+            return objProtocolo;
+
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        } finally {
+            try {
+                c.close();
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
+        }
+        return null;
+    }
     
     public List<Protocolo> listarProtocolo() {
         Connection c = this.getConnection();

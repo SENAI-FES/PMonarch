@@ -57,7 +57,6 @@ public class TelaPrincipal extends javax.swing.JDialog {
         btnArmazem = new javax.swing.JButton();
         btnProtocolar = new javax.swing.JButton();
         btnDocumentos1 = new javax.swing.JButton();
-        btnPesquisarProtocolo = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         menuCadastrar = new javax.swing.JMenu();
         menuCadastroUsuario = new javax.swing.JMenuItem();
@@ -125,14 +124,6 @@ public class TelaPrincipal extends javax.swing.JDialog {
         btnDocumentos1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnDocumentos1ActionPerformed(evt);
-            }
-        });
-
-        btnPesquisarProtocolo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/icoPesquisarDocumento.png"))); // NOI18N
-        btnPesquisarProtocolo.setText("Pesquisar Protocolo");
-        btnPesquisarProtocolo.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnPesquisarProtocoloActionPerformed(evt);
             }
         });
 
@@ -223,18 +214,17 @@ public class TelaPrincipal extends javax.swing.JDialog {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(72, 72, 72)
+                .addGap(54, 54, 54)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(btnEmpresas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnPesquisarProtocolo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnProtocolar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnProtocolar, javax.swing.GroupLayout.DEFAULT_SIZE, 165, Short.MAX_VALUE)
                     .addComponent(btnArmazem, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(70, 70, 70)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(btnDocumentos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnUsuários, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnDocumentos1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(54, Short.MAX_VALUE))
+                .addContainerGap(72, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -251,9 +241,7 @@ public class TelaPrincipal extends javax.swing.JDialog {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnUsuários)
                     .addComponent(btnProtocolar))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 41, Short.MAX_VALUE)
-                .addComponent(btnPesquisarProtocolo)
-                .addGap(28, 28, 28))
+                .addContainerGap(39, Short.MAX_VALUE))
         );
 
         pack();
@@ -338,10 +326,6 @@ public class TelaPrincipal extends javax.swing.JDialog {
         telaPrateleiras.setVisible(true);
     }//GEN-LAST:event_menuPesquisarPrateleiraActionPerformed
 
-    private void btnPesquisarProtocoloActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPesquisarProtocoloActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnPesquisarProtocoloActionPerformed
-
     private void formWindowDeactivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowDeactivated
         
     }//GEN-LAST:event_formWindowDeactivated
@@ -393,7 +377,6 @@ public class TelaPrincipal extends javax.swing.JDialog {
     private javax.swing.JButton btnDocumentos;
     private javax.swing.JButton btnDocumentos1;
     private javax.swing.JButton btnEmpresas;
-    private javax.swing.JButton btnPesquisarProtocolo;
     private javax.swing.JButton btnProtocolar;
     private javax.swing.JButton btnUsuários;
     private javax.swing.JMenuBar jMenuBar1;
